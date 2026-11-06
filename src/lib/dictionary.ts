@@ -110,6 +110,27 @@ const en = {
     slotLegal: "Legal career: courts, areas of practice and years at the bar. To be provided by the office.",
     slotEducation: "Degree and year of study at the University of Delhi. To be confirmed.",
   },
+  homeIntro: {
+    eyebrow: "About Rohit Pandey",
+    title: "An advocate who works among the people of Khalilabad",
+    lede: "Rohit Pandey is an advocate and a Samajwadi Party worker from Khalilabad, the district headquarters of Sant Kabir Nagar. A former Lok Sabha candidate from Sant Kabir Nagar, he studied at the University of Delhi.",
+    body: "His work is centred on the Khalilabad assembly area (No. 313). He spends his time at the office and in village meetings, listening to residents and taking up the problems they raise most often: roads and drainage, work for young people, farmers, health centres and schooling for girls.",
+    pillars: [
+      {
+        title: "As an advocate",
+        body: "Free legal guidance at the office for families dealing with land, police and pension cases.",
+      },
+      {
+        title: "On the ground",
+        body: "Regular visits and meetings in villages across the constituency, listening first and following up after.",
+      },
+      {
+        title: "With the party",
+        body: "Takes part in Samajwadi Party organisational work in Khalilabad, from booth to sector level.",
+      },
+    ],
+    photoAlt: "Rohit Pandey speaking at a podium",
+  },
   journey: {
     label: "Political journey",
     title: "Key milestones",
@@ -501,6 +522,27 @@ const hi: Dict = {
     readMore: "पूरा परिचय पढ़ें",
     slotLegal: "विधि क्षेत्र का अनुभव: न्यायालय, प्रैक्टिस के क्षेत्र और वर्ष। कार्यालय द्वारा जोड़ा जाएगा।",
     slotEducation: "दिल्ली विश्वविद्यालय से प्राप्त उपाधि और वर्ष। पुष्टि के बाद जोड़ा जाएगा।",
+  },
+  homeIntro: {
+    eyebrow: "रोहित पाण्डेय के बारे में",
+    title: "खलीलाबाद के लोगों के बीच काम करने वाले अधिवक्ता",
+    lede: "रोहित पाण्डेय अधिवक्ता हैं और संत कबीर नगर ज़िले के मुख्यालय खलीलाबाद से समाजवादी पार्टी के लिए काम करते हैं। संत कबीर नगर से पूर्व लोकसभा प्रत्याशी रह चुके रोहित पाण्डेय ने दिल्ली विश्वविद्यालय से पढ़ाई की है।",
+    body: "उनका काम खलीलाबाद विधानसभा क्षेत्र (संख्या 313) पर केंद्रित है। वे कार्यालय और गाँवों की बैठकों में लोगों की बात सुनते हैं और जो समस्याएँ सबसे ज़्यादा उठती हैं, उन पर काम करते हैं: सड़क और नाली, युवाओं के लिए रोज़गार, किसान, स्वास्थ्य केंद्र और बेटियों की पढ़ाई।",
+    pillars: [
+      {
+        title: "अधिवक्ता के रूप में",
+        body: "ज़मीन, पुलिस और पेंशन के मामलों से जूझ रहे परिवारों के लिए कार्यालय में निःशुल्क कानूनी सलाह।",
+      },
+      {
+        title: "ज़मीन पर",
+        body: "क्षेत्र के गाँवों में नियमित दौरे और बैठकें: पहले सुनना, फिर उस पर काम आगे बढ़ाना।",
+      },
+      {
+        title: "पार्टी के साथ",
+        body: "खलीलाबाद में समाजवादी पार्टी के संगठनात्मक कार्य में बूथ से लेकर सेक्टर स्तर तक हिस्सा लेते हैं।",
+      },
+    ],
+    photoAlt: "मंच पर बोलते रोहित पाण्डेय",
   },
   journey: {
     label: "राजनीतिक यात्रा",

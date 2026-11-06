@@ -13,7 +13,7 @@ export const images = {
   /** Small avatar in the contact strip on inner pages. Transparent cutout. */
   namaste: img("rohit-pandey-namaste-portrait", 195, 249),
   /** Home About section only. Photograph, shown in a rounded frame beside the text. */
-  aboutHome: img("rohit-pandey-speaking-podium", 943, 669),
+  aboutHome: img("rohit-pandey-speaking-podium-hd", 1070, 1338),
   /** Samajwadi Party milestone (journey), the Akhilesh Yadav update and the Sant Kabir Nagar welcome update. */
   joining: img("rohit-pandey-akhilesh-yadav-meeting", 764, 782),
 } as const;

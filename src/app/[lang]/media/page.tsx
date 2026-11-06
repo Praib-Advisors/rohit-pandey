@@ -5,7 +5,7 @@ import { galleryLabels, toGalleryItems } from "@/components/galleryItems";
 import PageHeader from "@/components/PageHeader";
 import { getVideoItems } from "@/components/VideoSection";
 import YouTubePlayer from "@/components/YouTubePlayer";
-import { fullGallery, updates } from "@/lib/content";
+import { fullGallery, images, updates } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/media">): 
 
 /**
  * Every photograph used on the site: the photos from each update (newest
- * first), then the party photographs. A photograph is listed once.
+ * first), then the party photographs. A photograph is listed once. The
+ * Akhilesh Yadav photograph is moved to the front as the feature.
  */
 function allPhotos(lang: Locale, curated: GalleryItem[]): GalleryItem[] {
   const seen = new Set(curated.map((c) => c.src));
@@ -38,7 +39,10 @@ function allPhotos(lang: Locale, curated: GalleryItem[]): GalleryItem[] {
       });
     });
   }
-  return [...fromUpdates, ...curated];
+  const all = [...fromUpdates, ...curated];
+  // The photograph with Samajwadi Party national president Akhilesh Yadav always leads the page.
+  const lead = all.findIndex((p) => p.src === images.joining.src);
+  return lead > 0 ? [all[lead], ...all.slice(0, lead), ...all.slice(lead + 1)] : all;
 }
 
 export default async function MediaPage({ params }: PageProps<"/[lang]/media">) {

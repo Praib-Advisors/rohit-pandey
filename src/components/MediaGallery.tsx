@@ -35,11 +35,15 @@ const FEATURE: Cell = { cell: "md:col-span-8 md:row-span-2", sizes: "(min-width:
 const SUPPORT: Cell = { cell: "md:col-span-4", sizes: "(min-width: 768px) 30vw, 92vw" };
 const ARCHIVE: Cell = { cell: "md:col-span-4", sizes: "(min-width: 768px) 30vw, 92vw" };
 
+/** Feature for a square or portrait lead photograph: wider than tall, shown whole at its own ratio. */
+const FEATURE_TALL: Cell = { cell: "md:col-span-7 md:row-span-2", sizes: "(min-width: 768px) 58vw, 92vw" };
+const SUPPORT_WIDE: Cell = { cell: "md:col-span-5", sizes: "(min-width: 768px) 40vw, 92vw" };
+
 const SOLO: Cell = { cell: "md:col-span-8 md:col-start-3", sizes: "(min-width: 768px) 62vw, 92vw" };
 
-function layoutFor(i: number, count: number): Cell {
-  if (i === 0) return count === 1 ? SOLO : FEATURE;
-  if (i < 3) return SUPPORT;
+function layoutFor(i: number, count: number, tallLead: boolean): Cell {
+  if (i === 0) return count === 1 ? SOLO : tallLead ? FEATURE_TALL : FEATURE;
+  if (i < 3) return tallLead ? SUPPORT_WIDE : SUPPORT;
   return ARCHIVE;
 }
 
@@ -51,26 +55,32 @@ export default function MediaGallery({
   labels: GalleryLabels;
 }) {
   const [index, setIndex] = useState<number | null>(null);
+  // A square or portrait lead photograph (no crop focus) gets a large feature frame at its own ratio.
+  const tallLead = items.length > 1 && items[0].width / items[0].height <= 1.2 && !items[0].focus;
 
   const tile = (item: GalleryItem, i: number) => {
-    const l = layoutFor(i, items.length);
+    const l = layoutFor(i, items.length, tallLead);
     const landscape = item.width / item.height > 1.2;
+    const ownRatio = i === 0 && tallLead;
     return (
       <li key={item.id} className={`group relative ${l.cell}`}>
         <button
           type="button"
           onClick={() => setIndex(i)}
           aria-label={`${labels.open}: ${item.alt}`}
+          style={ownRatio ? { aspectRatio: `${item.width} / ${item.height}` } : undefined}
           className={`img-hover relative block w-full overflow-hidden rounded-md bg-tint text-left ${
-            landscape || item.focus ? "aspect-3/2" : "aspect-4/5"
-          } ${i > 0 && i < 3 ? "md:aspect-16/10" : "md:aspect-3/2"}`}
+            ownRatio ? "" : `${landscape || item.focus ? "aspect-3/2" : "aspect-4/5"} ${i > 0 && i < 3 ? "md:aspect-16/10" : "md:aspect-3/2"}`
+          }`}
         >
           <Image
             src={item.src}
             alt=""
             fill
             sizes={l.sizes}
-            className={landscape || item.focus ? "object-cover" : "object-contain"}
+            quality={90}
+            priority={i === 0}
+            className={landscape || item.focus || ownRatio ? "object-cover" : "object-contain"}
             style={item.focus ? { objectPosition: item.focus } : undefined}
           />
           <span
