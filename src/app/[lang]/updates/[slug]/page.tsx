@@ -74,7 +74,7 @@ export default async function UpdatePage({ params }: Props) {
           { name: t.nav.publicLife, path: "/public-life" },
           { name: update.title[lang], path: `/updates/${update.slug}` },
         ]}
-        eyebrow={[formatDate(update.date, lang), update.location?.[lang], update.category[lang]].filter(Boolean).join(" · ")}
+        meta={[formatDate(update.date, lang), update.location?.[lang], update.category[lang]].filter(Boolean).join(" · ")}
         title={update.title[lang]}
         intro={update.summary[lang]}
         titleSize="md"
@@ -161,7 +161,7 @@ export default async function UpdatePage({ params }: Props) {
       {others.length > 0 && (
         <section aria-labelledby="more-updates" className="surface-tint">
           <div className="shell py-16 md:py-20">
-            <h2 id="more-updates" className="text-xl font-black">
+            <h2 id="more-updates" className="font-heading text-[1.5rem] leading-tight">
               {t.updates.more}
             </h2>
             <ul className="mt-8 grid gap-4 md:grid-cols-2">

@@ -84,7 +84,6 @@ const en = {
     label: "Content slot",
   },
   hero: {
-    eyebrow: "Samajwadi Party · Khalilabad, Sant Kabir Nagar",
     line: "At work in Khalilabad, Assembly Constituency No. 313.",
     intro: "Based in Khalilabad, the district headquarters of Sant Kabir Nagar.",
     ctaProfile: "About Rohit Pandey",
@@ -191,6 +190,9 @@ const en = {
     empty: "No updates in this category yet.",
     clear: "Clear filter",
     filterLabel: "Filter updates",
+    statIssues: "Issues taken up",
+    statUpdates: "Updates from the ground",
+    statPlaces: "Places visited",
   },
   vision: {
     title: "Vision for Khalilabad",
@@ -234,25 +236,9 @@ const en = {
         alt: "Rohit Pandey with Akhilesh Yadav and party colleagues at the Samajwadi Party office",
         caption: "Rohit Pandey with Akhilesh Yadav, national president of the Samajwadi Party, and colleagues.",
       },
-      "sp-felicitation": {
-        alt: "Akhilesh Yadav receiving a memento at the Samajwadi Party office",
-        caption: "A memento is presented to Akhilesh Yadav during the meeting.",
-      },
-      "sp-office-group-02": {
-        alt: "Group photograph with Akhilesh Yadav holding a memento",
-        caption: "Group photograph after the memento was presented.",
-      },
-      "akhilesh-yadav-sp-office": {
-        alt: "Rohit Pandey standing with Akhilesh Yadav",
-        caption: "Rohit Pandey with Akhilesh Yadav.",
-      },
       "shivpal-singh-yadav-lucknow": {
         alt: "Rohit Pandey with Shri Shivpal Singh Yadav in Lucknow",
         caption: "With Shri Shivpal Singh Yadav, National General Secretary of the Samajwadi Party, in Lucknow.",
-      },
-      "campaign-graphic": {
-        alt: "Campaign creative with the line साथ आयें, संतकबीरनगर सजायें",
-        caption: "Campaign creative: “साथ आयें, संतकबीरनगर सजायें” (Come together, let us make Sant Kabir Nagar shine).",
       },
     },
   },
@@ -490,7 +476,6 @@ const hi: Dict = {
     label: "सामग्री स्थान",
   },
   hero: {
-    eyebrow: "समाजवादी पार्टी · खलीलाबाद, संत कबीर नगर",
     line: "खलीलाबाद, विधानसभा क्षेत्र संख्या 313 में सक्रिय।",
     intro: "संत कबीर नगर ज़िले के मुख्यालय खलीलाबाद में रहते हैं।",
     ctaProfile: "रोहित पाण्डेय के बारे में",
@@ -597,6 +582,9 @@ const hi: Dict = {
     empty: "इस श्रेणी में अभी कोई अपडेट नहीं।",
     clear: "फ़िल्टर हटाएँ",
     filterLabel: "अपडेट फ़िल्टर करें",
+    statIssues: "उठाए गए मुद्दे",
+    statUpdates: "ज़मीनी अपडेट",
+    statPlaces: "जगहों पर दौरा",
   },
   vision: {
     title: "खलीलाबाद के लिए संकल्प",
@@ -640,25 +628,9 @@ const hi: Dict = {
         alt: "समाजवादी पार्टी कार्यालय में अखिलेश यादव और पार्टी सहयोगियों के साथ रोहित पाण्डेय",
         caption: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव और सहयोगियों के साथ रोहित पाण्डेय।",
       },
-      "sp-felicitation": {
-        alt: "समाजवादी पार्टी कार्यालय में स्मृति-चिह्न ग्रहण करते अखिलेश यादव",
-        caption: "बैठक के दौरान अखिलेश यादव को स्मृति-चिह्न भेंट किया गया।",
-      },
-      "sp-office-group-02": {
-        alt: "स्मृति-चिह्न थामे अखिलेश यादव के साथ समूह चित्र",
-        caption: "स्मृति-चिह्न भेंट करने के बाद का समूह चित्र।",
-      },
-      "akhilesh-yadav-sp-office": {
-        alt: "अखिलेश यादव के साथ खड़े रोहित पाण्डेय",
-        caption: "अखिलेश यादव के साथ रोहित पाण्डेय।",
-      },
       "shivpal-singh-yadav-lucknow": {
         alt: "लखनऊ में श्री शिवपाल सिंह यादव जी के साथ रोहित पाण्डेय",
         caption: "लखनऊ में समाजवादी पार्टी के राष्ट्रीय महासचिव श्री शिवपाल सिंह यादव जी के साथ।",
-      },
-      "campaign-graphic": {
-        alt: "प्रचार सामग्री: साथ आयें, संतकबीरनगर सजायें",
-        caption: "प्रचार सामग्री: “साथ आयें, संतकबीरनगर सजायें”।",
       },
     },
   },

@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import SocialService from "@/components/social-service/SocialService";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
+import { getSocialService } from "@/lib/socialService";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/social-service">): Promise<Metadata> {
   const { lang, t } = await resolveLang(params);
@@ -16,15 +17,37 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/social-ser
 
 export default async function SocialServicePage({ params }: PageProps<"/[lang]/social-service">) {
   const { lang, t } = await resolveLang(params);
+  const s = t.socialService;
+  const { items, issues } = getSocialService(lang);
+  const stats = [
+    { n: issues.length, label: s.statIssues },
+    { n: items.length, label: s.statUpdates },
+    { n: new Set(items.map((i) => i.place)).size, label: s.statPlaces },
+  ];
+
   return (
     <>
       <PageHeader
         lang={lang}
         trail={[{ name: t.nav.socialService, path: "/social-service" }]}
-        title={t.socialService.title}
-        intro={t.socialService.lead}
+        title={s.title}
+        intro={s.lead}
         tone="gradient"
-        titleSize="md"
+        titleSize="xl"
+        aside={
+          <dl className="grid grid-cols-3 gap-3 md:grid-cols-1 md:gap-4 lg:grid-cols-3">
+            {stats.map((st, i) => (
+              <div
+                key={st.label}
+                className="hero-line flex flex-col-reverse justify-end rounded-2xl border border-white/15 bg-white/[0.07] p-4 backdrop-blur-sm md:p-5"
+                style={{ ["--i" as string]: i + 2 }}
+              >
+                <dt className="mt-2 text-[0.8125rem] leading-snug text-white/75 md:text-[0.875rem]">{st.label}</dt>
+                <dd className="numeral text-[2.5rem] text-white md:text-[3.25rem]">{String(st.n).padStart(2, "0")}</dd>
+              </div>
+            ))}
+          </dl>
+        }
       />
       <SocialService lang={lang} t={t} heading={false} />
     </>

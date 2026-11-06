@@ -23,15 +23,15 @@ export default function OfficeSection({
   const joinHref = office.joinUrl || `${href(lang, "/contact")}#contact-form`;
 
   return (
-    <section id="office" aria-labelledby="office-title" className="surface-tint py-20 md:py-32">
+    <section id="office" aria-labelledby="office-title" className="surface-ivory grain py-24 md:py-32">
       <div className="shell">
-        <h2 id="office-title" className={heading ? "title-lg text-red" : "sr-only"}>
+        <h2 id="office-title" className={heading ? "title-lg text-ink" : "sr-only"}>
           {c.title}
         </h2>
 
         <div className={`${heading ? "mt-12" : ""} grid gap-12 lg:grid-cols-12 lg:gap-14`}>
           <div className="min-w-0 lg:col-span-5">
-            <h3 className="text-xl font-black">{o.label}</h3>
+            <h3 className="font-heading text-[1.5rem] leading-tight">{o.label}</h3>
             <address className="mt-3 not-italic text-ink-soft">{o.address}</address>
 
             {hasChannels && (
@@ -71,7 +71,7 @@ export default function OfficeSection({
               </ContentSlot>
             )}
 
-            <div className="mt-6 overflow-hidden rounded-md border border-line bg-sand">
+            <div className="zoom-media mt-6 overflow-hidden rounded-2xl border border-line bg-sand shadow-[0_24px_50px_-34px_rgb(22_24_28/0.5)]">
               <iframe
                 title={o.map}
                 src={mapSrc}
@@ -85,23 +85,23 @@ export default function OfficeSection({
               <span className="sr-only"> ({t.footer.newTab})</span>
             </a>
 
-            <div className="mt-10 border-t border-ink/60 pt-6">
-              <h3 className="text-xl font-black">{c.join.title}</h3>
+            <div className="mt-10 rounded-2xl bg-green-deep p-7 text-white on-dark [--color-ink:white] md:p-8">
+              <h3 className="font-heading text-[1.5rem] leading-tight">{c.join.title}</h3>
               <p className="mt-2 text-ink-soft">{c.join.body}</p>
               {office.joinUrl ? (
-                <a href={joinHref} target="_blank" rel="noopener noreferrer" className="btn mt-5 bg-green-dk text-white hover:bg-green-deep">
+                <a href={joinHref} target="_blank" rel="noopener noreferrer" className="btn mt-6 rounded-full bg-white px-6 text-green-deep hover:-translate-y-0.5 hover:bg-white/90">
                   {c.join.cta}
                   <span className="sr-only"> ({t.footer.newTab})</span>
                 </a>
               ) : (
-                <Link href={joinHref} className="btn mt-5 bg-green-dk text-white hover:bg-green-deep">
+                <Link href={joinHref} className="btn mt-6 rounded-full bg-white px-6 text-green-deep hover:-translate-y-0.5 hover:bg-white/90">
                   {c.join.cta}
                 </Link>
               )}
             </div>
           </div>
 
-          <div id="contact-form" className="min-w-0 scroll-mt-28 rounded-md bg-white p-6 md:p-10 lg:col-span-7">
+          <div id="contact-form" className="min-w-0 scroll-mt-28 rounded-[1.75rem] bg-white p-6 shadow-[0_40px_90px_-50px_rgb(110_11_18/0.45)] ring-1 ring-black/5 md:p-10 lg:col-span-7">
             <ContactForm t={c.form} />
           </div>
         </div>

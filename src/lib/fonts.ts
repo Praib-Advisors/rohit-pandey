@@ -1,21 +1,29 @@
-import { Mukta, Outfit } from "next/font/google";
+import { Fraunces, Manrope, Mukta } from "next/font/google";
 
 /**
- * Site font (Latin): Outfit, a free geometric sans close to Gilroy. Variable,
- * so body text uses the regular weights and headings use Black (900). To switch
- * to licensed Gilroy files later, replace this with next/font/local and keep
- * the same `--font-outfit` variable.
+ * Type system
+ * - Fraunces (display serif, variable with an optical size axis) carries every
+ *   heading. It gives the site an editorial, print-like voice instead of the
+ *   generic geometric sans look.
+ * - Manrope carries body text, buttons and navigation: a calm humanist sans
+ *   with open counters that stays readable at small sizes.
+ * - Mukta covers Devanagari for /hi. Neither Latin face has Devanagari, so
+ *   Hindi text falls through to Mukta in each stack.
  */
-export const outfit = Outfit({
+export const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["opsz", "SOFT"],
+});
+
+export const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
-// Outfit has no Devanagari, so Hindi text falls through to Mukta in the font
-// stack while Latin text always renders in Outfit. Not preloaded on English pages.
-
-/** Site font (Devanagari), for /hi. 800 is its heaviest weight and carries the headings. */
+/** Devanagari, for /hi. 800 is its heaviest weight and carries the headings. */
 export const mukta = Mukta({
   subsets: ["devanagari"],
   weight: ["400", "500", "600", "700", "800"],
@@ -24,4 +32,4 @@ export const mukta = Mukta({
   preload: false,
 });
 
-export const fontVars = `${outfit.variable} ${mukta.variable}`;
+export const fontVars = `${fraunces.variable} ${manrope.variable} ${mukta.variable}`;

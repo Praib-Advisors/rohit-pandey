@@ -59,7 +59,7 @@ export default async function MediaPage({ params }: PageProps<"/[lang]/media">) 
       />
 
       <section id="photos" aria-labelledby="photos-title" className="shell scroll-mt-28 py-16 md:py-24">
-        <h2 id="photos-title" className="title-lg text-red">
+        <h2 id="photos-title" className="title-lg text-ink">
           {m.title}
         </h2>
         <div className="mt-10">
@@ -69,13 +69,13 @@ export default async function MediaPage({ params }: PageProps<"/[lang]/media">) 
 
       <section id="videos" aria-labelledby="videos-title" className="surface-tint scroll-mt-28 py-16 md:py-24">
         <div className="shell">
-          <h2 id="videos-title" className="title-lg text-red">
+          <h2 id="videos-title" className="title-lg text-ink">
             {m.videosTitle}
           </h2>
 
           {fieldVideos.length > 0 && (
             <div className="mt-12">
-              <h3 className="mb-8 text-xl font-black">{m.fieldVideos}</h3>
+              <h3 className="mb-8 font-heading text-[1.5rem] leading-tight">{m.fieldVideos}</h3>
               <FeaturedVideo
                 items={fieldVideos}
                 labels={{ play: t.videos.play, readMore: t.videos.readMore, more: t.videos.more }}
@@ -85,7 +85,7 @@ export default async function MediaPage({ params }: PageProps<"/[lang]/media">) 
 
           <div className="mt-20">
             <div className="mb-8 flex flex-wrap items-baseline justify-between gap-4">
-              <h3 className="text-xl font-black">{t.social.youtube}</h3>
+              <h3 className="font-heading text-[1.5rem] leading-tight">{t.social.youtube}</h3>
               <a
                 href={YOUTUBE_CHANNEL_URL}
                 target="_blank"

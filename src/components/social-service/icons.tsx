@@ -25,6 +25,9 @@ const paths: Record<string, string[]> = {
     "M10 9l4 0",
     "M12 7l0 4",
   ],
+  "arrow-right": ["M5 12l14 0", "M13 18l6 -6", "M13 6l6 6"],
+  "arrow-up-right": ["M17 7l-10 10", "M8 7l9 0l0 9"],
+  calendar: ["M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z", "M16 3v4", "M8 3v4", "M4 11h16"],
   school: ["M22 9l-10 -4l-10 4l10 4l10 -4v6", "M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"],
   "map-pin": [
     "M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0",

@@ -13,7 +13,7 @@ export default function GlobalNotFound() {
     <html lang="en-IN" className={fontVars}>
       <body>
         <main className="shell flex min-h-svh flex-col justify-center py-24">
-          <p className="eyebrow">404</p>
+          <p className="numeral text-[5rem] text-red">404</p>
           <h1 className="title-lg mt-6 max-w-3xl">This page could not be found.</h1>
           <p lang="hi" className="lede mt-4">
             यह पृष्ठ नहीं मिला।

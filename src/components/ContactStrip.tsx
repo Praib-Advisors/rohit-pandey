@@ -19,7 +19,7 @@ export default function ContactStrip({ lang, t }: { lang: Locale; t: Dict }) {
               className="absolute left-1/2 top-[8%] w-[92%] max-w-none -translate-x-1/2"
             />
           </span>
-          <h2 id="contact-strip-title" className="title-md text-red">
+          <h2 id="contact-strip-title" className="title-md text-ink">
             {t.contact.strip}
           </h2>
         </div>

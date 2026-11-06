@@ -42,9 +42,9 @@ export default function VideoSection({ t, items }: { t: Dict; items: FeaturedVid
   const v = t.videos;
 
   return (
-    <section id="videos" aria-labelledby="videos-title" className="scroll-mt-28 py-16 md:py-28">
+    <section id="videos" aria-labelledby="videos-title" className="surface-ivory grain scroll-mt-28 py-24 md:py-32">
       <div className="shell">
-        <h2 id="videos-title" className="title-lg mb-10 text-red md:mb-12">
+        <h2 id="videos-title" className="title-lg mb-12 text-ink md:mb-16">
           {v.title}
         </h2>
         <FeaturedVideo items={items} labels={{ play: v.play, readMore: v.readMore, more: v.more }} />

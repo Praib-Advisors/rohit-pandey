@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import { isActive, navItems, scrollTopIfCurrent } from "@/lib/nav";
+import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SectionLink from "./SectionLink";
 import SocialLinks from "./SocialLinks";
@@ -84,9 +85,10 @@ export default function MobileMenu({
           role="dialog"
           aria-modal="true"
           aria-label={t.primary}
-          className="surface-gradient fixed inset-0 z-[60] flex flex-col overflow-y-auto"
+          className="on-dark surface-gradient fixed inset-0 z-[60] flex flex-col overflow-y-auto"
         >
-          <div className="shell flex h-[var(--nav-h)] shrink-0 items-center justify-end">
+          <div className="shell flex h-[var(--nav-h)] shrink-0 items-center justify-between">
+            <Logo plate />
             <button
               type="button"
               onClick={close}

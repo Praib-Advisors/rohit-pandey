@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { campaignGraphic, getUpdate } from "@/lib/content";
+import { getUpdate } from "@/lib/content";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import { getSocialService } from "@/lib/socialService";
@@ -14,29 +14,18 @@ export default function SocialService({ lang, t, heading = true }: { lang: Local
   const s = t.socialService;
   const { items, issues } = getSocialService(lang);
 
-  // Under the featured story: its other photographs, then the campaign graphic
+  // Under the featured story: its other photographs
   const featuredGallery = getUpdate(items[0]?.slug ?? "")?.gallery ?? [];
-  const photos: ExtraPhoto[] = [
-    ...featuredGallery.map((g) => ({ src: g.src, width: g.width, height: g.height, alt: g.alt[lang] })),
-    {
-      src: campaignGraphic.src,
-      width: campaignGraphic.width,
-      height: campaignGraphic.height,
-      alt: t.media.items["campaign-graphic"].alt,
-    },
-  ];
+  const photos: ExtraPhoto[] = featuredGallery.map((g) => ({ src: g.src, width: g.width, height: g.height, alt: g.alt[lang] }));
 
   return (
-    <section id="social-service" aria-labelledby="social-service-title" className="scroll-mt-28 border-y border-line bg-white py-14 md:py-16 lg:py-24">
+    <section id="social-service" aria-labelledby="social-service-title" className="surface-ivory grain scroll-mt-28 py-20 md:py-28 lg:py-32">
       <div className="shell">
         {/* A. Heading row. On the Social service page the page header carries the title and intro. */}
         {heading ? (
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
+          <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
             <div>
-              <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-red [&:lang(hi)]:text-[15px] [&:lang(hi)]:normal-case [&:lang(hi)]:tracking-normal">
-                {s.label}
-              </p>
-              <h2 id="social-service-title" className="title-lg mt-2 text-ink">
+              <h2 id="social-service-title" className="title-lg text-ink">
                 {s.title}
               </h2>
             </div>
@@ -74,6 +63,7 @@ export default function SocialService({ lang, t, heading = true }: { lang: Local
             empty: s.empty,
             clear: s.clear,
             filterLabel: s.filterLabel,
+            readMore: t.videos.readMore,
           }}
         />
       </div>

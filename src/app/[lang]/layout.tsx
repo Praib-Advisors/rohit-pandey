@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import AssistantLauncher from "@/components/assistant/AssistantLauncher";
 import Navbar from "@/components/Navbar";
+import Reveal from "@/components/motion/Reveal";
 import Footer from "@/components/Footer";
 import StickyContact from "@/components/StickyContact";
 import { getDictionary } from "@/lib/dictionary";
@@ -42,7 +43,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const t = getDictionary(lang);
 
   return (
-    <html lang={htmlLang[lang]} className={fontVars} data-scroll-behavior="smooth">
+    <html lang={htmlLang[lang]} className={fontVars} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <a
           href="#main"
@@ -55,6 +56,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {children}
         </main>
         <Footer lang={lang} t={t} />
+        <Reveal />
         <StickyContact t={t} />
         <AssistantLauncher lang={lang} t={t.assistant} raised={Boolean(office.phone || office.whatsapp)} />
       </body>

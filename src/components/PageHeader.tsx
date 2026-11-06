@@ -16,7 +16,7 @@ type Crumb = { name: string; path: string };
 export default function PageHeader({
   lang,
   trail,
-  eyebrow,
+  meta,
   title,
   intro,
   aside,
@@ -28,7 +28,8 @@ export default function PageHeader({
 }: {
   lang: Locale;
   trail: Crumb[];
-  eyebrow?: string;
+  /** A quiet line under the title (date, place), set in normal case */
+  meta?: string;
   title: string;
   intro?: string;
   aside?: React.ReactNode;
@@ -87,9 +88,10 @@ export default function PageHeader({
               media && mediaSide === "left" ? "order-1 md:order-2 md:col-span-6" : side ? "md:col-span-7" : "md:col-span-9"
             }`}
           >
-            {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-            <h1 className={`${eyebrow ? "mt-5" : ""} ${titleClass}`}>{title}</h1>
-            {intro && <p className="lede mt-5 max-w-2xl">{intro}</p>}
+            <h1 className={`hero-line ${titleClass}`}>{title}</h1>
+            {meta && <p className="hero-line mt-4 font-display text-[1.125rem] italic text-ink-soft [--i:1]">{meta}</p>}
+            <span aria-hidden className="rule-grow mt-7 block h-[3px] w-16 rounded-full bg-[linear-gradient(90deg,var(--white)_0_60%,var(--green)_60%_100%)]" />
+            {intro && <p className="hero-line lede mt-6 max-w-2xl [--i:2]">{intro}</p>}
           </div>
           {media && mediaSide === "left" && (
             <div className="order-2 pb-12 md:order-1 md:col-span-6 md:pb-16 md:pt-14">{media}</div>

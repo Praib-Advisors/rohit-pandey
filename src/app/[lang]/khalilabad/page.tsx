@@ -22,7 +22,6 @@ export default async function KhalilabadPage({ params }: PageProps<"/[lang]/khal
       <PageHeader
         lang={lang}
         trail={[{ name: t.nav.khalilabad, path: "/khalilabad" }]}
-        eyebrow={t.location.sub}
         title={t.location.name}
         titleSize="xl"
         intro={t.location.intro}

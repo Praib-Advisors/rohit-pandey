@@ -18,13 +18,7 @@ export const images = {
   joining: img("rohit-pandey-akhilesh-yadav-meeting", 764, 782),
 } as const;
 
-export type MediaId =
-  | "sp-office-group-01"
-  | "sp-office-group-02"
-  | "sp-felicitation"
-  | "akhilesh-yadav-sp-office"
-  | "shivpal-singh-yadav-lucknow"
-  | "campaign-graphic";
+export type MediaId = "sp-office-group-01" | "shivpal-singh-yadav-lucknow";
 
 /**
  * `focus` (object-position) lets a portrait-format photograph fill a
@@ -34,19 +28,12 @@ export type MediaItem = { id: MediaId; src: string; width: number; height: numbe
 
 const media: Record<MediaId, MediaItem> = {
   "sp-office-group-01": { id: "sp-office-group-01", ...img("rohit-pandey-sp-office-group-photo-01", 1280, 853) },
-  "sp-office-group-02": { id: "sp-office-group-02", focus: "50% 74%", ...img("rohit-pandey-sp-office-group-photo-02", 853, 1280) },
-  "sp-felicitation": { id: "sp-felicitation", ...img("rohit-pandey-sp-felicitation-group-photo", 1280, 853) },
-  "akhilesh-yadav-sp-office": { id: "akhilesh-yadav-sp-office", focus: "50% 36%", ...img("rohit-pandey-akhilesh-yadav-sp-office-01", 961, 1280) },
   "shivpal-singh-yadav-lucknow": {
     id: "shivpal-singh-yadav-lucknow",
     focus: "50% 30%",
     ...img("rohit-pandey-shivpal-singh-yadav-lucknow", 960, 1280),
   },
-  "campaign-graphic": { id: "campaign-graphic", ...img("rohit-pandey-sant-kabir-nagar-campaign-graphic", 1600, 900) },
 };
-
-/** The campaign graphic, also used beside the About page title. */
-export const campaignGraphic = media["campaign-graphic"];
 
 /**
  * Media page: feature, two supporting, then the archive. The journey's
@@ -54,11 +41,7 @@ export const campaignGraphic = media["campaign-graphic"];
  */
 export const fullGallery: MediaItem[] = [
   media["sp-office-group-01"],
-  media["akhilesh-yadav-sp-office"],
-  media["sp-felicitation"],
-  media["sp-office-group-02"],
   media["shivpal-singh-yadav-lucknow"],
-  media["campaign-graphic"],
 ];
 
 /** Journey milestones that carry a photograph. */
@@ -119,13 +102,6 @@ const rawUpdates: Update[] = [
         "चिउटना चौराहा स्थित यह कार्यालय खलीलाबाद में रोहित पाण्डेय के कार्य का केंद्र है। क्षेत्रवासी यहाँ आकर मिल सकते हैं और अपनी बात रख सकते हैं, या वेबसाइट के संपर्क पृष्ठ से कार्यालय को लिख सकते हैं।",
       ],
     },
-    image: {
-      ...img("rohit-pandey-chiutna-chauraha-office", 1600, 1069),
-      alt: {
-        en: "Rohit Pandey with colleagues and residents at his office at Chiutna Chauraha, Khalilabad",
-        hi: "खलीलाबाद के चिउटना चौराहा स्थित कार्यालय पर साथियों एवं क्षेत्रवासियों के साथ रोहित पाण्डेय",
-      },
-    },
   },
   {
     slug: "courtesy-visit-kushal-tiwari-gorakhpur",
@@ -151,13 +127,6 @@ const rawUpdates: Update[] = [
         "श्री तिवारी जी के साथ आगामी 2027 के विधानसभा चुनाव की रणनीतियों एवं सामाजिक विषयों पर चर्चा हुई।",
         "श्री तिवारी जी लोकसभा में संत कबीर नगर का प्रतिनिधित्व कर चुके हैं। रोहित पाण्डेय भी इसी सीट (संख्या 62) से चुनाव लड़ चुके हैं, और इसके पाँच विधानसभा क्षेत्रों में खलीलाबाद भी है, जहाँ अब उनका कार्य केंद्रित है।",
       ],
-    },
-    image: {
-      ...img("rohit-pandey-kushal-tiwari-gorakhpur", 1504, 1004),
-      alt: {
-        en: "Rohit Pandey with former Sant Kabir Nagar MP Shri Tiwari at Tiwari Hata, Gorakhpur",
-        hi: "गोरखपुर के तिवारी हाता में पूर्व सांसद श्री तिवारी जी के साथ रोहित पाण्डेय",
-      },
     },
   },
   {
@@ -187,22 +156,6 @@ const rawUpdates: Update[] = [
         "उसी दिन, 18 सितंबर को, वे खलीलाबाद विधानसभा क्षेत्र में अन्य जगहों पर भी क्षेत्रवासियों के बीच पहुँचे। उस दौरे का वीडियो जनजीवन में देखा जा सकता है।",
       ],
     },
-    image: {
-      ...img("rohit-pandey-kekarhwa-chauraha-khalilabad", 1280, 854),
-      alt: {
-        en: "Rohit Pandey with residents and party workers at Kekarhwa Chauraha, Khalilabad",
-        hi: "खलीलाबाद के केकरहवा चौराहे पर क्षेत्रवासियों एवं कार्यकर्ताओं के साथ रोहित पाण्डेय",
-      },
-    },
-    gallery: [
-      {
-        ...img("rohit-pandey-kekarhwa-chauraha-closeup", 1280, 854),
-        alt: {
-          en: "Rohit Pandey in conversation with a resident at Kekarhwa Chauraha",
-          hi: "केकरहवा चौराहे पर एक क्षेत्रवासी से बातचीत करते रोहित पाण्डेय",
-        },
-      },
-    ],
   },
   {
     slug: "among-residents-khalilabad",
@@ -267,21 +220,12 @@ const rawUpdates: Update[] = [
       ],
     },
     image: {
-      ...img("rohit-pandey-mohanbara-rajbhar-samaj-meeting", 1504, 1004),
+      ...img("rohit-pandey-mohanbara-rajbhar-samaj-welcome", 1504, 1004),
       alt: {
-        en: "Rohit Pandey at a meeting with the Rajbhar community at Mohanbara (Bayara), Khalilabad",
-        hi: "ग्रामसभा मोहनबरा (बयारा) में राजभर समाज के साथियों की बैठक में रोहित पाण्डेय",
+        en: "Rohit Pandey being welcomed by community members at Mohanbara (Bayara)",
+        hi: "मोहनबरा (बयारा) में साथियों के बीच रोहित पाण्डेय",
       },
     },
-    gallery: [
-      {
-        ...img("rohit-pandey-mohanbara-rajbhar-samaj-welcome", 1504, 1004),
-        alt: {
-          en: "Rohit Pandey being welcomed by community members at Mohanbara (Bayara)",
-          hi: "मोहनबरा (बयारा) में साथियों के बीच रोहित पाण्डेय",
-        },
-      },
-    ],
   },
   {
     slug: "booth-sector-review-meeting-khalilabad",
@@ -408,22 +352,6 @@ const rawUpdates: Update[] = [
         "खलीलाबाद (विधानसभा क्षेत्र संख्या 313) संत कबीर नगर ज़िले का मुख्यालय है और संत कबीर नगर लोकसभा सीट के पाँच विधानसभा क्षेत्रों में से एक है।",
       ],
     },
-    image: {
-      ...img("rohit-pandey-mohanbara-rajbhar-samaj-meeting", 1504, 1004),
-      alt: {
-        en: "17 September 2026: meeting with the Rajbhar community at Mohanbara (Bayara), Khalilabad",
-        hi: "17 सितंबर 2026: मोहनबरा (बयारा), खलीलाबाद में राजभर समाज के साथियों के साथ बैठक",
-      },
-    },
-    gallery: [
-      {
-        ...img("rohit-pandey-kekarhwa-chauraha-khalilabad", 1280, 854),
-        alt: {
-          en: "18 September 2026: meeting residents at Kekarhwa Chauraha, Thurunda Road",
-          hi: "18 सितंबर 2026: थूरंडा रोड स्थित केकरहवा चौराहे पर क्षेत्रवासियों से भेंट",
-        },
-      },
-    ],
   },
   {
     slug: "welcomed-in-sant-kabir-nagar",

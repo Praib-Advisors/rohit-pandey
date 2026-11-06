@@ -9,7 +9,7 @@ export default function ProfileIntro({ t }: { t: Dict }) {
     <section aria-label={about.label} className="shell py-16 md:py-28">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="space-y-5 lg:col-span-7">
-          <h2 className="title-md text-red">{about.title}</h2>
+          <h2 className="title-md text-ink">{about.title}</h2>
           {about.bio.map((p, i) => (
             <p key={p} className={i === 0 ? "lede" : "text-ink-soft"}>
               {p}
@@ -29,10 +29,10 @@ export default function ProfileIntro({ t }: { t: Dict }) {
                   i === about.facts.length - 1 && i % 2 === 0 ? "sm:col-span-2" : ""
                 }`}
               >
-                <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted [&:lang(hi)]:text-sm [&:lang(hi)]:normal-case">
+                <dt className="text-[0.875rem] font-medium text-muted">
                   {f.k}
                 </dt>
-                <dd className="mt-1 font-medium">{f.v}</dd>
+                <dd className="mt-1 font-display text-[1.1875rem] leading-snug">{f.v}</dd>
               </div>
             ))}
           </dl>

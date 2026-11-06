@@ -40,7 +40,7 @@ export default function FacebookEmbed({ pageUrl, title }: { pageUrl: string; tit
           height={HEIGHT}
           loading="lazy"
           allow="encrypted-media"
-          className="mx-auto block max-w-full overflow-hidden rounded-md border border-line bg-sand"
+          className="mx-auto block max-w-full overflow-hidden rounded-[1.5rem] border border-line bg-sand"
         />
       )}
     </div>

@@ -6,7 +6,6 @@ import JsonLd from "@/components/JsonLd";
 import NewsStrip from "@/components/NewsStrip";
 import OfficeSection from "@/components/OfficeSection";
 import SocialSection from "@/components/SocialSection";
-import SocialService from "@/components/social-service/SocialService";
 import VideoSection, { getVideoItems } from "@/components/VideoSection";
 import VisionSection from "@/components/VisionSection";
 import { getDictionary } from "@/lib/dictionary";
@@ -34,7 +33,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <JsonLd data={[personJsonLd(lang), websiteJsonLd(lang)]} />
       <Hero lang={lang} t={t} />
       <HomeIntro lang={lang} t={t} />
-      <SocialService lang={lang} t={t} />
       <VisionSection lang={lang} t={t} />
       <VideoSection t={t} items={videos} />
       <NewsStrip lang={lang} t={t} />

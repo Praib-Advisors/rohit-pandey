@@ -39,10 +39,10 @@ function Facts({ t }: { t: Dict["location"] }) {
     <dl className="grid grid-cols-2 border-t border-line">
       {t.facts.map((f, i) => (
         <div key={f.k} className={`border-b border-line py-4 ${i % 2 === 1 ? "border-l pl-5" : "pr-5"}`}>
-          <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-muted [&:lang(hi)]:text-sm [&:lang(hi)]:normal-case">
+          <dt className="text-[0.875rem] font-medium text-muted">
             {f.k}
           </dt>
-          <dd className="mt-1 font-medium">{f.v}</dd>
+          <dd className="mt-1 font-display text-[1.1875rem] leading-snug">{f.v}</dd>
         </div>
       ))}
     </dl>
@@ -56,7 +56,7 @@ export default function LocationSection({ t }: { t: Dict }) {
     <section aria-label={l.connectionLabel} className="shell py-16 md:py-28">
       <div className="grid gap-12 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-6 lg:col-span-5">
-          <h2 className="title-md text-red">{l.connectionLabel}</h2>
+          <h2 className="title-md text-ink">{l.connectionLabel}</h2>
           <p className="lede mt-5">{l.connection}</p>
         </div>
         <div className="md:col-span-6 lg:col-span-6 lg:col-start-7">

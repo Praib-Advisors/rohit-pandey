@@ -19,7 +19,7 @@ export default function JourneySection({ t }: { t: Dict }) {
   return (
     <section id="journey" aria-labelledby="journey-title" className="surface-tint py-16 md:py-28">
       <div className="shell">
-        <h2 id="journey-title" className="title-lg text-red">
+        <h2 id="journey-title" className="title-lg text-ink">
           {j.title}
         </h2>
         <div className="mt-12">

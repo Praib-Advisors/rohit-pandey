@@ -13,7 +13,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       <div className="shell grid gap-12 py-14 md:grid-cols-12 md:py-16">
         <div className="md:col-span-5">
           <p className="w-fit">
-            <Logo size="lg" alt={t.person.name} />
+            <Logo size="lg" plate alt={t.person.name} />
           </p>
           <p className="mt-5 text-ink-soft">{t.person.role}</p>
           <p className="text-ink-soft">{t.person.placeLong}</p>
@@ -21,7 +21,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         </div>
 
         <nav aria-label={t.footer.navigate} className="md:col-span-4">
-          <p className="eyebrow">{t.footer.navigate}</p>
+          <p className="font-heading text-[1.25rem] text-white">{t.footer.navigate}</p>
           <ul className="mt-5 grid grid-cols-2 gap-x-6 text-[0.9375rem]">
             {[...navItems, { key: "khalilabad", path: "/khalilabad" } as const].map((item) => (
               <li key={item.key}>
@@ -34,7 +34,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         </nav>
 
         <div className="md:col-span-3">
-          <p className="eyebrow">{t.footer.language}</p>
+          <p className="font-heading text-[1.25rem] text-white">{t.footer.language}</p>
           <LanguageSwitcher lang={lang} label={t.footer.language} className="mt-5 text-base" />
         </div>
       </div>

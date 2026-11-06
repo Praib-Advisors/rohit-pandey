@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <section className="on-dark surface-deep">
       <div className="shell flex min-h-[60svh] flex-col justify-center pb-20 pt-[calc(var(--nav-h)+4rem)]">
-        <p className="eyebrow">404</p>
+        <p className="numeral text-[5rem] text-red">404</p>
         <h1 className="title-lg mt-6 max-w-3xl">This page could not be found.</h1>
         <p lang="hi" className="lede mt-4">
           यह पृष्ठ नहीं मिला।

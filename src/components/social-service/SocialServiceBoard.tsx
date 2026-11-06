@@ -23,19 +23,31 @@ export type BoardLabels = {
   empty: string;
   clear: string;
   filterLabel: string;
+  readMore: string;
 };
 
 type Filter = "all" | "people" | "org" | "party";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red";
 
-function SubHeading({ id, children }: { id?: string; children: React.ReactNode }) {
+/** Chip colours per kind of work, all from the flag palette */
+const chipTone: Record<ActivityCategory, string> = {
+  people: "bg-green-dk/10 text-green-dk",
+  org: "bg-ink/[0.06] text-ink",
+  office: "bg-red-tint text-red-dk",
+  party: "bg-red-tint text-red-dk",
+};
+
+function SubHeading({ id, index, children }: { id?: string; index: string; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-4">
-      <h3 id={id} className="font-heading text-[22px] leading-tight [&:lang(hi)]:leading-[1.3]">
+    <div className="flex items-end gap-5">
+      <span aria-hidden className="numeral text-[3.5rem] text-red/25 md:text-[4.5rem]">
+        {index}
+      </span>
+      <h3 id={id} className="title-md pb-2 text-ink">
         {children}
       </h3>
-      <span aria-hidden className="h-px flex-1 bg-line" />
+      <span aria-hidden className="mb-4 hidden h-px flex-1 bg-line sm:block" />
     </div>
   );
 }
@@ -64,7 +76,7 @@ export default function SocialServiceBoard({
   issues: ServiceIssue[];
   items: ServiceItem[];
   labels: BoardLabels;
-  /** More photographs from the featured story and the campaign, shown under it so the column is never empty */
+  /** More photographs from the featured story, shown as a small gallery under it */
   photos: ExtraPhoto[];
 }) {
   const [filter, setFilter] = useState<Filter>("all");
@@ -109,14 +121,21 @@ export default function SocialServiceBoard({
     document.getElementById("social-work")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
 
-  const meta = (item: ServiceItem) => (
-    <p className="flex flex-wrap items-center gap-x-[14px] gap-y-2 text-[14px] text-muted">
-      <time dateTime={item.date}>{item.dateLabel}</time>
-      <span className="inline-flex items-center gap-1 font-semibold text-[#1E7A3C]">
-        <TablerIcon name="map-pin" size={16} />
+  const meta = (item: ServiceItem, onDark = false) => (
+    <p className={`flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.875rem] ${onDark ? "text-white/85" : "text-muted"}`}>
+      <span
+        className={`rounded-full px-3 py-1 text-[0.75rem] font-semibold ${onDark ? "bg-white/15 text-white backdrop-blur" : chipTone[item.category]}`}
+      >
+        {chip[item.category]}
+      </span>
+      <time dateTime={item.date} className="inline-flex items-center gap-1.5">
+        <TablerIcon name="calendar" size={15} />
+        {item.dateLabel}
+      </time>
+      <span className={`inline-flex items-center gap-1 font-semibold ${onDark ? "text-white" : "text-green-dk"}`}>
+        <TablerIcon name="map-pin" size={15} />
         {item.place}
       </span>
-      <span className="rounded bg-red-tint px-2 py-0.5 text-[12px] font-semibold text-red">{chip[item.category]}</span>
     </p>
   );
 
@@ -124,48 +143,66 @@ export default function SocialServiceBoard({
     <button
       type="button"
       onClick={() => shareItem(item)}
-      className={`inline-flex min-h-11 items-center gap-2 text-[15px] font-semibold text-red hover:text-red-dk ${focus}`}
+      className={`inline-flex min-h-11 items-center gap-2 rounded-full px-1 text-[0.9375rem] font-semibold text-muted transition-colors hover:text-red ${focus}`}
     >
-      <TablerIcon name="share" size={18} />
+      <TablerIcon name="share" size={17} />
       {labels.share}
     </button>
   );
 
   return (
     <>
-      {/* C. Issues */}
-      <div className="mt-12 md:mt-16">
-        <SubHeading>{labels.issuesTitle}</SubHeading>
-        <ul className="mt-8 grid border-t border-line md:grid-cols-2 lg:grid-cols-3">
+      {/* Issues */}
+      <div className="mt-4">
+        <SubHeading index="01">{labels.issuesTitle}</SubHeading>
+        <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {issues.map((it, i) => {
-            const md = i % 2 === 0 ? "md:pl-0 md:pr-6" : "md:border-l md:px-6";
-            const lg = i % 3 === 0 ? "lg:border-l-0 lg:pl-0 lg:pr-6" : "lg:border-l lg:px-6";
             const active = issueId === it.id;
             return (
-              <li key={it.id} className={`border-b border-line ${md} ${lg}`}>
+              <li key={it.id} className="flex">
                 <button
                   type="button"
                   onClick={() => pickIssue(it.id)}
                   aria-pressed={active}
-                  className={`block min-h-11 w-full py-6 text-left hover:[&_h4]:text-red ${focus}`}
+                  className={`card-lux group flex w-full flex-col p-7 text-left md:p-8 ${focus}`}
                 >
-                  <span className="mb-6 flex items-center gap-2 text-red">
-                    <TablerIcon name={it.icon} size={24} />
-                    <span className="font-display text-[15px] font-semibold">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="flex items-start justify-between gap-4">
+                    <span
+                      className={`grid size-14 place-items-center rounded-2xl transition-colors duration-300 ${
+                        active ? "bg-brand-red text-white" : "bg-red-tint text-red group-hover:bg-brand-red group-hover:text-white"
+                      }`}
+                    >
+                      <TablerIcon name={it.icon} size={26} />
+                    </span>
+                    <span aria-hidden className="numeral text-[2.75rem] text-ink/10 transition-colors duration-300 group-hover:text-red/25">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </span>
-                  <h4
-                    className={`font-heading text-[20px] leading-snug transition-colors [&:lang(hi)]:leading-[1.3] ${
-                      active ? "text-red" : ""
+                  <span
+                    className={`mt-7 block font-heading text-[1.4375rem] leading-snug transition-colors [&:lang(hi)]:leading-[1.35] ${
+                      active ? "text-red-dk" : "text-ink"
                     }`}
                   >
                     {it.title}
-                  </h4>
-                  <span className="mt-2 block text-[16px] leading-relaxed text-ink-soft">{it.text}</span>
-                  {it.count > 0 && (
-                    <span className="mt-3 block text-[14px] text-muted">
-                      {it.count} {it.count === 1 ? labels.countOne : labels.countMany}
+                  </span>
+                  <span className="mt-3 block flex-1 text-[1rem] leading-relaxed text-ink-soft [text-align:justify] [hyphens:auto] [text-align-last:start]">
+                    {it.text}
+                  </span>
+                  <span className="mt-6 flex items-center justify-between border-t border-line pt-5 text-[0.875rem]">
+                    <span className="font-medium text-muted">
+                      {it.count > 0 ? `${it.count} ${it.count === 1 ? labels.countOne : labels.countMany}` : " "}
                     </span>
-                  )}
+                    <span
+                      aria-hidden
+                      className={`grid size-9 place-items-center rounded-full border transition-all duration-300 ${
+                        active
+                          ? "border-red bg-brand-red text-white"
+                          : "border-line text-ink group-hover:translate-x-1 group-hover:border-red group-hover:text-red"
+                      }`}
+                    >
+                      <TablerIcon name="arrow-right" size={16} />
+                    </span>
+                  </span>
                 </button>
               </li>
             );
@@ -173,41 +210,85 @@ export default function SocialServiceBoard({
         </ul>
       </div>
 
-      {/* D. Recent work */}
-      <div id="social-work" className="mt-12 scroll-mt-28 md:mt-16">
-        <SubHeading id="social-work-title">{labels.workTitle}</SubHeading>
+      {/* Recent work */}
+      <div id="social-work" className="mt-24 scroll-mt-28 md:mt-32">
+        <SubHeading index="02" id="social-work-title">
+          {labels.workTitle}
+        </SubHeading>
 
-        <div className="mt-8 grid items-start gap-12 lg:grid-cols-[1.1fr_1fr]">
+        <div className="mt-10 grid items-start gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
           {featured && (
-            <article>
-              <Link href={featured.href} tabIndex={-1} aria-hidden className="relative block aspect-[16/10] overflow-hidden rounded-md bg-sand">
-                {featured.image && (
-                  <Image
-                    src={featured.image}
-                    alt=""
-                    fill
-                    loading="lazy"
-                    sizes="(min-width: 1024px) 52vw, 92vw"
-                    className="object-cover"
-                  />
+            <article className="lg:sticky lg:top-[calc(var(--nav-h)+1.5rem)]">
+              <div className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_40px_90px_-50px_rgb(22_24_28/0.55)] ring-1 ring-black/5">
+                {(featured.image || photos[0]) && (
+                  <Link
+                    href={featured.href}
+                    tabIndex={-1}
+                    aria-hidden
+                    className="zoom-media relative block aspect-[16/10] bg-sand"
+                  >
+                    <Image
+                      src={featured.image ?? photos[0].src}
+                      alt=""
+                      fill
+                      loading="lazy"
+                      sizes="(min-width: 1024px) 52vw, 92vw"
+                      className="object-cover"
+                    />
+                    <span aria-hidden className="absolute inset-0 bg-linear-to-t from-black/70 via-black/15 to-transparent" />
+                    <span className="absolute inset-x-0 bottom-0 p-6 md:p-8">{meta(featured, true)}</span>
+                  </Link>
                 )}
-              </Link>
-              <div className="mt-6">{meta(featured)}</div>
-              <h4 className="mt-3 font-heading text-[25px] leading-tight md:text-[30px] [&:lang(hi)]:leading-[1.3]">
-                <Link href={featured.href} className={`hover:text-red ${focus}`}>
-                  {featured.title}
-                </Link>
-              </h4>
-              <p className="mt-3 text-ink-soft">{featured.summary}</p>
-              <div className="mt-2">{shareButton(featured)}</div>
+                {!(featured.image || photos[0]) && (
+                  <Link
+                    href={featured.href}
+                    tabIndex={-1}
+                    aria-hidden
+                    className="surface-gradient on-dark relative flex aspect-[16/9] flex-col justify-between overflow-hidden p-6 md:p-8"
+                  >
+                    {/* editorial cover when the story has no photograph: the date set large */}
+                    <span aria-hidden className="absolute -right-16 -top-16 size-72 rounded-full border border-white/10" />
+                    <span aria-hidden className="absolute -right-4 -top-4 size-44 rounded-full border border-white/10" />
+                    <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-[linear-gradient(90deg,var(--white)_0_50%,var(--green)_50%_100%)]" />
+                    <span className="relative">{meta(featured, true)}</span>
+                    <span className="relative flex items-end gap-4">
+                      {featured.date.length >= 10 && (
+                        <span className="numeral text-[5.5rem] text-white md:text-[7.5rem]">{featured.date.slice(8, 10)}</span>
+                      )}
+                      <span className="pb-3 font-display text-[1.375rem] italic text-white/85 md:pb-5 md:text-[1.75rem]">{featured.monthLabel}</span>
+                    </span>
+                  </Link>
+                )}
+                <div className="p-6 md:p-9">
+                  <h4 className="font-heading text-[1.75rem] leading-[1.15] tracking-[-0.02em] md:text-[2.25rem] [&:lang(hi)]:leading-[1.3]">
+                    <Link href={featured.href} className={`transition-colors hover:text-red ${focus}`}>
+                      {featured.title}
+                    </Link>
+                  </h4>
+                  <p className="mt-4 text-[1.0625rem] text-ink-soft">{featured.summary}</p>
+                  <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-4">
+                    <Link
+                      href={featured.href}
+                      className={`group inline-flex min-h-11 items-center gap-2 font-semibold text-red-dk ${focus}`}
+                    >
+                      <span className="link-draw">{labels.readMore}</span>
+                      <TablerIcon name="arrow-up-right" size={18} className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </Link>
+                    {shareButton(featured)}
+                  </div>
+                </div>
+              </div>
 
-              {photos.length > 0 && (
-                <ul className="mt-12 grid gap-8">
-                  {photos.map((p) => (
-                    <li key={p.src}>
-                      <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-sand">
-                        <Image src={p.src} alt={p.alt} fill loading="lazy" sizes="(min-width: 1024px) 52vw, 92vw" className="object-cover" />
-                      </div>
+              {photos.length > 1 && (
+                <ul className="mt-5 grid grid-cols-2 gap-4">
+                  {photos.slice(1, 5).map((p, i, arr) => (
+                    <li
+                      key={p.src}
+                      className={`zoom-media relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand ring-1 ring-black/5 ${
+                        arr.length % 2 === 1 && i === arr.length - 1 ? "col-span-2 aspect-[16/8]" : ""
+                      }`}
+                    >
+                      <Image src={p.src} alt={p.alt} fill loading="lazy" sizes="(min-width: 1024px) 26vw, 46vw" className="object-cover" />
                     </li>
                   ))}
                 </ul>
@@ -216,7 +297,7 @@ export default function SocialServiceBoard({
           )}
 
           <div className="min-w-0">
-            <div role="group" aria-label={labels.filterLabel} className="flex flex-wrap gap-2">
+            <div role="group" aria-label={labels.filterLabel} className="flex flex-wrap gap-2 rounded-full">
               {filterButtons
                 .filter((b) => b.key === "all" || counts[b.key] > 0)
                 .map((b) => {
@@ -227,12 +308,18 @@ export default function SocialServiceBoard({
                       type="button"
                       onClick={() => setFilter(b.key)}
                       aria-pressed={on}
-                      className={`inline-flex h-11 items-center gap-2 rounded-md border px-4 text-[15px] transition-colors ${focus} ${
-                        on ? "border-ink bg-ink text-white" : "border-[#CFC5B8] bg-white text-ink hover:border-ink"
+                      className={`inline-flex h-11 items-center gap-2 rounded-full border px-5 text-[0.9375rem] font-medium transition-all duration-300 ${focus} ${
+                        on
+                          ? "border-ink bg-ink text-white shadow-[0_10px_24px_-14px_rgb(22_24_28/0.8)]"
+                          : "border-ink/15 bg-white text-ink hover:-translate-y-0.5 hover:border-ink/40"
                       }`}
                     >
                       {b.label}
-                      <span className="text-[12px] opacity-70">{counts[b.key]}</span>
+                      <span
+                        className={`grid min-w-6 place-items-center rounded-full px-1.5 text-[0.75rem] ${on ? "bg-white/20" : "bg-ink/[0.06]"}`}
+                      >
+                        {counts[b.key]}
+                      </span>
                     </button>
                   );
                 })}
@@ -241,7 +328,7 @@ export default function SocialServiceBoard({
                   type="button"
                   onClick={() => setIssueId(null)}
                   aria-label={`${labels.clear}: ${issue.title}`}
-                  className={`inline-flex h-11 items-center gap-2 rounded-md border border-red bg-red-tint px-4 text-[15px] text-red ${focus}`}
+                  className={`inline-flex h-11 items-center gap-2 rounded-full border border-red bg-red-tint px-5 text-[0.9375rem] font-medium text-red-dk ${focus}`}
                 >
                   {issue.title}
                   <TablerIcon name="x" size={16} />
@@ -249,32 +336,41 @@ export default function SocialServiceBoard({
               )}
             </div>
 
-            <div aria-live="polite" className="mt-8">
+            <div aria-live="polite" className="mt-10">
               {months.length === 0 ? (
-                <p className="text-ink-soft">{labels.empty}</p>
+                <p className="rounded-2xl border border-dashed border-ink/20 p-8 text-center text-ink-soft">{labels.empty}</p>
               ) : (
-                <ol className="border-l-2 border-line">
+                <ol className="relative">
+                  <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-px bg-linear-to-b from-red via-red/30 to-green/40" />
                   {months.map((m) => (
-                    <li key={m.key} className="relative pb-6 pl-8">
-                      <span aria-hidden className="absolute -left-[7px] top-[3px] size-3 rounded-full bg-[#CFC5B8]" />
-                      <h4 className="text-[13px] font-semibold uppercase tracking-[0.1em] text-muted [&:lang(hi)]:text-[14px] [&:lang(hi)]:normal-case [&:lang(hi)]:tracking-normal">
-                        {m.label}
-                      </h4>
-                      <ol className="mt-6 space-y-6">
+                    <li key={m.key} className="relative pb-10 pl-10 last:pb-0">
+                      <span aria-hidden className="absolute left-0 top-[0.55rem] size-[15px] rounded-full border-[3px] border-white bg-brand-red shadow-[0_0_0_1px_rgb(224_38_47/0.4)]" />
+                      <h4 className="font-display text-[1.375rem] italic leading-tight text-ink">{m.label}</h4>
+                      <ol className="mt-5 space-y-4">
                         {m.entries.map((e) => (
-                          <li key={e.slug} className="relative">
-                            <span
-                              aria-hidden
-                              className="absolute -left-[39px] top-[3px] size-3 rounded-full border-2 border-red bg-white"
-                            />
-                            {meta(e)}
-                            <h5 className="mt-2 font-heading text-[20px] leading-snug [&:lang(hi)]:leading-[1.3]">
-                              <Link href={e.href} className={`hover:text-red ${focus}`}>
-                                {e.title}
-                              </Link>
-                            </h5>
-                            <p className="mt-2 text-[15px] text-ink-soft">{e.summary}</p>
-                            <div className="mt-1">{shareButton(e)}</div>
+                          <li key={e.slug}>
+                            <article className="card-lux group flex gap-5 p-5 md:p-6">
+                              <div className="min-w-0 flex-1">
+                                {meta(e)}
+                                <h5 className="mt-3 font-heading text-[1.25rem] leading-snug [&:lang(hi)]:leading-[1.35]">
+                                  <Link href={e.href} className={`transition-colors hover:text-red ${focus}`}>
+                                    {e.title}
+                                  </Link>
+                                </h5>
+                                <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-soft">{e.summary}</p>
+                                <div className="mt-2 -mb-2">{shareButton(e)}</div>
+                              </div>
+                              {e.image && (
+                                <Link
+                                  href={e.href}
+                                  tabIndex={-1}
+                                  aria-hidden
+                                  className="zoom-media relative hidden aspect-square w-28 shrink-0 self-start overflow-hidden rounded-xl bg-sand sm:block"
+                                >
+                                  <Image src={e.image} alt="" fill loading="lazy" sizes="7rem" className="object-cover" />
+                                </Link>
+                              )}
+                            </article>
                           </li>
                         ))}
                       </ol>

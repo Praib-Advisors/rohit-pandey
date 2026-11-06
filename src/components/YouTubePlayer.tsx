@@ -27,7 +27,7 @@ export default function YouTubePlayer({ videos, labels }: { videos: PlayerVideo[
 
   return (
     <div>
-      <div className="relative aspect-video w-full overflow-hidden rounded-md bg-sand">
+      <div className="relative aspect-video w-full overflow-hidden rounded-[1.5rem] bg-sand shadow-[0_40px_80px_-45px_rgb(22_24_28/0.6)]">
         {playing ? (
           <iframe
             key={current.id}
@@ -55,7 +55,7 @@ export default function YouTubePlayer({ videos, labels }: { videos: PlayerVideo[
         )}
       </div>
       <p className="mt-3 text-sm text-muted">{current.date}</p>
-      <h3 className="mt-1 text-lg font-black leading-snug">{current.title}</h3>
+      <h3 className="mt-1 font-heading text-[1.25rem] leading-snug">{current.title}</h3>
 
       {rest.length > 0 && (
         <div className="mt-8">
@@ -70,7 +70,7 @@ export default function YouTubePlayer({ videos, labels }: { videos: PlayerVideo[
                     aria-current={i === active ? "true" : undefined}
                     className="group flex min-h-11 w-full items-center gap-4 py-3 text-left"
                   >
-                    <span className="relative block aspect-video w-32 shrink-0 overflow-hidden rounded bg-sand sm:w-40">
+                    <span className="relative block aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-sand sm:w-40">
                       <Image src={v.thumb} alt="" fill sizes="10rem" className="object-cover" />
                       <span aria-hidden className="absolute inset-0 grid place-items-center text-white/90">
                         ▶

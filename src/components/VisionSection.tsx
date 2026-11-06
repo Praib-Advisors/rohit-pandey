@@ -15,7 +15,7 @@ export default function VisionSection({ lang, t }: { lang: Locale; t: Dict }) {
   return (
     <section aria-labelledby="vision-title" className="surface-tint py-20 md:py-32">
       <div className="shell">
-        <h2 id="vision-title" className="title-lg text-red">
+        <h2 id="vision-title" className="title-lg text-ink">
           {t.vision.title}
         </h2>
         {visionItems.length > 0 ? (
@@ -23,7 +23,7 @@ export default function VisionSection({ lang, t }: { lang: Locale; t: Dict }) {
             {visionItems.map((item, i) => (
               <li key={item.id} className="border-t border-ink/60 pt-5">
                 <span className="text-sm font-semibold text-red">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-2 text-xl font-black leading-snug">{item.title[lang]}</h3>
+                <h3 className="mt-2 font-heading text-[1.5rem] leading-tight leading-snug">{item.title[lang]}</h3>
                 <p className="mt-2 text-ink-soft">{item.body[lang]}</p>
               </li>
             ))}

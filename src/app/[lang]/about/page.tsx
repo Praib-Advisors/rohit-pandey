@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import ProfileIntro from "@/components/ProfileIntro";
 import ContactStrip from "@/components/ContactStrip";
 import JourneySection from "@/components/JourneySection";
 import JsonLd from "@/components/JsonLd";
-import { campaignGraphic } from "@/lib/content";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata, personJsonLd } from "@/lib/seo";
 
@@ -26,18 +24,6 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
         titleSize="xl"
         intro={`${t.person.role}, ${t.person.placeLong}`}
         tone="gradient"
-        mediaSide="left"
-        media={
-          <Image
-            src={campaignGraphic.src}
-            width={campaignGraphic.width}
-            height={campaignGraphic.height}
-            alt={t.media.items["campaign-graphic"].alt}
-            sizes="(min-width: 768px) 48vw, 92vw"
-            priority
-            className="block aspect-video w-full rounded-md object-cover shadow-xl"
-          />
-        }
       />
       <ProfileIntro t={t} />
       <JourneySection t={t} />
