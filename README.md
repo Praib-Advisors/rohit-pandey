@@ -28,6 +28,35 @@ npm run check:dashes   # fails if any em or en dash is found under src/ (also ru
 | `GEMINI_MODEL` / `GROQ_MODEL` | Optional model overrides. Defaults: `gemini-3.5-flash` and `openai/gpt-oss-120b`. |
 | `NEXT_PUBLIC_SHOW_CONTENT_SLOTS` | Set to `true` to show the dashed "Content slot" placeholders (vision text, press links, office hours) for review with the office. They are hidden on the public site by default. |
 
+## Deploy to Cloudflare Workers
+
+This app uses Next.js route handlers and server-side functions, so deploy it as a Cloudflare Worker rather than a static Pages export. The Cloudflare setup uses vinext and keeps the regular `next dev` command available.
+
+Use Node.js 22.23 or newer. Install packages and check compatibility after cloning:
+
+```bash
+npm ci
+npx vinext check
+```
+
+Run the Cloudflare version locally, build it, then preview the built Worker:
+
+```bash
+npm run dev:vinext
+npm run build:vinext
+npm run start:vinext
+```
+
+Authenticate and deploy:
+
+```bash
+npx cf auth login
+npm run deploy:vinext -- --dry-run
+npm run deploy:vinext
+```
+
+Set `NEXT_PUBLIC_*` values in the environment before building, because they are included in the generated client bundle. For local deployment, use an ignored `.env.production.local` file. In Cloudflare, add server-only values such as `GEMINI_API_KEY` (or `GROQ_API_KEY`) and `CONTACT_WEBHOOK_URL` under the Worker’s Settings → Variables and Secrets. Never prefix secrets with `NEXT_PUBLIC_`.
+
 ## Where things live
 
 - `src/lib/dictionary.ts` — all copy, English and Hindi.
