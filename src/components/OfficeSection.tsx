@@ -4,6 +4,7 @@ import { href, type Locale } from "@/lib/i18n";
 import { office, SHOW_CONTENT_SLOTS } from "@/lib/site";
 import ContactForm from "./ContactForm";
 import ContentSlot from "./ContentSlot";
+import Wave from "./Wave";
 
 /** Office address with a map, the ways to reach the office, the volunteer call to action and the enquiry form. */
 export default function OfficeSection({
@@ -23,7 +24,9 @@ export default function OfficeSection({
   const joinHref = office.joinUrl || `${href(lang, "/contact")}#contact-form`;
 
   return (
-    <section id="office" aria-labelledby="office-title" className="surface-ivory grain py-24 md:py-32">
+    <>
+      <Wave tone="ivory" />
+      <section id="office" aria-labelledby="office-title" className="surface-ivory grain py-24 md:py-32">
       <div className="shell">
         <h2 id="office-title" className={heading ? "title-lg text-ink" : "sr-only"}>
           {c.title}
@@ -107,5 +110,6 @@ export default function OfficeSection({
         </div>
       </div>
     </section>
+    </>
   );
 }

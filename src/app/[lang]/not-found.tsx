@@ -1,9 +1,11 @@
 import Link from "next/link";
+import BlurBackdrop from "@/components/BlurBackdrop";
 
 // Rendered inside the [lang] layout when a page calls notFound().
 export default function NotFound() {
   return (
-    <section className="on-dark surface-deep">
+    <section className="on-dark relative isolate overflow-hidden bg-red-deep">
+      <BlurBackdrop />
       <div className="shell flex min-h-[60svh] flex-col justify-center pb-20 pt-[calc(var(--nav-h)+4rem)]">
         <p className="numeral text-[5rem] text-red">404</p>
         <h1 className="title-lg mt-6 max-w-3xl">This page could not be found.</h1>

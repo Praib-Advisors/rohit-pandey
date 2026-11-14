@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import SocialService from "@/components/social-service/SocialService";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
+import { SHOW_SOCIAL_SERVICE } from "@/lib/site";
 import { getSocialService } from "@/lib/socialService";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/social-service">): Promise<Metadata> {
+  if (!SHOW_SOCIAL_SERVICE) return {};
   const { lang, t } = await resolveLang(params);
   return pageMetadata({
     lang,
@@ -16,6 +19,8 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/social-ser
 }
 
 export default async function SocialServicePage({ params }: PageProps<"/[lang]/social-service">) {
+  // Switched off for now (see SHOW_SOCIAL_SERVICE in lib/site.ts)
+  if (!SHOW_SOCIAL_SERVICE) notFound();
   const { lang, t } = await resolveLang(params);
   const s = t.socialService;
   const { items, issues } = getSocialService(lang);

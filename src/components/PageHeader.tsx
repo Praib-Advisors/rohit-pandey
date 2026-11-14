@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import { breadcrumbJsonLd } from "@/lib/seo";
+import BlurBackdrop from "./BlurBackdrop";
 import JsonLd from "./JsonLd";
 
 type Crumb = { name: string; path: string };
@@ -54,10 +55,11 @@ export default function PageHeader({
 
   return (
     <header
-      className={`on-dark relative overflow-hidden ${tone === "gradient" ? "surface-gradient" : "surface-deep"} ${backdrop ? "md:min-h-[100svh]" : ""} ${
+      className={`relative isolate overflow-hidden ${backdrop ? "on-dark bg-red-deep md:min-h-[100svh]" : "bg-ivory"} ${
         media && mediaSide === "right" ? "flag-wedge [--wb-x:40%] [--wt-x:100%] [--wt-y:62%] md:[--wb-x:74%] md:[--wt-x:100%] md:[--wt-y:calc(var(--nav-h)+0.75rem)]" : ""
       }`}
     >
+      <BlurBackdrop tone={backdrop ? "deep" : "light"} />
       <JsonLd data={breadcrumbJsonLd(lang, trail)} />
       <div className={`shell pt-[calc(var(--nav-h)+1.25rem)] ${backdrop ? "relative z-10" : ""}`}>
         <nav aria-label={t.nav.breadcrumb}>

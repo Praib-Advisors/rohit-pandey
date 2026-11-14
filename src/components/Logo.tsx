@@ -1,12 +1,11 @@
 import Image from "next/image";
 
-const LOGO = { src: "/images/rohit-pandey-signature-logo.webp", width: 1495, height: 491 };
+const LOGO = { src: "/images/rohit-pandey-sp-logo.webp", width: 1654, height: 412 };
 
 /**
- * The client's signature wordmark (red "Rohit", green "Pandey") on a transparent
- * ground. On the white header it stands bare. On red surfaces (footer, mobile
- * menu) pass `plate` so the red/green lettering sits on a white card instead of
- * vanishing into the background.
+ * The client's logo: Samajwadi Party emblem beside the red/green Devanagari name,
+ * on a transparent ground. On the ivory header it stands bare. On red surfaces
+ * (footer, mobile menu) pass `plate` so it sits on a white card.
  */
 export default function Logo({
   size = "md",
@@ -31,8 +30,8 @@ export default function Logo({
         alt={alt}
         preload={!big}
         quality={90}
-        sizes={big ? "280px" : "200px"}
-        className={`block w-auto ${big ? "h-14 md:h-16" : plate ? "h-9" : "h-11 md:h-14"}`}
+        sizes={big ? "300px" : "200px"}
+        className={`block w-auto ${big ? "h-12 md:h-14" : plate ? "h-9" : "h-10 md:h-12"}`}
       />
     </span>
   );

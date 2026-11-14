@@ -10,7 +10,7 @@ export default function NewsStrip({ lang, t }: { lang: Locale; t: Dict }) {
   if (pressItems.length === 0 && !SHOW_CONTENT_SLOTS) return null;
 
   return (
-    <section aria-labelledby="news-title" className="bg-white pb-20 md:pb-28">
+    <section aria-labelledby="news-title" className="surface-ivory pb-20 md:pb-28">
       <div className="shell border-t border-line pt-10">
         <h2 id="news-title" className="font-heading text-[1.5rem] leading-tight">
           {t.news.title}

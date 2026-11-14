@@ -1,23 +1,28 @@
 import type { MetadataRoute } from "next";
+import { ideals } from "@/data/ideals";
 import { updates } from "@/lib/content";
 import { isoDate } from "@/lib/dates";
 import { href, htmlLang, locales } from "@/lib/i18n";
-import { SITE_URL } from "@/lib/site";
+import { SHOW_SOCIAL_SERVICE, SITE_URL } from "@/lib/site";
 
 const staticPaths = [
   "/",
   "/about",
-  "/social-service",
   "/public-life",
   "/khalilabad",
   "/media",
+  "/ideals",
+  "/e-card",
   "/contact",
   "/privacy",
   "/terms",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = [...staticPaths, ...updates.map((u) => `/updates/${u.slug}`)];
+  const paths = [
+    ...staticPaths,
+    ...(SHOW_SOCIAL_SERVICE ? ["/social-service"] : []),
+    ...ideals.map((p) => `/ideals/${p.id}`), ...updates.map((u) => `/updates/${u.slug}`)];
   const lastModified = new Date(isoDate(updates[0].date));
 
   return paths.flatMap((path) =>

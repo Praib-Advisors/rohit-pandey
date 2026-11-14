@@ -5,12 +5,14 @@ import HomeIntro from "@/components/HomeIntro";
 import JsonLd from "@/components/JsonLd";
 import NewsStrip from "@/components/NewsStrip";
 import OfficeSection from "@/components/OfficeSection";
+import ServicesStrip from "@/components/ServicesStrip";
 import SocialSection from "@/components/SocialSection";
 import VideoSection, { getVideoItems } from "@/components/VideoSection";
 import VisionSection from "@/components/VisionSection";
 import { getDictionary } from "@/lib/dictionary";
 import { hasLocale } from "@/lib/i18n";
 import { pageMetadata, personJsonLd, websiteJsonLd } from "@/lib/seo";
+import { SHOW_SERVICES } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
@@ -33,6 +35,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <JsonLd data={[personJsonLd(lang), websiteJsonLd(lang)]} />
       <Hero lang={lang} t={t} />
       <HomeIntro lang={lang} t={t} />
+      {SHOW_SERVICES && <ServicesStrip lang={lang} t={t} />}
       <VisionSection lang={lang} t={t} />
       <VideoSection t={t} items={videos} />
       <NewsStrip lang={lang} t={t} />

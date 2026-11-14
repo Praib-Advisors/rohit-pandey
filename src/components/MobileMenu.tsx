@@ -3,11 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
-import { isActive, navItems, scrollTopIfCurrent } from "@/lib/nav";
+import { isActive, navItems, navSubs, scrollTopIfCurrent } from "@/lib/nav";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 import SectionLink from "./SectionLink";
-import SocialLinks from "./SocialLinks";
 
 export default function MobileMenu({
   lang,
@@ -51,7 +50,7 @@ export default function MobileMenu({
         first.focus();
       }
     };
-    const onResize = () => window.innerWidth >= 1024 && setOpen(false);
+    const onResize = () => window.innerWidth >= 1280 && setOpen(false);
     document.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
     return () => {
@@ -62,7 +61,7 @@ export default function MobileMenu({
   }, [open, close]);
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         ref={buttonRef}
         type="button"
@@ -129,12 +128,9 @@ export default function MobileMenu({
                       </span>
                       {active && <span aria-hidden className="ml-auto size-2 self-center rounded-full bg-ink" />}
                     </SectionLink>
-                    {item.key === "media" && (
-                      <ul className="mb-3 ml-10 flex gap-6 text-base">
-                        {[
-                          { path: "/media#photos", label: t.mediaPhotos },
-                          { path: "/media#videos", label: t.mediaVideos },
-                        ].map((sub) => (
+                    {navSubs(item.key, t).length > 0 && (
+                      <ul className="mb-3 ml-10 flex flex-wrap gap-x-6 text-base">
+                        {navSubs(item.key, t).map((sub) => (
                           <li key={sub.path}>
                             <SectionLink
                               href={href(lang, sub.path)}
@@ -154,7 +150,6 @@ export default function MobileMenu({
           </nav>
 
           <div className="shell flex shrink-0 items-center justify-between gap-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-            <SocialLinks />
             <LanguageSwitcher lang={lang} label={t.language} className="text-base" />
           </div>
         </div>

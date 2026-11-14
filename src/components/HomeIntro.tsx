@@ -4,13 +4,12 @@ import { images } from "@/lib/content";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 
-/** A short introduction on the left with a photograph on the right, and the facts a voter looks for first. */
+/** A short introduction on the left with a photograph on the right. */
 export default function HomeIntro({ lang, t }: { lang: Locale; t: Dict }) {
-  const { about, location, homeIntro: home } = t;
-  const facts = [location.facts[0], location.facts[1], about.facts[0], about.facts[3], about.facts[4]];
+  const { about, homeIntro: home } = t;
 
   return (
-    <section aria-labelledby="about-title" className="grain relative overflow-hidden bg-white py-20 md:py-28">
+    <section aria-labelledby="about-title" className="grain relative overflow-hidden bg-ivory py-20 md:py-28">
       {/* soft red glow behind the photograph */}
       <div
         aria-hidden
@@ -73,15 +72,6 @@ export default function HomeIntro({ lang, t }: { lang: Locale; t: Dict }) {
             </div>
           </figure>
         </div>
-
-        <dl className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
-          {facts.map((f) => (
-            <div key={f.k} className="bg-white px-6 py-6 sm:last:col-span-2 lg:last:col-span-1 transition-colors duration-300 hover:bg-[#fbf7f2]">
-              <dt className="text-[0.875rem] font-medium text-muted">{f.k}</dt>
-              <dd className="mt-1.5 font-display text-[1.25rem] leading-snug text-ink">{f.v}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

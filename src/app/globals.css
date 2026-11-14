@@ -18,17 +18,18 @@
   --green-dk: #07602e;
   --green-deep: #06502a;
   --white: #ffffff;
-  --tint: #f3f8f4;
+  --tint: #eae6dd;
+  --ivory: #f5f3ee;
   --text: #16181c;
 }
 
 @theme {
   /* Surfaces */
-  --color-ivory: var(--white);
-  --color-paper: var(--white);
+  --color-ivory: var(--ivory);
+  --color-paper: var(--ivory);
   --color-tint: var(--tint);
   --color-sand: var(--tint);
-  --color-sand-deep: color-mix(in oklab, var(--green) 18%, var(--white));
+  --color-sand-deep: #d9d2c3;
 
   /* Text and lines */
   --color-ink: var(--text);
@@ -48,8 +49,8 @@
   --color-white: var(--white);
   --color-brand-red: var(--red);
 
-  --font-sans: var(--font-manrope), var(--font-mukta), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), var(--font-mukta), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), var(--font-mukta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), var(--font-mukta), Georgia, "Times New Roman", serif;
   --font-display: var(--font-serif);
   --font-heading: var(--font-serif);
 
@@ -57,6 +58,26 @@
   --default-transition-duration: 0.18s;
   --default-transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
   --breakpoint-xs: 25rem;
+
+  /* Service pages (ideals, e-Shikayat, e-Card) */
+  --color-ink-2: color-mix(in oklab, var(--text) 88%, var(--white));
+  --color-surface: #ffffff;
+  --color-night: #04140c;
+  --color-brand-red-deep: var(--red-dk);
+  --color-brand-red-soft: #ff8085;
+  --color-brand-green: var(--green);
+  --color-brand-green-deep: var(--green-deep);
+  --radius-soft: 0.375rem;
+  --radius-card: 0.5rem;
+  --radius-panel: 0.75rem;
+  --shadow-soft: 0 1px 2px rgb(22 24 28 / 0.05), 0 8px 24px -12px rgb(22 24 28 / 0.16);
+  --shadow-raised: 0 2px 4px rgb(22 24 28 / 0.06), 0 18px 36px -16px rgb(22 24 28 / 0.28);
+
+
+  /* Softer, more architectural corners */
+  --radius-xl: 0.375rem;
+  --radius-2xl: 0.5rem;
+  --radius-3xl: 0.625rem;
 }
 
 :root {
@@ -237,14 +258,14 @@ html {
 }
 
 body {
-  background: var(--white);
+  background: var(--ivory);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.7;
   letter-spacing: -0.003em;
   overflow-x: clip;
-  font-feature-settings: "kern", "liga", "ss01";
+  font-feature-settings: "kern", "liga";
   -webkit-font-smoothing: antialiased;
 }
 
@@ -292,8 +313,8 @@ p, li, dd, figcaption {
 
 @utility font-display {
   font-family: var(--font-display);
-  font-variation-settings: "opsz" 72, "SOFT" 50;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  letter-spacing: 0;
   &:lang(hi) {
     letter-spacing: 0;
   }
@@ -302,9 +323,8 @@ p, li, dd, figcaption {
 /* Main headings: Black weight. Mukta tops out at 800 for Hindi. */
 @utility font-heading {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-variation-settings: "opsz" 96, "SOFT" 50;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   &:lang(hi) {
     font-weight: 800;
     letter-spacing: 0;
@@ -314,10 +334,9 @@ p, li, dd, figcaption {
 /* Section titles: confident but never poster-sized */
 @utility title-lg {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-variation-settings: "opsz" 120, "SOFT" 50;
-  letter-spacing: -0.025em;
-  font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.5rem, 1.7rem + 3vw, 4.25rem);
   line-height: 1.04;
   &:lang(hi) {
     font-weight: 800;
@@ -329,11 +348,10 @@ p, li, dd, figcaption {
 
 @utility title-md {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-variation-settings: "opsz" 96, "SOFT" 50;
-  letter-spacing: -0.015em;
-  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
-  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  font-size: clamp(1.625rem, 1.3rem + 1.3vw, 2.5rem);
+  line-height: 1.12;
   &:lang(hi) {
     font-weight: 800;
     letter-spacing: 0;
@@ -381,7 +399,7 @@ p, li, dd, figcaption {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   padding: 0.8rem 1.35rem;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -527,11 +545,10 @@ dialog.lightbox::backdrop {
 .title-lg:not(h1)::after {
   content: "";
   display: block;
-  width: 4.5rem;
-  height: 3px;
+  width: 3.5rem;
+  height: 2px;
   margin-top: 1.1rem;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--red) 0 58%, var(--green) 58% 100%);
+  background: var(--red-dk);
   transform-origin: left center;
 }
 .text-center.title-lg::after,
@@ -662,7 +679,7 @@ dialog.lightbox::backdrop {
 
 /* Warm ivory surface used for alternating sections */
 .surface-ivory {
-  background-color: #faf6f0;
+  background-color: var(--ivory);
 }
 
 /* Lifted card with a soft layered shadow and a red line that draws on hover */
@@ -727,7 +744,6 @@ dialog.lightbox::backdrop {
 /* Big outlined serif numerals */
 .numeral {
   font-family: var(--font-serif);
-  font-variation-settings: "opsz" 144, "SOFT" 100;
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.04em;

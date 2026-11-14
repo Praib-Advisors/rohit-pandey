@@ -3,10 +3,13 @@ import Link from "next/link";
 import { images } from "@/lib/content";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
+import Wave from "./Wave";
 
 export default function ContactStrip({ lang, t }: { lang: Locale; t: Dict }) {
   return (
-    <section aria-labelledby="contact-strip-title" className="surface-tint">
+    <>
+      <Wave tone="sand" />
+      <section aria-labelledby="contact-strip-title" className="surface-tint">
       <div className="shell flex flex-col items-start gap-6 py-14 md:flex-row md:items-center md:justify-between md:py-16">
         <div className="flex items-center gap-5">
           <span className="relative block size-16 shrink-0 overflow-hidden rounded-full bg-sand-deep md:size-20">
@@ -28,5 +31,6 @@ export default function ContactStrip({ lang, t }: { lang: Locale; t: Dict }) {
         </Link>
       </div>
     </section>
+    </>
   );
 }

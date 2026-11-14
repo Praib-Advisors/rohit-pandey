@@ -4,6 +4,7 @@ import { facebookPage, YOUTUBE_CHANNEL_URL } from "@/lib/site";
 import { getPlayerVideos } from "@/lib/youtube";
 import FacebookEmbed from "./FacebookEmbed";
 import YouTubePlayer from "./YouTubePlayer";
+import Wave from "./Wave";
 
 /** YouTube beside Facebook on desktop, stacked on phones. */
 export default async function SocialSection({ lang, t }: { lang: Locale; t: Dict }) {
@@ -11,7 +12,9 @@ export default async function SocialSection({ lang, t }: { lang: Locale; t: Dict
   const { items, live } = await getPlayerVideos(lang, 5);
 
   return (
-    <section id="social" data-youtube-feed={live ? "live" : "fallback"} aria-labelledby="social-title" className="scroll-mt-24 bg-white py-24 md:py-32">
+    <>
+      <Wave tone="sand" />
+      <section id="social" data-youtube-feed={live ? "live" : "fallback"} aria-labelledby="social-title" className="scroll-mt-24 surface-tint py-24 md:py-32">
       <div className="shell">
         <h2 id="social-title" className="title-lg text-ink">
           {s.title}
@@ -42,5 +45,6 @@ export default async function SocialSection({ lang, t }: { lang: Locale; t: Dict
         </div>
       </div>
     </section>
+    </>
   );
 }

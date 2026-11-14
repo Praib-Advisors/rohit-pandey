@@ -3,6 +3,7 @@ import type { Dict } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { SHOW_CONTENT_SLOTS } from "@/lib/site";
 import ContentSlot from "./ContentSlot";
+import Wave from "./Wave";
 
 /**
  * Vision for Khalilabad: four to six local issues written by the campaign.
@@ -13,7 +14,9 @@ export default function VisionSection({ lang, t }: { lang: Locale; t: Dict }) {
   if (visionItems.length === 0 && !SHOW_CONTENT_SLOTS) return null;
 
   return (
-    <section aria-labelledby="vision-title" className="surface-tint py-20 md:py-32">
+    <>
+      <Wave tone="sand" />
+      <section aria-labelledby="vision-title" className="surface-tint py-20 md:py-32">
       <div className="shell">
         <h2 id="vision-title" className="title-lg text-ink">
           {t.vision.title}
@@ -35,5 +38,6 @@ export default function VisionSection({ lang, t }: { lang: Locale; t: Dict }) {
         )}
       </div>
     </section>
+    </>
   );
 }

@@ -19,6 +19,15 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://rohit-pand
  */
 export const SHOW_CONTENT_SLOTS = process.env.NEXT_PUBLIC_SHOW_CONTENT_SLOTS === "true";
 
+/**
+ * Sections kept out of the site for now. They are hidden from the menu, the footer, the home page and
+ * the sitemap (and the Social service page answers 404). Set NEXT_PUBLIC_SHOW_SOCIAL_SERVICE=true or
+ * NEXT_PUBLIC_SHOW_SERVICES=true, or change the value here, to bring one back.
+ */
+export const SHOW_SOCIAL_SERVICE = process.env.NEXT_PUBLIC_SHOW_SOCIAL_SERVICE === "true";
+/** The "Public services" cards on the home page (the e-Card greetings page itself stays in the menu). */
+export const SHOW_SERVICES = process.env.NEXT_PUBLIC_SHOW_SERVICES === "true";
+
 export const socials = [
   {
     id: "facebook",

@@ -1,25 +1,23 @@
-import { Fraunces, Manrope, Mukta } from "next/font/google";
+import { Cormorant_Garamond, Inter, Mukta } from "next/font/google";
 
 /**
  * Type system
- * - Fraunces (display serif, variable with an optical size axis) carries every
- *   heading. It gives the site an editorial, print-like voice instead of the
- *   generic geometric sans look.
- * - Manrope carries body text, buttons and navigation: a calm humanist sans
- *   with open counters that stays readable at small sizes.
+ * - Cormorant Garamond (display serif) carries every heading, in light,
+ *   editorial weights.
+ * - Inter carries body text, buttons and navigation.
  * - Mukta covers Devanagari for /hi. Neither Latin face has Devanagari, so
  *   Hindi text falls through to Mukta in each stack.
  */
-export const fraunces = Fraunces({
+export const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cormorant",
   display: "swap",
-  axes: ["opsz", "SOFT"],
 });
 
-export const manrope = Manrope({
+export const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -32,4 +30,4 @@ export const mukta = Mukta({
   preload: false,
 });
 
-export const fontVars = `${fraunces.variable} ${manrope.variable} ${mukta.variable}`;
+export const fontVars = `${cormorant.variable} ${inter.variable} ${mukta.variable}`;

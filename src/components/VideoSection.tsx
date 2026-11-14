@@ -3,6 +3,7 @@ import { formatDate } from "@/lib/dates";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import FeaturedVideo, { type FeaturedVideoItem } from "./FeaturedVideo";
+import Wave from "./Wave";
 
 /**
  * Video updates as player items. Slugs added to `shown` are claimed by this
@@ -42,7 +43,9 @@ export default function VideoSection({ t, items }: { t: Dict; items: FeaturedVid
   const v = t.videos;
 
   return (
-    <section id="videos" aria-labelledby="videos-title" className="surface-ivory grain scroll-mt-28 py-24 md:py-32">
+    <>
+      <Wave tone="ivory" />
+      <section id="videos" aria-labelledby="videos-title" className="surface-ivory grain scroll-mt-28 py-24 md:py-32">
       <div className="shell">
         <h2 id="videos-title" className="title-lg mb-12 text-ink md:mb-16">
           {v.title}
@@ -50,5 +53,6 @@ export default function VideoSection({ t, items }: { t: Dict; items: FeaturedVid
         <FeaturedVideo items={items} labels={{ play: v.play, readMore: v.readMore, more: v.more }} />
       </div>
     </section>
+    </>
   );
 }

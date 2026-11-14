@@ -1,0 +1,293 @@
+/*
+ * Styles for the service pages (ideals, e-Shikayat, e-Card, dashboard). Everything is scoped under
+ * `.portal`, which the (portal) layout puts around the page, so nothing here can touch the rest of
+ * the site. Colours and radii come from the site tokens in globals.css.
+ */
+.portal {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portal .section {
+  padding-block: clamp(3rem, 2rem + 3.5vw, 5rem);
+}
+
+.portal .h-page {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+:lang(hi) .portal .h-page {
+  font-weight: 800;
+  line-height: 1.35;
+  font-size: clamp(1.85rem, 1.3rem + 2.2vw, 2.85rem);
+}
+.portal .h-section {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.75rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+:lang(hi) .portal .h-section {
+  font-weight: 800;
+  line-height: 1.4;
+  font-size: clamp(1.55rem, 1.2rem + 1.5vw, 2.2rem);
+}
+.portal .h-card {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+  line-height: 1.35;
+}
+.portal .lead {
+  font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.25rem);
+  line-height: 1.7;
+}
+:lang(hi) .portal .lead {
+  line-height: 1.9;
+}
+.portal .justify-text {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: manual;
+}
+
+/* ---------- Buttons ---------- */
+.portal .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+}
+.portal .btn svg {
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-soft);
+}
+.portal .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+@media (hover: hover) {
+  .portal .btn:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+  .portal .btn:not(:disabled):hover svg {
+    transform: translateX(2px);
+  }
+}
+.portal .btn-sm {
+  min-height: 2.75rem;
+  padding: 0.45rem 1rem;
+}
+.portal .btn-primary {
+  background: var(--red-deep);
+  border-color: var(--red-deep);
+  color: #fff;
+}
+@media (hover: hover) {
+  .portal .btn-primary:not(:disabled):hover {
+    background: var(--red-dk);
+    border-color: var(--red-dk);
+  }
+}
+.portal .btn-ghost {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
+  color: var(--text);
+}
+@media (hover: hover) {
+  .portal .btn-ghost:not(:disabled):hover {
+    border-color: var(--text);
+    background: var(--tint);
+  }
+}
+.portal .btn-outline {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.portal .link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--red-dk);
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 2px;
+}
+.portal .link-arrow:hover {
+  color: var(--text);
+}
+
+/* ---------- Cards, fields, chips, status ---------- */
+.portal .card {
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.portal .field {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+  border-radius: 0.25rem;
+  background: #fff;
+  padding: 0.65rem 0.9rem;
+  font-size: 1rem;
+  color: var(--text);
+  transition:
+    border-color 0.2s var(--ease-soft),
+    box-shadow 0.2s var(--ease-soft);
+}
+.portal .field:focus {
+  outline: none;
+  border-color: var(--red-dk);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 20%, transparent);
+}
+.portal .field[aria-invalid="true"] {
+  border-color: var(--red-dk);
+}
+.portal textarea.field {
+  min-height: 8rem;
+  resize: vertical;
+}
+.portal .field-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--color-ink-2);
+}
+.portal .field-error {
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--red-dk);
+}
+
+.portal .chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+  background: #fff;
+  font-weight: 500;
+  color: var(--color-ink-2);
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease-soft),
+    background-color 0.2s var(--ease-soft),
+    color 0.2s var(--ease-soft);
+}
+@media (hover: hover) {
+  .portal .chip:hover {
+    border-color: var(--red);
+    background: #fdecec;
+  }
+}
+.portal .chip[aria-pressed="true"],
+.portal .chip:has(input:checked) {
+  border-color: var(--red-dk);
+  background: #fdecec;
+  color: var(--red-dk);
+}
+.portal .chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.portal .chip:has(input:focus-visible) {
+  outline: 2px solid var(--red-dk);
+  outline-offset: 2px;
+}
+
+.portal .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.portal .status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+.portal .status-received {
+  background: #fff4e0;
+  color: #9a5b00;
+}
+.portal .status-progress {
+  background: #e3eef8;
+  color: #1b4f86;
+}
+.portal .status-resolved {
+  background: #e2f4e8;
+  color: #186a3b;
+}
+.portal .status-rejected {
+  background: #f6e3e1;
+  color: #8f2a1c;
+}
+
+.portal .stripes {
+  background-image: repeating-linear-gradient(180deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 22px);
+}
+.portal .card-hover {
+  transition:
+    box-shadow 0.3s var(--ease-soft),
+    transform 0.3s var(--ease-soft);
+}
+@media (hover: hover) {
+  .portal .card-hover:hover {
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------- Scroll reveal (see PortalReveal.tsx), only once JS has measured the element ---------- */
+.portal .reveal-hidden {
+  opacity: 0;
+  transform: translateY(22px);
+}
+.portal .reveal-hidden,
+.portal .reveal-shown {
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.portal .reveal-shown {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal .reveal-hidden {
+    opacity: 1;
+    transform: none;
+  }
+  .portal .reveal-hidden,
+  .portal .reveal-shown {
+    transition: none;
+  }
+}
