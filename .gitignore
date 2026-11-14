@@ -41,6 +41,9 @@ yarn-error.log*
 /.vinext/
 /.wrangler/
 
+# local validation artifacts
+/.tsupgrader/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,10 +1,7 @@
 import { bindings, defineConfig, defineWorker } from "cf/config";
-import { createWorkersResponseStoreSelfContainedConfig } from "@vinext/cloudflare/cache/config";
+import { createWorkersCacheConfig } from "@vinext/cloudflare/cache/config";
 
-const cache = await createWorkersResponseStoreSelfContainedConfig({
-  worker: "rohit-pandey",
-  bucket: "rohit-pandey-response-store-cache-bodies",
-});
+const cache = await createWorkersCacheConfig();
 
 export default defineConfig({
   worker: defineWorker({
@@ -21,5 +18,6 @@ export default defineConfig({
       ...cache.env,
       ASSETS: bindings.assets(),
     },
+    exports: cache.exports,
   }),
 });

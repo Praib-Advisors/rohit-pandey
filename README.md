@@ -30,9 +30,9 @@ npm run check:dashes   # fails if any em or en dash is found under src/ (also ru
 
 ## Deploy to Cloudflare Workers
 
-This app uses Next.js route handlers and server-side functions, so deploy it as a Cloudflare Worker rather than a static Pages export. The Cloudflare setup uses vinext and keeps the regular `next dev` command available.
+This app uses Next.js route handlers and server-side functions, so deploy it as a Cloudflare Worker rather than a static Pages export. The Cloudflare setup uses vinext and keeps the regular `next dev` command available. Caching uses Cloudflare Workers Cache; it does not provision R2, KV, or Durable Objects. Workers Cache has no separate charge, but Worker requests still count toward the Workers Free plan limits.
 
-Use Node.js 22.23 or newer. Install packages and check compatibility after cloning:
+Use Node.js 24.22.1 (pinned in `.nvmrc`) so Cloudflare's build tools run on a supported version. Install packages and check compatibility after cloning:
 
 ```bash
 npm ci
