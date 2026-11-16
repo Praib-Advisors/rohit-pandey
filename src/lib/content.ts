@@ -18,7 +18,14 @@ export const images = {
   joining: img("rohit-pandey-akhilesh-yadav-meeting", 764, 782),
 } as const;
 
-export type MediaId = "sp-office-group-01" | "shivpal-singh-yadav-lucknow";
+export type MediaId =
+  | "sp-office-group-01"
+  | "shivpal-singh-yadav-lucknow"
+  | "akhilesh-yadav-netaji-statue"
+  | "party-colleagues-gathering"
+  | "akhilesh-yadav-book-presentation"
+  | "akhilesh-shivpal-bouquet"
+  | "village-supporters";
 
 /**
  * `focus` (object-position) lets a portrait-format photograph fill a
@@ -33,6 +40,28 @@ const media: Record<MediaId, MediaItem> = {
     focus: "50% 30%",
     ...img("rohit-pandey-shivpal-singh-yadav-lucknow", 960, 1280),
   },
+  "akhilesh-yadav-netaji-statue": {
+    id: "akhilesh-yadav-netaji-statue",
+    focus: "50% 25%",
+    ...img("rohit-pandey-akhilesh-yadav-netaji-statue", 856, 1140),
+  },
+  "party-colleagues-gathering": {
+    id: "party-colleagues-gathering",
+    ...img("rohit-pandey-party-colleagues-gathering", 1280, 854),
+  },
+  "akhilesh-yadav-book-presentation": {
+    id: "akhilesh-yadav-book-presentation",
+    focus: "50% 25%",
+    ...img("rohit-pandey-akhilesh-yadav-book-presentation", 715, 1065),
+  },
+  "akhilesh-shivpal-bouquet": {
+    id: "akhilesh-shivpal-bouquet",
+    ...img("rohit-pandey-akhilesh-shivpal-bouquet", 1024, 682),
+  },
+  "village-supporters": {
+    id: "village-supporters",
+    ...img("rohit-pandey-village-supporters", 1024, 684),
+  },
 };
 
 /**
@@ -41,6 +70,11 @@ const media: Record<MediaId, MediaItem> = {
  */
 export const fullGallery: MediaItem[] = [
   media["sp-office-group-01"],
+  media["akhilesh-shivpal-bouquet"],
+  media["party-colleagues-gathering"],
+  media["village-supporters"],
+  media["akhilesh-yadav-netaji-statue"],
+  media["akhilesh-yadav-book-presentation"],
   media["shivpal-singh-yadav-lucknow"],
 ];
 
@@ -445,3 +479,147 @@ export const visionItems: VisionItem[] = [];
 /** "In the news": real press reports only. Empty until the campaign supplies links. */
 export type PressItem = { id: string; outlet: string; title: Localised<string>; date: string; url: string };
 export const pressItems: PressItem[] = [];
+
+/** Newspaper cuttings and print media reports. */
+export type PressClipping = {
+  id: string;
+  src: string;
+  width: number;
+  height: number;
+  outlet: Localised<string>;
+  date?: string;
+  location?: Localised<string>;
+  title: Localised<string>;
+  summary?: Localised<string>;
+};
+
+export const pressClippings: PressClipping[] = [
+  {
+    id: "news-01",
+    src: "/images/news/n1.webp",
+    width: 960,
+    height: 523,
+    outlet: { en: "Press Report", hi: "समाचार रिपोर्ट" },
+    location: { en: "Sant Kabir Nagar", hi: "संतकबीर नगर" },
+    title: {
+      en: "Kshetra Panchayat members raise concerns over stalled works",
+      hi: "क्षेत्र पंचायत सदस्यों ने कहा, नहीं मिल रहा कोई काम",
+    },
+    summary: {
+      en: "Meeting of Kshetra Panchayat members organized at Rohit Pandey's office in Sant Kabir Nagar to address local issues and development.",
+      hi: "संतकबीर नगर स्थित कार्यालय पर क्षेत्र पंचायत सदस्यों की बैठक में जनसमस्याओं और विकास कार्यों पर चर्चा करते रोहित पाण्डेय।",
+    },
+  },
+  {
+    id: "news-02",
+    src: "/images/news/n2.webp",
+    width: 583,
+    height: 938,
+    outlet: { en: "Dainik Jagran", hi: "दैनिक जागरण" },
+    location: { en: "Sant Kabir Nagar / Khalilabad", hi: "संतकबीर नगर / खलीलाबाद" },
+    title: {
+      en: "Party workers turn out in large numbers to welcome State President",
+      hi: "प्रदेश अध्यक्ष के स्वागत में उमड़े कार्यकर्ता",
+    },
+    summary: {
+      en: "Rohit Pandey leads party workers in Khalilabad to accord a warm welcome to the State President.",
+      hi: "खलीलाबाद में रोहित पाण्डेय के नेतृत्व में कार्यकर्ताओं द्वारा प्रदेश अध्यक्ष का भव्य स्वागत।",
+    },
+  },
+  {
+    id: "news-03",
+    src: "/images/news/n3.webp",
+    width: 960,
+    height: 720,
+    outlet: { en: "Dainik Jagran", hi: "दैनिक जागरण" },
+    location: { en: "Sant Kabir Nagar", hi: "संतकबीर नगर" },
+    title: {
+      en: "Coverage on local welfare and public issues",
+      hi: "जनहित के मुद्दों और क्षेत्रीय समस्याओं पर प्रमुख समाचार",
+    },
+    summary: {
+      en: "Prominent reporting on Rohit Pandey's outreach and representation of public grievances.",
+      hi: "क्षेत्रीय जनसमस्याओं और नागरिकों की आवाज़ को लेकर समाचार पत्रों में प्रमुखता से प्रकाशित रिपोर्ट।",
+    },
+  },
+  {
+    id: "news-04",
+    src: "/images/news/n4.webp",
+    width: 960,
+    height: 611,
+    outlet: { en: "Amar Ujala", hi: "अमर उजाला" },
+    location: { en: "Khalilabad", hi: "खलीलाबाद" },
+    title: {
+      en: "Dialogue on regional infrastructure and public demands",
+      hi: "विकास कार्यों और जनसमस्याओं को लेकर प्रशासनिक संवाद",
+    },
+    summary: {
+      en: "Rohit Pandey addresses community concerns and pushes for prompt administrative action.",
+      hi: "खलीलाबाद में सड़क, बिजली एवं बुनियादी सुविधाओं को लेकर प्रशासनिक स्तर पर उठाई गई आवाज़।",
+    },
+  },
+  {
+    id: "news-05",
+    src: "/images/news/n5.webp",
+    width: 960,
+    height: 857,
+    outlet: { en: "Hindustan", hi: "हिंदुस्तान" },
+    location: { en: "Sant Kabir Nagar", hi: "संतकबीर नगर" },
+    title: {
+      en: "Community outreach and village dialogue program",
+      hi: "क्षेत्रीय विकास एवं जनसंवाद कार्यक्रम में सहभागिता",
+    },
+    summary: {
+      en: "Connecting with residents across villages and taking up their everyday challenges.",
+      hi: "गाँवों और कस्बों में जनसंपर्क कर नागरिकों की समस्याओं को प्राथमिकता से उठाने की पहल।",
+    },
+  },
+  {
+    id: "news-06",
+    src: "/images/news/n6.webp",
+    width: 1489,
+    height: 2048,
+    outlet: { en: "Dainik Jagran", hi: "दैनिक जागरण" },
+    location: { en: "Sant Kabir Nagar", hi: "संतकबीर नगर" },
+    title: {
+      en: "Active participation in social service and democratic movements",
+      hi: "सामाजिक सरोकार और जनहित के आंदोलन में सक्रिय भागीदारी",
+    },
+    summary: {
+      en: "Detailed coverage of Rohit Pandey's efforts in strengthening grassroots organizations.",
+      hi: "जनहित के मुद्दों पर निरंतर सक्रियता और संगठनात्मक कार्यक्रमों का समाचार पत्रों में विस्तृत विवरण।",
+    },
+  },
+  {
+    id: "news-07",
+    src: "/images/news/n7.webp",
+    width: 2048,
+    height: 1489,
+    outlet: { en: "Rashtriya Sahara", hi: "राष्ट्रीय सहारा" },
+    location: { en: "Khalilabad", hi: "खलीलाबाद" },
+    title: {
+      en: "Comprehensive coverage of public events and leadership meetings",
+      hi: "सार्वजनिक कार्यक्रमों और संगठनात्मक बैठकों की विस्तृत रिपोर्ट",
+    },
+    summary: {
+      en: "Press reports detailing public gatherings and leadership interactions in the district.",
+      hi: "ज़िले में आयोजित जनसभाओं, बैठकों और कार्यकर्ताओं के साथ संवाद पर प्रमुख मीडिया कवरेज।",
+    },
+  },
+  {
+    id: "news-08",
+    src: "/images/news/n8.webp",
+    width: 1489,
+    height: 2048,
+    outlet: { en: "Press Coverage", hi: "प्रेस कवरेज" },
+    location: { en: "Sant Kabir Nagar", hi: "संतकबीर नगर" },
+    title: {
+      en: "Memorandums submitted for resolution of public grievances",
+      hi: "जनसमस्याओं के समाधान हेतु मांग पत्र एवं वार्ता",
+    },
+    summary: {
+      en: "Highlighting key local demands before authorities for development and relief.",
+      hi: "क्षेत्र की जनसमस्याओं के निस्तारण हेतु अधिकारियों को ज्ञापन सौंपने और वार्ता का विस्तृत समाचार।",
+    },
+  },
+];

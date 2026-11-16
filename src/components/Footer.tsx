@@ -48,8 +48,43 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         </div>
 
         <div className="border-t border-line">
-          <div className="shell flex flex-col gap-1 py-5 text-[0.8125rem] text-ink-soft sm:flex-row sm:items-center sm:justify-between">
+          <div className="shell flex flex-col items-center justify-between gap-4 py-5 text-[0.8125rem] text-ink-soft sm:flex-row">
             <span>© 2026 {t.person.name}</span>
+
+            <a
+              href="https://praibadvisors.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PRAIB Advisors LLP: Digital Experience Partner"
+              className="group inline-flex items-center gap-3.5 rounded-full border border-white/20 bg-black/30 py-1.5 pl-4 pr-2 backdrop-blur-xs transition-all duration-200 hover:border-white/40 hover:bg-black/50"
+            >
+              <span className="flex flex-col text-left leading-tight">
+                <span className="font-sans text-[10px] font-bold tracking-wider text-white/70 uppercase">
+                  Digital Experience Partner
+                </span>
+                <span className="font-heading text-sm font-bold tracking-wide text-white transition-colors group-hover:text-white">
+                  PRAIB Advisors LLP
+                </span>
+              </span>
+              <span
+                aria-hidden
+                className="grid size-7 place-items-center rounded-full border border-amber-300/60 text-amber-200 transition-transform duration-200 group-hover:scale-110 group-hover:border-amber-200 group-hover:text-white"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="size-3.5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </a>
+
             <span className="flex items-center gap-5">
               <SectionLink href={href(lang, "/privacy")} className="inline-flex min-h-11 items-center hover:text-ink">
                 {t.footer.privacy}

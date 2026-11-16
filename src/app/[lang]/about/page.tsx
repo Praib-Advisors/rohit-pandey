@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
 import ProfileIntro from "@/components/ProfileIntro";
+import BiographySection from "@/components/BiographySection";
 import ContactStrip from "@/components/ContactStrip";
 import JourneySection from "@/components/JourneySection";
 import JsonLd from "@/components/JsonLd";
@@ -24,7 +26,20 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
         titleSize="xl"
         intro={`${t.person.role}, ${t.person.placeLong}`}
         tone="gradient"
+        media={
+          <div className="relative aspect-[3/2] w-full max-w-[37rem]">
+            <Image
+              src="/images/image.jpg"
+              alt={lang === "hi" ? "रोहित पाण्डेय स्थानीय लोगों के साथ" : "Rohit Pandey walking with local residents"}
+              fill
+              sizes="(min-width: 768px) 38vw, 100vw"
+              preload
+              className="object-contain"
+            />
+          </div>
+        }
       />
+      <BiographySection t={t} lang={lang} />
       <ProfileIntro t={t} />
       <JourneySection t={t} />
       <ContactStrip lang={lang} t={t} />

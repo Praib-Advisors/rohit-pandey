@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FeaturedVideo from "@/components/FeaturedVideo";
 import MediaGallery, { type GalleryItem } from "@/components/MediaGallery";
+import PressSection from "@/components/PressSection";
 import { galleryLabels, toGalleryItems } from "@/components/galleryItems";
 import PageHeader from "@/components/PageHeader";
 import { getVideoItems } from "@/components/VideoSection";
 import YouTubePlayer from "@/components/YouTubePlayer";
-import { fullGallery, images, updates } from "@/lib/content";
+import { fullGallery, images, pressClippings, updates } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
@@ -57,9 +59,45 @@ export default async function MediaPage({ params }: PageProps<"/[lang]/media">) 
       <PageHeader
         lang={lang}
         trail={[{ name: t.nav.media, path: "/media" }]}
-        title={t.meta.media.title}
+        title={m.label}
         intro={m.intro}
-        titleSize="md"
+        description={m.description}
+        titleSize="lg"
+        mediaSide="left"
+        media={
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm bg-tint shadow-[0_24px_60px_-32px_rgb(22_24_28/0.55)] ring-1 ring-black/5">
+            <Image
+              src="/images/rohit-pandey-media-meeting.png"
+              alt={m.heroAlt}
+              fill
+              priority
+              sizes="(min-width: 768px) 48vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        }
+        actions={
+          <nav aria-label={t.nav.media} className="flex flex-wrap gap-3">
+            <a
+              href="#photos"
+              className="inline-flex min-h-14 items-center border border-ink px-6 py-3 font-display text-base text-ink transition-colors hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              {m.title}
+            </a>
+            <a
+              href="#press"
+              className="inline-flex min-h-14 items-center border border-ink px-6 py-3 font-display text-base text-ink transition-colors hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              {m.newsTitle}
+            </a>
+            <a
+              href="#videos"
+              className="inline-flex min-h-14 items-center border border-ink px-6 py-3 font-display text-base text-ink transition-colors hover:bg-ink hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              {m.videosTitle}
+            </a>
+          </nav>
+        }
       />
 
       <section id="photos" aria-labelledby="photos-title" className="shell scroll-mt-28 py-16 md:py-24">
@@ -68,6 +106,25 @@ export default async function MediaPage({ params }: PageProps<"/[lang]/media">) 
         </h2>
         <div className="mt-10">
           <MediaGallery items={photos} labels={galleryLabels(t)} />
+        </div>
+      </section>
+
+      <section id="press" aria-labelledby="press-title" className="scroll-mt-28 border-t border-line/60 bg-tint/30 py-16 md:py-24">
+        <div className="shell">
+          <PressSection
+            items={pressClippings}
+            lang={lang}
+            labels={{
+              title: m.newsTitle,
+              subtitle: m.newsSubtitle,
+              viewClipping: m.viewClipping,
+              close: m.close,
+              prev: m.prev,
+              next: m.next,
+              of: m.of,
+              dialog: m.dialog,
+            }}
+          />
         </div>
       </section>
 

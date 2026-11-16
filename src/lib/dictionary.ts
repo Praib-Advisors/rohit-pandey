@@ -7,6 +7,23 @@ import type { Locale } from "./i18n";
  */
 
 const en = {
+  biography: {
+    eyebrow: "",
+    title: "",
+    name: "Rohit Pandey",
+    portraitAlt: "Rohit Pandey in a black pinstriped jacket, standing with arms folded",
+    facts: [
+      { k: "Date of birth", v: "20 April 1980" },
+      { k: "Father", v: "Late Rishikesh Pandey" },
+      { k: "Education", v: "B.A. in Economics" },
+      { k: "Legal education", v: "LL.B., University of Delhi" },
+    ],
+    paragraphs: [
+      "Rohit Pandey is an advocate associated with the legal profession and the founder and representative of Rohit Pandey & Associates. With an academic background in Economics and legal education from the University of Delhi, his journey reflects an association with legal studies, professional practice and public engagement.",
+      "His professional journey includes work at the Delhi High Court and legal forums such as the National Company Law Tribunal (NCLT) and the National Company Law Appellate Tribunal (NCLAT). His personal background, educational foundation and professional experiences form important chapters of his journey.",
+      "His family background and connection with his native places, Baniyabani and Chakdahi, form an important part of his personal identity. His father, Late Rishikesh Pandey, holds an important place in his family history, while his family roots remain a meaningful part of his journey.",
+    ],
+  },
   person: {
     name: "Rohit Pandey",
     first: "Rohit",
@@ -69,6 +86,7 @@ const en = {
     khalilabad: "Khalilabad",
     media: "Media",
     mediaPhotos: "Photographs",
+    mediaNews: "News",
     mediaVideos: "Videos",
     ideals: "Our Ideals",
     eCard: "Greetings",
@@ -146,6 +164,18 @@ const en = {
       },
     ],
     photoAlt: "Rohit Pandey speaking at a podium",
+  },
+  engagement: {
+    title: "A Confluence of Thoughts, Honouring Relationships",
+    description:
+      "Every meeting brings a new experience and every conversation opens a new perspective. Discussions with senior political leadership, active participation with party colleagues and warm interactions with diverse sections of society form vital glimpses of Rohit Pandey's public life.",
+    cta: "Media Gallery",
+    photos: {
+      leadership: "With party leadership",
+      colleagues: "With party colleagues",
+      community: "With village residents",
+      organisation: "Organisational meeting",
+    },
   },
   journey: {
     label: "Political journey",
@@ -258,9 +288,15 @@ const en = {
   media: {
     label: "Media",
     title: "Photographs",
-    intro: "Photographs and videos from meetings, visits and campaign events.",
+    intro: "Official photographs, videos and moments from Rohit Pandey's public life.",
+    description: "From public meetings and field visits to community events, browse moments captured along the way.",
+    heroAlt: "Rohit Pandey with colleagues at an office meeting",
     videosTitle: "Videos",
     fieldVideos: "From the field",
+    newsTitle: "News",
+    newsEyebrow: "Media",
+    newsSubtitle: "Reports and news coverage.",
+    viewClipping: "View news",
     viewAll: "View all photographs",
     open: "Open image",
     close: "Close",
@@ -276,6 +312,26 @@ const en = {
       "shivpal-singh-yadav-lucknow": {
         alt: "Rohit Pandey with Shri Shivpal Singh Yadav in Lucknow",
         caption: "With Shri Shivpal Singh Yadav, National General Secretary of the Samajwadi Party, in Lucknow.",
+      },
+      "akhilesh-yadav-netaji-statue": {
+        alt: "Rohit Pandey with Samajwadi Party national president Akhilesh Yadav",
+        caption: "With Samajwadi Party national president Akhilesh Yadav.",
+      },
+      "party-colleagues-gathering": {
+        alt: "Rohit Pandey with party colleagues and supporters",
+        caption: "With party colleagues and supporters in the assembly area.",
+      },
+      "akhilesh-yadav-book-presentation": {
+        alt: "Rohit Pandey with Samajwadi Party national president Akhilesh Yadav and senior party leadership",
+        caption: "With Samajwadi Party national president Akhilesh Yadav and senior leadership.",
+      },
+      "akhilesh-shivpal-bouquet": {
+        alt: "Rohit Pandey presenting a bouquet to Samajwadi Party national president Akhilesh Yadav in the presence of Shri Shivpal Singh Yadav",
+        caption: "Presenting a bouquet to Samajwadi Party national president Akhilesh Yadav with Shri Shivpal Singh Yadav.",
+      },
+      "village-supporters": {
+        alt: "Rohit Pandey with supporters and village residents in the constituency",
+        caption: "Meeting residents and colleagues in the constituency.",
       },
     },
   },
@@ -437,6 +493,23 @@ const en = {
 export type Dict = typeof en;
 
 const hi: Dict = {
+  biography: {
+    eyebrow: "",
+    title: "",
+    name: "रोहित पाण्डेय",
+    portraitAlt: "काली धारीदार जैकेट में बाहें बाँधे खड़े रोहित पाण्डेय",
+    facts: [
+      { k: "जन्म तिथि", v: "20 अप्रैल 1980" },
+      { k: "पिता", v: "स्वर्गीय ऋषिकेश पाण्डेय" },
+      { k: "शिक्षा", v: "अर्थशास्त्र में बी.ए." },
+      { k: "विधि शिक्षा", v: "एल.एल.बी., दिल्ली विश्वविद्यालय" },
+    ],
+    paragraphs: [
+      "रोहित पाण्डेय विधि पेशे से जुड़े अधिवक्ता और रोहित पाण्डेय एंड एसोसिएट्स के संस्थापक एवं प्रतिनिधि हैं। अर्थशास्त्र की शैक्षिक पृष्ठभूमि और दिल्ली विश्वविद्यालय से विधि शिक्षा के साथ उनकी यात्रा विधि अध्ययन, पेशेवर कार्य और जनसंपर्क से जुड़ी रही है।",
+      "उनके पेशेवर परिचय में दिल्ली उच्च न्यायालय और राष्ट्रीय कंपनी विधि अधिकरण (NCLT) तथा राष्ट्रीय कंपनी विधि अपीलीय अधिकरण (NCLAT) जैसे विधिक मंचों पर कार्य किया है है। उनका व्यक्तिगत परिचय, शैक्षिक आधार और पेशेवर अनुभव उनकी यात्रा के महत्वपूर्ण अध्याय हैं।",
+      "उनकी पारिवारिक पृष्ठभूमि और पैतृक स्थान बनियाबनी तथा चकदही से उनका जुड़ाव निजी पहचान का अहम हिस्सा है। उनके पिता, स्वर्गीय ऋषिकेश पाण्डेय, परिवार के इतिहास में विशेष स्थान रखते हैं; परिवार की जड़ें उनकी यात्रा का महत्वपूर्ण हिस्सा हैं।",
+    ],
+  },
   person: {
     name: "रोहित पाण्डेय",
     first: "रोहित",
@@ -498,6 +571,7 @@ const hi: Dict = {
     khalilabad: "खलीलाबाद",
     media: "मीडिया",
     mediaPhotos: "तस्वीरें",
+    mediaNews: "समाचार",
     mediaVideos: "वीडियो",
     ideals: "हमारे आदर्श",
     eCard: "शुभकामनाएँ",
@@ -575,6 +649,18 @@ const hi: Dict = {
       },
     ],
     photoAlt: "मंच पर बोलते रोहित पाण्डेय",
+  },
+  engagement: {
+    title: "विचारों का संगम, रिश्तों का सम्मान",
+    description:
+      "हर मुलाकात एक नया अनुभव और हर संवाद एक नया दृष्टिकोण लेकर आता है। वरिष्ठ राजनीतिक नेतृत्व के साथ विचार-विमर्श, संगठन के साथियों के साथ सहभागिता और समाज के विभिन्न वर्गों से आत्मीय मुलाकातें रोहित पाण्डेय के सार्वजनिक जीवन की महत्वपूर्ण झलकियाँ प्रस्तुत करती हैं।",
+    cta: "मीडिया व तस्वीरें देखें",
+    photos: {
+      leadership: "शीर्ष नेतृत्व के साथ",
+      colleagues: "पार्टी सहयोगियों के साथ",
+      community: "ग्रामीण जनसंवाद",
+      organisation: "संगठनात्मक बैठक",
+    },
   },
   journey: {
     label: "राजनीतिक यात्रा",
@@ -687,9 +773,15 @@ const hi: Dict = {
   media: {
     label: "मीडिया",
     title: "तस्वीरें",
-    intro: "बैठकों, दौरों और अभियान कार्यक्रमों की तस्वीरें और वीडियो।",
+    intro: "रोहित पाण्डेय के जनजीवन के आधिकारिक चित्र, वीडियो और यादगार पल।",
+    description: "बैठकों और क्षेत्रीय दौरों से लेकर सामुदायिक कार्यक्रमों तक, जनसेवा के सफ़र के कुछ पल देखें।",
+    heroAlt: "कार्यालय में साथियों के साथ बैठक करते रोहित पाण्डेय",
     videosTitle: "वीडियो",
     fieldVideos: "मैदान से",
+    newsTitle: "समाचार",
+    newsEyebrow: "मीडिया",
+    newsSubtitle: "प्रमुख समाचार पत्रों में प्रकाशित ताज़ा ख़बरें और रिपोर्टें।",
+    viewClipping: "पूरी ख़बर देखें",
     viewAll: "सभी तस्वीरें देखें",
     open: "तस्वीर खोलें",
     close: "बंद करें",
@@ -705,6 +797,26 @@ const hi: Dict = {
       "shivpal-singh-yadav-lucknow": {
         alt: "लखनऊ में श्री शिवपाल सिंह यादव जी के साथ रोहित पाण्डेय",
         caption: "लखनऊ में समाजवादी पार्टी के राष्ट्रीय महासचिव श्री शिवपाल सिंह यादव जी के साथ।",
+      },
+      "akhilesh-yadav-netaji-statue": {
+        alt: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव के साथ रोहित पाण्डेय",
+        caption: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव के साथ।",
+      },
+      "party-colleagues-gathering": {
+        alt: "पार्टी सहयोगियों और समर्थकों के साथ रोहित पाण्डेय",
+        caption: "विधानसभा क्षेत्र में पार्टी सहयोगियों और समर्थकों के साथ।",
+      },
+      "akhilesh-yadav-book-presentation": {
+        alt: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव और वरिष्ठ नेतृत्व के साथ रोहित पाण्डेय",
+        caption: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव और वरिष्ठ नेतृत्व के साथ।",
+      },
+      "akhilesh-shivpal-bouquet": {
+        alt: "श्री शिवपाल सिंह यादव जी की उपस्थिति में समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव को पुष्पगुच्छ भेंट करते रोहित पाण्डेय",
+        caption: "श्री शिवपाल सिंह यादव जी की उपस्थिति में राष्ट्रीय अध्यक्ष अखिलेश यादव जी को पुष्पगुच्छ भेंट करते हुए।",
+      },
+      "village-supporters": {
+        alt: "विधानसभा क्षेत्र में साथियों और ग्रामीणों के साथ रोहित पाण्डेय",
+        caption: "विधानसभा क्षेत्र में साथियों और क्षेत्रवासियों से मुलाकात।",
       },
     },
   },

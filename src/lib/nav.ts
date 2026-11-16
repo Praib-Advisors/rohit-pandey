@@ -41,6 +41,7 @@ export function navSubs(key: string, t: Dict["nav"]): { path: string; label: str
   if (key === "media") {
     return [
       { path: "/media#photos", label: t.mediaPhotos },
+      { path: "/media#press", label: t.mediaNews },
       { path: "/media#videos", label: t.mediaVideos },
     ];
   }

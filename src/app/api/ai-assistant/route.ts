@@ -1,4 +1,4 @@
-import { getSystemInstruction } from "@/lib/assistant/knowledge";
+import { getSystemInstruction, getWebsiteFallback } from "@/lib/assistant/knowledge";
 import { getProvider, UpstreamError } from "@/lib/assistant/providers";
 import {
   ASSISTANT_LIMITS,
@@ -81,12 +81,6 @@ function sameOrigin(request: Request): boolean {
 export async function POST(request: Request) {
   if (!sameOrigin(request)) return fail("invalid_request", 403);
 
-  const provider = getProvider();
-  if (!provider) {
-    console.error("[ai-assistant] no provider key set (GEMINI_API_KEY or GROQ_API_KEY)");
-    return fail("not_configured", 503);
-  }
-
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   if (rateLimited(ip)) return fail("rate_limited", 429);
 
@@ -110,17 +104,41 @@ export async function POST(request: Request) {
   const turns = parseTurns(body.messages);
   if (!lang || !turns) return fail("invalid_request", 400);
 
+  const userQuestion = turns[turns.length - 1].content;
+  const provider = getProvider();
+  if (!provider) {
+    console.error("[ai-assistant] no provider key set (GEMINI_API_KEY or GROQ_API_KEY)");
+    const fallback = getWebsiteFallback(lang, userQuestion);
+    if (fallback) {
+      const ok: AssistantResponse = { ok: true, reply: fallback };
+      return Response.json(ok, { headers: { "Cache-Control": "no-store" } });
+    }
+    return fail("not_configured", 503);
+  }
+
   let reply: string;
   try {
-    reply = (await provider.complete(getSystemInstruction(lang, turns[turns.length - 1].content), turns)).trim();
+    reply = (await provider.complete(getSystemInstruction(lang, userQuestion), turns)).trim();
   } catch (err) {
     // Provider and status only: never the key, and never the provider's response body.
     console.error(`[ai-assistant] ${provider.name} call failed:`, err instanceof Error ? err.message : "unknown");
+    const fallback = getWebsiteFallback(lang, userQuestion);
+    if (fallback) {
+      const ok: AssistantResponse = { ok: true, reply: fallback };
+      return Response.json(ok, { headers: { "Cache-Control": "no-store" } });
+    }
     // The provider's own quota (for example a free-tier tokens-per-minute cap) is a "try again shortly", not a fault.
     if (err instanceof UpstreamError && err.status === 429) return fail("rate_limited", 429);
     return fail("upstream", 502);
   }
-  if (!reply) return fail("empty", 200);
+  if (!reply) {
+    const fallback = getWebsiteFallback(lang, userQuestion);
+    if (fallback) {
+      const ok: AssistantResponse = { ok: true, reply: fallback };
+      return Response.json(ok, { headers: { "Cache-Control": "no-store" } });
+    }
+    return fail("empty", 200);
+  }
 
   const ok: AssistantResponse = { ok: true, reply };
   return Response.json(ok, { headers: { "Cache-Control": "no-store" } });

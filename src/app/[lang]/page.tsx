@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Hero from "@/components/Hero";
 import HomeIntro from "@/components/HomeIntro";
+import EngagementSection from "@/components/EngagementSection";
 import JsonLd from "@/components/JsonLd";
-import NewsStrip from "@/components/NewsStrip";
 import OfficeSection from "@/components/OfficeSection";
 import ServicesStrip from "@/components/ServicesStrip";
 import SocialSection from "@/components/SocialSection";
@@ -35,10 +35,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <JsonLd data={[personJsonLd(lang), websiteJsonLd(lang)]} />
       <Hero lang={lang} t={t} />
       <HomeIntro lang={lang} t={t} />
+      <EngagementSection lang={lang} t={t} />
       {SHOW_SERVICES && <ServicesStrip lang={lang} t={t} />}
       <VisionSection lang={lang} t={t} />
       <VideoSection t={t} items={videos} />
-      <NewsStrip lang={lang} t={t} />
       <SocialSection lang={lang} t={t} />
       <OfficeSection lang={lang} t={t} />
     </>

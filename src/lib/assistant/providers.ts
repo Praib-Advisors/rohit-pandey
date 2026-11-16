@@ -107,9 +107,9 @@ export function getProvider(): Provider | null {
   if (!name) return null;
 
   if (name === "groq") {
-    const model = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
+    const model = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
     return { name, apiKey: groqKey!, model, complete: (s, t) => groq(groqKey!, model, s, t) };
   }
-  const model = process.env.GEMINI_MODEL || "gemini-3.5-flash";
+  const model = process.env.GEMINI_MODEL || "gemini-1.5-flash";
   return { name, apiKey: geminiKey!, model, complete: (s, t) => gemini(geminiKey!, model, s, t) };
 }

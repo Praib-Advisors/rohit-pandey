@@ -10,7 +10,7 @@ type Crumb = { name: string; path: string };
 /**
  * Inner-page introduction. Always a dark band (the fixed navbar is white on
  * transparent at the top), sized to its content. Pages vary the composition:
- * - `media`: a cutout portrait anchored to the bottom-right edge
+ * - `media`: a photograph or other visual beside the title
  * - `aside`: supporting facts or an index beside the title
  * - neither: a compact text-only band
  */
@@ -20,11 +20,12 @@ export default function PageHeader({
   meta,
   title,
   intro,
+  description,
+  actions,
   aside,
   media,
   mediaSide = "right",
   backdrop,
-  tone = "deep",
   titleSize = "lg",
 }: {
   lang: Locale;
@@ -33,13 +34,15 @@ export default function PageHeader({
   meta?: string;
   title: string;
   intro?: string;
+  description?: string;
+  actions?: React.ReactNode;
   aside?: React.ReactNode;
   media?: React.ReactNode;
   /** Which side the media sits on from md up. On phones it always follows the title. */
   mediaSide?: "left" | "right";
   /** A film that fills the whole header from md up (text sits on top of it). On phones it follows the text at its own 9:16 ratio. */
   backdrop?: React.ReactNode;
-  tone?: "deep" | "gradient";
+  tone?: "deep" | "gradient" | string;
   titleSize?: "xl" | "lg" | "md";
 }) {
   const t = getDictionary(lang);
@@ -94,11 +97,13 @@ export default function PageHeader({
             {meta && <p className="hero-line mt-4 font-display text-[1.125rem] italic text-ink-soft [--i:1]">{meta}</p>}
             <span aria-hidden className="rule-grow mt-7 block h-[3px] w-16 rounded-full bg-[linear-gradient(90deg,var(--white)_0_60%,var(--green)_60%_100%)]" />
             {intro && <p className="hero-line lede mt-6 max-w-2xl [--i:2]">{intro}</p>}
+            {description && <p className="hero-line mt-4 max-w-xl text-base leading-relaxed text-ink-soft [--i:3]">{description}</p>}
+            {actions && <div className="hero-line mt-7 [--i:4]">{actions}</div>}
           </div>
           {media && mediaSide === "left" && (
             <div className="order-2 pb-12 md:order-1 md:col-span-6 md:pb-16 md:pt-14">{media}</div>
           )}
-          {media && mediaSide === "right" && <div className="-mt-4 flex justify-end self-end md:col-span-5 md:mt-0">{media}</div>}
+          {media && mediaSide === "right" && <div className="-mt-4 flex w-full justify-end self-stretch md:col-span-5 md:mt-0 md:self-end">{media}</div>}
           {!media && aside && <div className="pb-12 md:col-span-5 md:pb-16">{aside}</div>}
         </div>
       </div>

@@ -28,6 +28,13 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     applicationName: t.person.name,
     authors: [{ name: "Rohit Pandey" }],
     formatDetection: { telephone: false },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
   };
 }
 

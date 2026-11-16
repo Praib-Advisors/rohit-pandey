@@ -44,7 +44,7 @@ export default async function IdealsPage({ params }: PageProps<"/[lang]/ideals">
           </h2>
           {/* The order is fixed (see data/ideals.ts); the ideals are listed one under the other. */}
           <ol className="mx-auto mt-8 max-w-4xl divide-y divide-line border-y border-line">
-            {ideals.map((p) => (
+            {ideals.filter((p) => p.id !== "mulayam-singh-yadav").map((p) => (
               <li key={p.id} className="py-6 sm:py-8">
                 <Reveal>
                   <IdealTile person={p} />
