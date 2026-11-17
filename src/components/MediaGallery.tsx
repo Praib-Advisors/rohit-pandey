@@ -107,6 +107,7 @@ export default function MediaGallery({
       <ul className="grid grid-cols-1 items-start gap-x-5 gap-y-8 md:grid-cols-12 md:gap-y-6">{lead.map((item, i) => tile(item, i))}</ul>
 
       {rest.length > 0 && (
+        
         <>
           <ul className="mt-6 grid grid-cols-1 gap-x-5 gap-y-8 md:grid-cols-12">
             {rest.map((item, i) => tile(item, i + 3))}

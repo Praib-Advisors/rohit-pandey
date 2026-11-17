@@ -26,7 +26,20 @@ export type MediaId =
   | "party-colleagues-gathering"
   | "akhilesh-yadav-book-presentation"
   | "akhilesh-shivpal-bouquet"
-  | "village-supporters";
+  | "village-supporters"
+  | "mohanbara-rajbhar-welcome"
+  | "gallery-g1"
+  | "gallery-g2"
+  | "gallery-g3"
+  | "gallery-g4"
+  | "gallery-g5"
+  | "gallery-g6"
+  | "gallery-g7"
+  | "gallery-g8"
+  | "gallery-g9"
+  | "gallery-g10"
+  | "gallery-g11"
+  | "gallery-g12";
 
 /**
  * `focus` (object-position) lets a portrait-format photograph fill a
@@ -67,6 +80,22 @@ const media: Record<MediaId, MediaItem> = {
     id: "village-supporters",
     ...img("rohit-pandey-village-supporters", 1024, 684),
   },
+  "mohanbara-rajbhar-welcome": {
+    id: "mohanbara-rajbhar-welcome",
+    ...img("rohit-pandey-mohanbara-rajbhar-samaj-welcome", 1504, 1004),
+  },
+  "gallery-g1": { id: "gallery-g1", ...img("g1", 1358, 805) },
+  "gallery-g2": { id: "gallery-g2", ...img("g2", 1280, 854) },
+  "gallery-g3": { id: "gallery-g3", ...img("g3", 2048, 1368) },
+  "gallery-g4": { id: "gallery-g4", ...img("g4", 2048, 1368) },
+  "gallery-g5": { id: "gallery-g5", ...img("g5", 2048, 1368) },
+  "gallery-g6": { id: "gallery-g6", ...img("g6", 2048, 1368) },
+  "gallery-g7": { id: "gallery-g7", ...img("g7", 2048, 1368) },
+  "gallery-g8": { id: "gallery-g8", ...img("g8", 2048, 1368) },
+  "gallery-g9": { id: "gallery-g9", ...img("g9", 2048, 1368) },
+  "gallery-g10": { id: "gallery-g10", focus: "50% 25%", ...img("g10", 1086, 1448) },
+  "gallery-g11": { id: "gallery-g11", ...img("g11", 960, 720) },
+  "gallery-g12": { id: "gallery-g12", ...img("g12", 1280, 1013) },
 };
 
 /**
@@ -74,14 +103,27 @@ const media: Record<MediaId, MediaItem> = {
  * milestone photograph is deliberately not repeated here.
  */
 export const fullGallery: MediaItem[] = [
+  media["akhilesh-yadav-netaji-statue"],
   media["akhilesh-yadav-garland"],
   media["sp-office-group-01"],
   media["akhilesh-shivpal-bouquet"],
   media["party-colleagues-gathering"],
   media["village-supporters"],
-  media["akhilesh-yadav-netaji-statue"],
+  media["mohanbara-rajbhar-welcome"],
   media["akhilesh-yadav-book-presentation"],
   media["shivpal-singh-yadav-lucknow"],
+  media["gallery-g1"],
+  media["gallery-g2"],
+  media["gallery-g3"],
+  media["gallery-g4"],
+  media["gallery-g5"],
+  media["gallery-g6"],
+  media["gallery-g7"],
+  media["gallery-g8"],
+  media["gallery-g9"],
+  media["gallery-g10"],
+  media["gallery-g11"],
+  media["gallery-g12"],
 ];
 
 /** Journey milestones that carry a photograph. */
