@@ -289,12 +289,6 @@ export default async function KhalilabadArmyPage({
                   &ldquo;{army.vision.description}&rdquo;
                 </p>
               </div>
-
-              <p className="mt-5 text-sm text-ink-soft">
-                {lang === "hi"
-                  ? "यह दृष्टिकोण खलीलाबाद के नागरिकों के अधिकारों, बुनियादी सुविधाओं और समावेशी विकास के प्रति संवेदनशील सोच को रेखांकित करता है।"
-                  : "This proposed vision reflects a commitment toward inclusive development, public rights, and essential civic amenities for Khalilabad."}
-              </p>
             </div>
 
             {/* Image Column (Right) */}
