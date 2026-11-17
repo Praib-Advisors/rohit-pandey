@@ -222,16 +222,9 @@ export default async function KhalilabadArmyPage({
 
             {/* Content Column */}
             <div className="lg:col-span-6" data-reveal="right">
-              <div className="flex items-center gap-2">
-                <span className="h-px w-6 bg-red-dk" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-red-dk">
-                  {army.about.eyebrow}
-                </span>
-              </div>
-
               <h2
                 id="about-army-heading"
-                className="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+                className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
               >
                 {army.about.heading}
               </h2>
@@ -284,16 +277,9 @@ export default async function KhalilabadArmyPage({
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Text Column (Left) */}
             <div className="order-2 lg:order-1 lg:col-span-7" data-reveal="left">
-              <div className="flex items-center gap-2">
-                <span className="h-px w-6 bg-red-dk" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-red-dk">
-                  {army.vision.eyebrow}
-                </span>
-              </div>
-
               <h2
                 id="vision-army-heading"
-                className="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+                className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
               >
                 {army.vision.heading}
               </h2>
@@ -349,22 +335,14 @@ export default async function KhalilabadArmyPage({
         <div className="shell">
           {/* Section Header */}
           <div className="mx-auto max-w-2xl text-center" data-reveal="fade">
-            <div className="inline-flex items-center justify-center gap-2">
-              <span className="h-px w-6 bg-red-dk" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-red-dk">
-                {army.priorities.eyebrow}
-              </span>
-              <span className="h-px w-6 bg-red-dk" />
-            </div>
-
             <h2
               id="priorities-army-heading"
-              className="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+              className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
             >
               {army.priorities.heading}
             </h2>
 
-            <p className="mt-4 text-base text-ink-soft sm:text-lg">
+            <p className="mt-4 text-base text-ink-soft sm:text-lg sm:translate-x-6 md:translate-x-8">
               {army.priorities.intro}
             </p>
           </div>
@@ -420,17 +398,9 @@ export default async function KhalilabadArmyPage({
         <div className="shell">
           {/* Section Header */}
           <div className="mx-auto max-w-2xl text-center" data-reveal="fade">
-            <div className="inline-flex items-center justify-center gap-2">
-              <span className="h-px w-6 bg-red-dk" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-red-dk">
-                {army.activities.eyebrow}
-              </span>
-              <span className="h-px w-6 bg-red-dk" />
-            </div>
-
             <h2
               id="activities-army-heading"
-              className="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+              className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
             >
               {army.activities.heading}
             </h2>
