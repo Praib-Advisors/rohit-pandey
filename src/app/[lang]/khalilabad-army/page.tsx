@@ -324,11 +324,11 @@ export default async function KhalilabadArmyPage({
               <div className="group relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-line/60 bg-white/70 p-2 shadow-soft backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-raised sm:rounded-3xl sm:p-2.5 lg:max-w-[380px]">
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-tint sm:rounded-2xl">
                   <Image
-                    src="/images/rohit-pandey-blue-vest-portrait.jpg"
+                    src="/images/rohit-pandey-blue-sadri-folded-arms.jpg"
                     alt={t.person.name}
                     fill
                     sizes="(min-width: 1024px) 380px, (min-width: 640px) 360px, 100vw"
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover object-top sm:object-center transition-transform duration-700 ease-out group-hover:scale-105"
                     priority
                   />
                 </div>
