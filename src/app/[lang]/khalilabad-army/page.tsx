@@ -349,15 +349,15 @@ export default async function KhalilabadArmyPage({
             </p>
           </div>
 
-          {/* Four Priority Cards */}
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Four Priority Cards (2 cards per line) */}
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-7">
             {army.priorities.items.map((item, idx) => {
               const Icon = priorityIcons[item.id] ?? GraduationCapIcon;
               const bgImage = priorityImages[item.id];
               return (
                 <article
                   key={item.id}
-                  className="group relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-2xl border border-line bg-ink p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-red-dk/60 hover:shadow-raised sm:min-h-[410px] sm:p-7"
+                  className="group relative flex aspect-[16/11] min-h-[300px] flex-col justify-end overflow-hidden rounded-2xl border border-line/30 bg-ink p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-raised sm:min-h-[350px] sm:rounded-3xl sm:p-8"
                   data-reveal="zoom"
                   style={{ "--reveal-i": idx } as React.CSSProperties}
                 >
@@ -367,35 +367,25 @@ export default async function KhalilabadArmyPage({
                       src={bgImage}
                       alt={item.title}
                       fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      sizes="(min-width: 640px) 50vw, 100vw"
                       className="pointer-events-none object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   )}
 
                   {/* Dark Gradient Overlay for Readability */}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/25 transition-opacity duration-300 group-hover:from-black group-hover:via-black/70" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent transition-opacity duration-300 group-hover:from-black/95 group-hover:via-black/55" />
 
-                  {/* Card Content */}
-                  <div className="relative z-10 flex flex-col justify-end">
-                    {/* Icon container */}
-                    <div className="mb-3.5 flex size-11 items-center justify-center rounded-xl border border-white/20 bg-black/45 text-white backdrop-blur-md transition-all duration-300 group-hover:border-red-dk group-hover:bg-red-dk">
-                      <Icon className="size-5.5" />
-                    </div>
+                  {/* Card Content at bottom-left */}
+                  <div className="relative z-10">
+                    <Icon className="mb-2 size-6 text-white stroke-[1.8] drop-shadow" />
 
-                    <span className="block text-xs font-semibold uppercase tracking-wider text-white/75">
-                      {item.titleHi}
-                    </span>
-
-                    <h3 className="mt-1 font-heading text-xl font-bold tracking-tight text-white sm:text-2xl">
+                    <h3 className="font-heading text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl">
                       {item.title}
                     </h3>
 
-                    <p className="mt-2.5 text-xs leading-relaxed text-white/85 sm:text-sm">
+                    <p className="mt-2 max-w-xl text-xs leading-relaxed text-white/85 drop-shadow sm:text-sm">
                       {item.desc}
                     </p>
-
-                    {/* Card bottom accent rule */}
-                    <div className="mt-5 h-0.5 w-10 bg-white/30 transition-all duration-300 group-hover:w-full group-hover:bg-red-dk" />
                   </div>
                 </article>
               );
