@@ -3,17 +3,95 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactStrip from "@/components/ContactStrip";
 import Wave from "@/components/Wave";
-import {
-  ArrowDown,
-  ArrowRight,
-  Building2Icon,
-  GraduationCapIcon,
-  HeartPulseIcon,
-  Users2Icon,
-} from "@/components/icons";
 import { href } from "@/lib/i18n";
 import { resolveLang } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
+
+type IconProps = { className?: string };
+
+function Stroke({
+  className,
+  children,
+  width = 2,
+}: IconProps & { children: React.ReactNode; width?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={width}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {children}
+    </svg>
+  );
+}
+
+function ArrowDownIcon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M12 5v14M6 13l6 6 6-6" />
+    </Stroke>
+  );
+}
+
+function ArrowRightIcon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </Stroke>
+  );
+}
+
+function GraduationCapIcon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+    </Stroke>
+  );
+}
+
+function HeartPulseIcon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      <path d="M3.22 12H9.5l1.5-3 2 6.5 1.5-3.5h5.28" />
+    </Stroke>
+  );
+}
+
+function Building2Icon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
+      <path d="M6 12H4a2 2 0 0 0-2 2v8h4" />
+      <path d="M18 9h2a2 2 0 0 1 2 2v11h-4" />
+      <path d="M10 6h4M10 10h4M10 14h4M10 18h4" />
+    </Stroke>
+  );
+}
+
+function Users2Icon({ className }: IconProps) {
+  return (
+    <Stroke className={className}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </Stroke>
+  );
+}
+
+const priorityIcons: Record<string, (p: IconProps) => React.JSX.Element> = {
+  education: GraduationCapIcon,
+  healthcare: HeartPulseIcon,
+  development: Building2Icon,
+  welfare: Users2Icon,
+};
 
 export async function generateMetadata({
   params,
@@ -36,13 +114,6 @@ export default async function KhalilabadArmyPage({
 }) {
   const { lang, t } = await resolveLang(params);
   const army = t.khalilabadArmy;
-
-  const priorityIcons = {
-    education: GraduationCapIcon,
-    healthcare: HeartPulseIcon,
-    development: Building2Icon,
-    welfare: Users2Icon,
-  };
 
   return (
     <div className="relative overflow-hidden">
@@ -105,7 +176,7 @@ export default async function KhalilabadArmyPage({
               className="inline-flex items-center gap-2.5 rounded-md bg-red-dk px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <span>{army.hero.cta}</span>
-              <ArrowDown className="size-4" />
+              <ArrowDownIcon className="size-4" />
             </a>
           </div>
         </div>
@@ -297,7 +368,7 @@ export default async function KhalilabadArmyPage({
           {/* Four Priority Cards */}
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {army.priorities.items.map((item, idx) => {
-              const Icon = priorityIcons[item.id as keyof typeof priorityIcons] ?? GraduationCapIcon;
+              const Icon = priorityIcons[item.id] ?? GraduationCapIcon;
               return (
                 <article
                   key={item.id}
@@ -307,8 +378,8 @@ export default async function KhalilabadArmyPage({
                 >
                   <div>
                     {/* Icon container */}
-                    <div className="flex size-13 items-center justify-center rounded-lg bg-red-tint text-red-dk transition-colors duration-300 group-hover:bg-red-dk group-hover:text-white">
-                      <Icon className="size-6.5" />
+                    <div className="flex size-12 items-center justify-center rounded-lg bg-red-tint text-red-dk transition-colors duration-300 group-hover:bg-red-dk group-hover:text-white">
+                      <Icon className="size-6" />
                     </div>
 
                     <span className="mt-4 block text-xs font-medium text-ink-soft">
@@ -407,7 +478,7 @@ export default async function KhalilabadArmyPage({
               className="inline-flex items-center gap-2 rounded-md bg-green-dk px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-dk"
             >
               <span>{army.activities.cta}</span>
-              <ArrowRight className="size-4" />
+              <ArrowRightIcon className="size-4" />
             </Link>
           </div>
         </div>
