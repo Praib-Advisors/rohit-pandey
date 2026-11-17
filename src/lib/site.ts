@@ -72,7 +72,7 @@ export const office = {
   /** Digits only with country code, for tel: and wa.me links, e.g. 919876543210 */
   phone: (process.env.NEXT_PUBLIC_OFFICE_PHONE ?? "").replace(/\D/g, ""),
   whatsapp: (process.env.NEXT_PUBLIC_OFFICE_WHATSAPP ?? "").replace(/\D/g, ""),
-  email: process.env.NEXT_PUBLIC_OFFICE_EMAIL ?? "",
+  email: process.env.NEXT_PUBLIC_OFFICE_EMAIL ?? "congress.rohit@gmail.com",
   /** Optional WhatsApp channel or group invite for the "Join the campaign" call to action */
   joinUrl: process.env.NEXT_PUBLIC_JOIN_URL ?? "",
   mapQuery: "Chiutna Chauraha, Khalilabad, Sant Kabir Nagar, Uttar Pradesh",

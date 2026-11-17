@@ -1,9 +1,8 @@
 import { validateContact, type ContactInput } from "@/lib/contact";
+import { sendSmtpMail } from "@/lib/email";
 
 /**
- * Contact endpoint. Messages are forwarded to CONTACT_WEBHOOK_URL (e.g. a
- * form service, Slack/Teams webhook or the office's CRM). Without it, the
- * production site reports a failure instead of silently dropping messages.
+ * Contact endpoint. Messages are sent via SMTP to the office email (or forwarded to CONTACT_WEBHOOK_URL).
  */
 export async function POST(request: Request) {
   let body: Partial<ContactInput>;
@@ -31,7 +30,6 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "validation", fields: Object.keys(errors) }, { status: 422 });
   }
 
-  const webhook = process.env.CONTACT_WEBHOOK_URL;
   const payload = {
     name: input.name.trim(),
     phone: input.phone.trim(),
@@ -41,24 +39,91 @@ export async function POST(request: Request) {
     receivedAt: new Date().toISOString(),
   };
 
-  if (!webhook) {
-    if (process.env.NODE_ENV !== "production") {
-      console.info("[contact] CONTACT_WEBHOOK_URL not set, message logged in development only:", payload);
-      return Response.json({ ok: true, dev: true });
+  let delivered = false;
+
+  // 1. Send via SMTP email if configured
+  const smtpUser = process.env.SMTP_USER || "congress.rohit@gmail.com";
+  const smtpPass = process.env.SMTP_PASS;
+  const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "congress.rohit@gmail.com";
+
+  if (smtpPass) {
+    try {
+      const html = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+          <h2 style="color: #991b1b; border-bottom: 2px solid #991b1b; padding-bottom: 8px; margin-top: 0;">वेबसाइट से नया संदेश</h2>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 16px;">
+            <tr>
+              <td style="padding: 8px 0; color: #555; width: 120px;"><strong>नाम:</strong></td>
+              <td style="padding: 8px 0; color: #111;">${payload.name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #555;"><strong>फ़ोन:</strong></td>
+              <td style="padding: 8px 0; color: #111;">${payload.phone || "उपलब्ध नहीं"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #555;"><strong>ईमेल:</strong></td>
+              <td style="padding: 8px 0; color: #111;">${payload.email || "उपलब्ध नहीं"}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #555;"><strong>विषय:</strong></td>
+              <td style="padding: 8px 0; color: #111;">${payload.topic}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #555; vertical-align: top;"><strong>संदेश:</strong></td>
+              <td style="padding: 8px 0; color: #111; white-space: pre-wrap; line-height: 1.5;">${payload.message}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #777; font-size: 12px;"><strong>समय:</strong></td>
+              <td style="padding: 8px 0; color: #777; font-size: 12px;">${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</td>
+            </tr>
+          </table>
+        </div>
+      `;
+
+      await sendSmtpMail({
+        host: process.env.SMTP_HOST || "smtp.gmail.com",
+        port: Number(process.env.SMTP_PORT || 465),
+        user: smtpUser,
+        pass: smtpPass,
+        to: recipientEmail,
+        replyTo: payload.email || undefined,
+        subject: `[वेबसाइट संदेश] ${payload.topic} - ${payload.name}`,
+        html,
+        text: `नाम: ${payload.name}\nफ़ोन: ${payload.phone}\nईमेल: ${payload.email}\nविषय: ${payload.topic}\n\nसंदेश:\n${payload.message}`,
+      });
+      delivered = true;
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : String(err);
+      console.error("[contact] SMTP delivery failed:", errMsg);
+      if (errMsg.includes("535") || errMsg.includes("BadCredentials")) {
+        console.warn("[contact] Gmail requires an App Password (16 characters) instead of account login password. See https://myaccount.google.com/apppasswords");
+      }
     }
-    return Response.json({ ok: false, error: "not_configured" }, { status: 503 });
   }
 
-  try {
-    const res = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) throw new Error(`webhook ${res.status}`);
-  } catch (err) {
-    console.error("[contact] delivery failed", err);
+  // 2. Send via Webhook if configured
+  const webhook = process.env.CONTACT_WEBHOOK_URL;
+  if (webhook) {
+    try {
+      const res = await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(8000),
+      });
+      if (res.ok) delivered = true;
+    } catch (err) {
+      console.error("[contact] Webhook delivery failed", err);
+    }
+  }
+
+  // In development, log and succeed even if not yet configured
+  if (!delivered && process.env.NODE_ENV !== "production") {
+    console.info("[contact] Development mode - message recorded:", payload);
+    return Response.json({ ok: true, dev: true });
+  }
+
+  if (!delivered) {
     return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
   }
 
