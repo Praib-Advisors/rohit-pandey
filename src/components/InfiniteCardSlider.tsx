@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 export type SliderItem = {
   title?: string;
@@ -18,12 +18,18 @@ type Props = {
   className?: string;
 };
 
-type Dimensions = {
-  cardWidth: number;
-  cardHeight: number;
-  spacing: number;
-  containerHeight: number;
-};
+function subscribeWindowWidth(onStoreChange: () => void) {
+  window.addEventListener("resize", onStoreChange);
+  return () => window.removeEventListener("resize", onStoreChange);
+}
+
+function getWindowWidthSnapshot() {
+  return window.innerWidth;
+}
+
+function getServerWindowWidthSnapshot() {
+  return 1200;
+}
 
 export default function InfiniteCardSlider({
   items,
@@ -38,6 +44,20 @@ export default function InfiniteCardSlider({
   const prevText = prevLabel ?? (lang === "en" ? "Previous" : "पिछला");
   const nextText = nextLabel ?? (lang === "en" ? "Next" : "अगला");
 
+  // Subscribe to window width using React recommended useSyncExternalStore
+  const windowWidth = useSyncExternalStore(
+    subscribeWindowWidth,
+    getWindowWidthSnapshot,
+    getServerWindowWidthSnapshot
+  );
+
+  const dimensions =
+    windowWidth < 640
+      ? { cardWidth: 220, cardHeight: 310, spacing: 155, containerHeight: 350 }
+      : windowWidth < 1024
+      ? { cardWidth: 270, cardHeight: 380, spacing: 200, containerHeight: 420 }
+      : { cardWidth: 320, cardHeight: 440, spacing: 255, containerHeight: 480 };
+
   // Continuous animation refs
   const currentProgressRef = useRef(0);
   const targetProgressRef = useRef(0);
@@ -50,49 +70,8 @@ export default function InfiniteCardSlider({
   const velocityRef = useRef(0);
   const animFrameRef = useRef<number | null>(null);
 
-  const [dimensions, setDimensions] = useState<Dimensions>({
-    cardWidth: 320,
-    cardHeight: 440,
-    spacing: 250,
-    containerHeight: 490,
-  });
-
   const [renderProgress, setRenderProgress] = useState(0);
   const [isGrabbing, setIsGrabbing] = useState(false);
-
-  // Responsive dimensions
-  const updateDimensions = useCallback(() => {
-    if (typeof window === "undefined") return;
-    const w = window.innerWidth;
-    if (w < 640) {
-      setDimensions({
-        cardWidth: 220,
-        cardHeight: 310,
-        spacing: 155,
-        containerHeight: 350,
-      });
-    } else if (w < 1024) {
-      setDimensions({
-        cardWidth: 270,
-        cardHeight: 380,
-        spacing: 200,
-        containerHeight: 420,
-      });
-    } else {
-      setDimensions({
-        cardWidth: 320,
-        cardHeight: 440,
-        spacing: 255,
-        containerHeight: 480,
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, [updateDimensions]);
 
   // Main 60fps lerp animation loop
   useEffect(() => {
@@ -269,7 +248,7 @@ export default function InfiniteCardSlider({
                 transform: `translate3d(calc(-50% + ${x}px), -50%, 0) scale(${scale})`,
                 zIndex,
                 opacity,
-                transition: isDraggingRef.current
+                transition: isGrabbing
                   ? "none"
                   : "box-shadow 0.3s ease, border-color 0.3s ease",
               }}

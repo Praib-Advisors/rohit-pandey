@@ -94,6 +94,13 @@ const priorityIcons: Record<string, (p: IconProps) => React.JSX.Element> = {
   welfare: Users2Icon,
 };
 
+const priorityImages: Record<string, string> = {
+  education: "/images/khalilabad-army/education.webp",
+  healthcare: "/images/khalilabad-army/healthcare.webp",
+  development: "/images/khalilabad-army/development.jpg",
+  welfare: "/images/khalilabad-army/welfare.webp",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -294,23 +301,16 @@ export default async function KhalilabadArmyPage({
 
             {/* Image Column (Right) */}
             <div className="order-1 lg:order-2 lg:col-span-5" data-reveal="right">
-              <div className="group relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-soft lg:max-w-[380px]">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-tint sm:aspect-[16/11]">
+              <div className="group relative mx-auto w-full max-w-[340px] overflow-hidden rounded-3xl border border-line/40 bg-sand-deep shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-raised sm:max-w-[360px] lg:max-w-[380px]">
+                <div className="relative aspect-[736/770] w-full overflow-hidden">
                   <Image
-                    src="/images/rohit-pandey-speaking-podium-hd.webp"
-                    alt={army.vision.imageAlt}
+                    src="/images/rohit-pandey-vision-portrait.jpg"
+                    alt={t.person.name}
                     fill
-                    sizes="(min-width: 1024px) 38vw, 100vw"
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 360px, 100vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    priority
                   />
-                </div>
-                <div className="p-2.5 text-center sm:text-left">
-                  <span className="text-xs font-semibold text-ink">
-                    {t.person.name}
-                  </span>
-                  <p className="text-xs text-ink-soft">
-                    {t.person.roleLine}
-                  </p>
                 </div>
               </div>
             </div>
@@ -342,38 +342,57 @@ export default async function KhalilabadArmyPage({
             </p>
           </div>
 
-          {/* Four Priority Cards */}
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Four Priority Cards with Full-Bleed Background Images */}
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
             {army.priorities.items.map((item, idx) => {
               const Icon = priorityIcons[item.id] ?? GraduationCapIcon;
+              const bgImage = priorityImages[item.id] ?? "/images/khalilabad-army/education.webp";
               return (
                 <article
                   key={item.id}
-                  className="group relative flex flex-col justify-between rounded-xl border border-line bg-white p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-red-dk/40 hover:shadow-raised"
+                  className="group relative flex min-h-[300px] sm:min-h-[340px] md:min-h-[380px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-line bg-ink p-6 sm:p-8 shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:border-red-dk/60"
                   data-reveal="zoom"
                   style={{ "--reveal-i": idx } as React.CSSProperties}
                 >
-                  <div>
-                    {/* Icon container */}
-                    <div className="flex size-12 items-center justify-center rounded-lg bg-red-tint text-red-dk transition-colors duration-300 group-hover:bg-red-dk group-hover:text-white">
-                      <Icon className="size-6" />
+                  {/* Background Image */}
+                  <Image
+                    src={bgImage}
+                    alt={item.title}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+
+                  {/* Dark Gradient Overlay for Contrast & Readability */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/60 to-black/35 transition-opacity duration-300 group-hover:from-black/95 group-hover:via-black/65"
+                    aria-hidden="true"
+                  />
+
+                  {/* Top Row: Icon & Language Tag */}
+                  <div className="relative z-10 flex items-start justify-between">
+                    <div className="flex size-11 items-center justify-center rounded-xl bg-white/15 text-white backdrop-blur-md border border-white/20 transition-all duration-300 group-hover:bg-red-dk group-hover:border-red-dk/50">
+                      <Icon className="size-5.5 stroke-[1.8]" />
                     </div>
 
-                    <span className="mt-4 block text-xs font-medium text-ink-soft">
+                    <span className="rounded-full bg-black/50 border border-white/20 px-3 py-1 text-xs font-medium text-white/95 backdrop-blur-md">
                       {item.titleHi}
                     </span>
+                  </div>
 
-                    <h3 className="mt-1 font-heading text-xl font-semibold text-ink sm:text-2xl">
+                  {/* Bottom Row: Heading & Description */}
+                  <div className="relative z-10 mt-16 sm:mt-20">
+                    <h3 className="font-heading text-2xl font-bold tracking-tight text-white sm:text-3xl drop-shadow-md">
                       {item.title}
                     </h3>
 
-                    <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                    <p className="mt-2.5 text-sm leading-relaxed text-white/85 sm:text-base drop-shadow">
                       {item.desc}
                     </p>
-                  </div>
 
-                  {/* Card bottom accent rule */}
-                  <div className="mt-6 h-0.5 w-8 bg-line transition-all duration-300 group-hover:w-full group-hover:bg-red-dk" />
+                    {/* Subtle bottom brand accent line */}
+                    <div className="mt-4 h-0.5 w-10 bg-white/40 transition-all duration-300 group-hover:w-full group-hover:bg-red-dk" />
+                  </div>
                 </article>
               );
             })}
