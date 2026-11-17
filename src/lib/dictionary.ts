@@ -104,8 +104,8 @@ const en = {
     label: "Content slot",
   },
   hero: {
-    line: "At work in Khalilabad, Assembly Constituency No. 313.",
-    intro: "Based in Khalilabad, the district headquarters of Sant Kabir Nagar.",
+    line: "Leader of Samajwadi Party",
+    intro: "",
     ctaProfile: "About Rohit Pandey",
     ctaContact: "Contact the Office",
     party: "Samajwadi Party",
@@ -608,8 +608,8 @@ const hi: Dict = {
     label: "सामग्री स्थान",
   },
   hero: {
-    line: "खलीलाबाद, विधानसभा क्षेत्र संख्या 313 में सक्रिय।",
-    intro: "संत कबीर नगर ज़िले के मुख्यालय खलीलाबाद में रहते हैं।",
+    line: "नेता, समाजवादी पार्टी",
+    intro: "",
     ctaProfile: "रोहित पाण्डेय के बारे में",
     ctaContact: "कार्यालय से संपर्क करें",
     party: "समाजवादी पार्टी",

@@ -34,25 +34,21 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
   const firstName = parts.join(" ");
 
   const details = (
-    <>
-      <span aria-hidden className="rule-grow block h-[3px] w-16 rounded-full bg-[linear-gradient(90deg,var(--red)_0_60%,var(--green)_60%_100%)]" />
-      <p className="hero-line text-left mt-6 max-w-[34rem] text-[1.0625rem] leading-relaxed text-ink-soft [--i:4] max-md:hidden">{hero.intro}</p>
-      <div className="hero-line mt-8 flex flex-col gap-3 [--i:5] max-md:mt-5 xs:flex-row xs:flex-wrap xs:items-center">
-        <Link
-          href={href(lang, "/about")}
-          className="btn group min-h-12 justify-center rounded-full bg-brand-red px-7 text-white shadow-[0_14px_30px_-14px_rgb(224_38_47/0.8)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-red-dk hover:shadow-[0_20px_40px_-16px_rgb(158_16_24/0.8)]"
-        >
-          {hero.ctaProfile}
-          <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-        </Link>
-        <Link
-          href={href(lang, "/contact")}
-          className="btn min-h-12 justify-center rounded-full border border-ink/20 bg-white/70 px-7 text-ink backdrop-blur transition-[transform,background-color,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-green-dk hover:bg-white hover:text-green-dk"
-        >
-          {hero.ctaContact}
-        </Link>
-      </div>
-    </>
+    <div className="hero-line flex flex-col gap-3 [--i:3] max-md:mt-5 xs:flex-row xs:flex-wrap xs:items-center">
+      <Link
+        href={href(lang, "/about")}
+        className="btn group min-h-12 justify-center rounded-full bg-brand-red px-7 text-white shadow-[0_14px_30px_-14px_rgb(224_38_47/0.8)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-red-dk hover:shadow-[0_20px_40px_-16px_rgb(158_16_24/0.8)]"
+      >
+        {hero.ctaProfile}
+        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </Link>
+      <Link
+        href={href(lang, "/contact")}
+        className="btn min-h-12 justify-center rounded-full border border-ink/20 bg-white/70 px-7 text-ink backdrop-blur transition-[transform,background-color,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-green-dk hover:bg-white hover:text-green-dk"
+      >
+        {hero.ctaContact}
+      </Link>
+    </div>
   );
 
   return (
@@ -97,12 +93,14 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
                 {person.role}
               </p>
 
-              <p className="hero-line text-left mt-4 text-[0.9375rem] leading-snug text-ink-soft [--i:2] sm:text-base xl:text-[1.0625rem]">{hero.line}</p>
+              <p className="hero-line text-left mt-1.5 font-display text-[clamp(1rem,3.8vw,1.375rem)] italic [--i:2] leading-snug text-ink-soft xl:mt-2 xl:text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] [&:lang(hi)]:not-italic [&:lang(hi)]:tracking-normal">
+                {hero.line}
+              </p>
             </div>
 
             {/* phones: the actions sit in the cream area above the portrait */}
-            <div className="mt-5 md:hidden">{details}</div>
-            <div className="mt-6 hidden xl:block">{details}</div>
+            <div className="mt-6 md:hidden">{details}</div>
+            <div className="mt-8 hidden xl:block">{details}</div>
           </div>
         </div>
       </div>
