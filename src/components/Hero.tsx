@@ -89,11 +89,11 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
                 <span className="text-brand-red">{lastName}</span>
               </h1>
 
-              <p className="hero-line text-left mt-3 font-display text-[clamp(1rem,3.8vw,1.375rem)] italic [--i:1] leading-snug text-ink-soft xl:mt-4 xl:text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] [&:lang(hi)]:not-italic [&:lang(hi)]:tracking-normal">
+              <p className="hero-line text-left mt-3 font-sans text-[clamp(1rem,3vw,1.25rem)] font-normal leading-snug text-ink-soft xl:mt-4 xl:text-[1.375rem]">
                 {person.role}
               </p>
 
-              <p className="hero-line text-left mt-1.5 font-display text-[clamp(1rem,3.8vw,1.375rem)] italic [--i:2] leading-snug text-ink-soft xl:mt-2 xl:text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] [&:lang(hi)]:not-italic [&:lang(hi)]:tracking-normal">
+              <p className="hero-line text-left mt-2 font-sans text-[clamp(1rem,3vw,1.25rem)] font-medium leading-snug text-ink-soft xl:mt-2.5 xl:text-[1.375rem]">
                 {hero.line}
               </p>
             </div>
