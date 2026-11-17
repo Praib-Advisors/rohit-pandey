@@ -31,7 +31,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
           <nav aria-label={t.footer.navigate} className="md:col-span-4">
             <p className="eyebrow border-b border-line pb-3">{t.footer.navigate}</p>
             <ul className="mt-3 grid grid-cols-2 gap-x-6 text-[0.9375rem]">
-              {[...navItems, { key: "khalilabad", path: "/khalilabad-army" } as const].map((item) => (
+              {navItems.map((item) => (
                 <li key={item.key}>
                   <SectionLink href={href(lang, item.path)} className="inline-flex min-h-11 items-center text-ink-soft transition-colors hover:text-ink">
                     {t.nav[item.key]}

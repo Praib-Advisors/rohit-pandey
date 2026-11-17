@@ -130,22 +130,37 @@ export default async function KhalilabadArmyPage({
       {/* ------------------------------------------------------------ */}
       <section
         aria-label={army.hero.title}
-        className="relative flex min-h-[72vh] items-center overflow-hidden bg-black py-24 text-white md:min-h-[80vh] md:py-28 lg:min-h-[85vh] lg:py-32"
+        className="relative flex min-h-[85vh] items-start overflow-hidden bg-black pb-16 pt-24 text-white sm:min-h-[80vh] sm:pt-28 md:items-center md:py-28 lg:min-h-[85vh] lg:py-32"
       >
-        {/* Full-width Background Image */}
+        {/* Full-width Background Image: Desktop and Mobile separate */}
         <div className="absolute inset-0">
+          {/* Mobile Background Banner */}
+          <Image
+            src="/images/rohit-pandey-khalilabad-army-hero-mobile.jpg"
+            alt={army.hero.title}
+            fill
+            priority
+            sizes="100vw"
+            className="hero-art object-cover object-center md:hidden"
+          />
+
+          {/* Desktop Background Banner */}
           <Image
             src="/images/rohit-pandey-hero-banner.jpg"
             alt={army.hero.title}
             fill
             priority
             sizes="100vw"
-            className="hero-art object-cover object-[center_top] md:object-[right_top]"
+            className="hero-art hidden object-cover object-[right_top] md:block"
           />
-          {/* Subtle gradient overlays: dark on left for text readability, clear on right for portrait */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60" />
+
+          {/* Overlays */}
+          {/* Mobile Overlay: dark at top for text readability, subtle over portrait, dark at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/35 to-black/85 md:hidden" />
+
+          {/* Desktop Overlay: left-to-right gradient for text readability while keeping portrait crisp */}
+          <div className="absolute inset-0 hidden bg-gradient-to-t from-black/90 via-black/40 to-black/60 md:block" />
           <div className="absolute inset-y-0 left-0 hidden w-[72%] bg-gradient-to-r from-black/95 via-black/80 to-transparent md:block" />
-          <div className="absolute inset-0 bg-black/60 md:hidden" />
         </div>
 
         {/* Content Container */}
