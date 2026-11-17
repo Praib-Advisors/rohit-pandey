@@ -12,43 +12,49 @@ export default function EngagementSection({
 }) {
   const e = t.engagement;
 
-  // Selected landscape & perfectly proportioned photos that do not crop heads or faces
+  // The 6 selected engagement photos in the exact user-specified sequence
   const photos = [
     {
       src: "/images/rohit-pandey-akhilesh-shivpal-bouquet.webp",
       alt: lang === "hi" ? "श्री अखिलेश यादव व श्री शिवपाल सिंह यादव जी के साथ" : "With Akhilesh Yadav and Shivpal Singh Yadav",
-      width: 1024,
-      height: 682,
-    },
-    {
-      src: "/images/rohit-pandey-party-colleagues-gathering.webp",
-      alt: lang === "hi" ? "पार्टी सहयोगियों और कार्यकर्ताओं के साथ" : "With party colleagues and supporters",
-      width: 1280,
-      height: 854,
-    },
-    {
-      src: "/images/rohit-pandey-village-supporters.webp",
-      alt: lang === "hi" ? "विधानसभा क्षेत्र में ग्रामीणों के साथ" : "With village residents",
-      width: 1024,
-      height: 684,
-    },
-    {
-      src: "/images/rohit-pandey-mohanbara-rajbhar-samaj-welcome.webp",
-      alt: lang === "hi" ? "मोहनबरा में समाज द्वारा स्वागत" : "Community welcome in Mohanbara",
-      width: 1504,
-      height: 1004,
-    },
-    {
-      src: "/images/rohit-pandey-sp-office-group-photo-01.webp",
-      alt: lang === "hi" ? "पार्टी कार्यालय में साथियों के साथ" : "Group photo at party office",
       width: 1280,
       height: 853,
+      focus: "50% 25%",
+    },
+    {
+      src: "/images/rohit-pandey-akhilesh-shivpal-netaji-group.webp",
+      alt: lang === "hi" ? "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव, श्री शिवपाल सिंह यादव और साथियों के साथ" : "With Akhilesh Yadav, Shivpal Singh Yadav, and party colleagues",
+      width: 1280,
+      height: 853,
+      focus: "50% 20%",
+    },
+    {
+      src: "/images/rohit-pandey-shivpal-meeting.webp",
+      alt: lang === "hi" ? "श्री शिवपाल सिंह यादव जी के साथ रोहित पाण्डेय" : "With Shri Shivpal Singh Yadav",
+      width: 768,
+      height: 718,
+      focus: "50% 15%",
     },
     {
       src: "/images/rohit-pandey-akhilesh-yadav-meeting.webp",
       alt: lang === "hi" ? "राष्ट्रीय अध्यक्ष अखिलेश यादव जी से भेंट" : "Meeting with Akhilesh Yadav",
       width: 764,
       height: 782,
+      focus: "50% 15%",
+    },
+    {
+      src: "/images/rohit-pandey-akhilesh-netaji-full.webp",
+      alt: lang === "hi" ? "राष्ट्रीय अध्यक्ष अखिलेश यादव जी एवं नेताजी की प्रतिमा के साथ" : "With national president Akhilesh Yadav and Netaji statue",
+      width: 768,
+      height: 1024,
+      focus: "50% 20%",
+    },
+    {
+      src: "/images/rohit-pandey-akhilesh-yadav-garland.webp",
+      alt: lang === "hi" ? "राष्ट्रीय अध्यक्ष अखिलेश यादव एवं वरिष्ठ नेताओं के साथ स्वागत" : "Welcome with national president Akhilesh Yadav and senior leaders",
+      width: 1024,
+      height: 607,
+      focus: "50% 25%",
     },
   ];
 
@@ -110,7 +116,8 @@ export default function EngagementSection({
                       fill
                       sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 48vw"
                       priority={i < 2}
-                      className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      style={{ objectPosition: photo.focus || "top" }}
                     />
                   </div>
                 ))}

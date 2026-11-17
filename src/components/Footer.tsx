@@ -85,14 +85,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
               </span>
             </a>
 
-            <span className="flex items-center gap-5">
-              <SectionLink href={href(lang, "/privacy")} className="inline-flex min-h-11 items-center hover:text-ink">
-                {t.footer.privacy}
-              </SectionLink>
-              <SectionLink href={href(lang, "/terms")} className="inline-flex min-h-11 items-center hover:text-ink">
-                {t.footer.terms}
-              </SectionLink>
-            </span>
+          
           </div>
         </div>
       </footer>
