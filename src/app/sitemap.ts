@@ -9,6 +9,7 @@ const staticPaths = [
   "/",
   "/about",
   "/public-life",
+  "/khalilabad-army",
   "/khalilabad",
   "/media",
   "/ideals",

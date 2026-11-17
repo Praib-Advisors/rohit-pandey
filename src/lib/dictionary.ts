@@ -55,6 +55,11 @@ const en = {
       title: "Public Life",
       description: "Meetings, visits and party work by Rohit Pandey across Khalilabad and Sant Kabir Nagar, newest first.",
     },
+    khalilabadArmy: {
+      title: "Khalilabad Army | Rohit Pandey",
+      description:
+        "A collective initiative focused on community participation, public welfare and a better future for Khalilabad.",
+    },
     khalilabad: {
       title: "Khalilabad, Sant Kabir Nagar",
       description:
@@ -83,6 +88,7 @@ const en = {
     about: "About & Journey",
     socialService: "Social service",
     publicLife: "Public Life",
+    khalilabadArmy: "Khalilabad Army",
     khalilabad: "Khalilabad",
     media: "Media",
     mediaPhotos: "Photographs",
@@ -235,6 +241,104 @@ const en = {
     photoAlt: "Rohit Pandey in a white kurta with an angavastram",
     videoLabel: "Rohit Pandey meeting people face to face in Sant Kabir Nagar",
     more: "All updates",
+  },
+  khalilabadArmy: {
+    hero: {
+      title: "Khalilabad Army",
+      subtitle: "Unity • Service • Development",
+      description:
+        "A collective initiative focused on community participation, public welfare and a better future for Khalilabad.",
+      cta: "Explore Our Vision",
+    },
+    about: {
+      eyebrow: "About Khalilabad Army",
+      heading: "A Shared Vision, A Common Purpose",
+      description:
+        "Khalilabad Army represents a collective initiative connecting youth, citizens, and social workers with public welfare and community activities. Its objective is to understand local issues, encourage social participation, and make concerted efforts toward positive change.",
+      imageAlt: "Rohit Pandey interacting with citizens and youth in Khalilabad",
+    },
+    vision: {
+      eyebrow: "Rohit Pandey's Vision",
+      heading: "A Vision for a Better Khalilabad",
+      description:
+        "Our goal is to work toward a future for Khalilabad where education, healthcare, employment, and basic infrastructure are prioritized. Youth participation, social equality, and public interest are central to this vision of progress.",
+      imageAlt: "Rohit Pandey speaking at a public gathering in Khalilabad",
+    },
+    priorities: {
+      eyebrow: "Key Pillars",
+      heading: "Our Development Priorities",
+      intro: "Four fundamental areas shaping sustainable progress and responsive community welfare in Khalilabad.",
+      items: [
+        {
+          id: "education",
+          title: "Education & Youth",
+          titleHi: "शिक्षा एवं युवा",
+          desc: "Quality education, skill development, and empowered youth opportunities across the constituency.",
+        },
+        {
+          id: "healthcare",
+          title: "Healthcare",
+          titleHi: "स्वास्थ्य सुविधाएँ",
+          desc: "Accessible medical amenities, wellness awareness, and responsive community health support.",
+        },
+        {
+          id: "development",
+          title: "Regional Development",
+          titleHi: "क्षेत्रीय विकास",
+          desc: "Better roads, civic infrastructure, sanitation, and balanced connectivity across rural and urban pockets.",
+        },
+        {
+          id: "welfare",
+          title: "Social Welfare",
+          titleHi: "सामाजिक सहयोग",
+          desc: "Community harmony, mutual cooperation, and dedicated support for every segment of society.",
+        },
+      ],
+    },
+    activities: {
+      eyebrow: "Ground Engagements",
+      heading: "From Community Participation to Positive Change",
+      intro: "Moments of civic dialogue, youth participation, and grassroots activities in Khalilabad.",
+      cta: "View Gallery",
+      items: [
+        {
+          title: "Community Outreach",
+          category: "Constituency Outreach",
+          src: "/images/rohit-pandey-village-supporters.webp",
+          alt: "Rohit Pandey with village supporters and community members",
+        },
+        {
+          title: "Social Participation",
+          category: "Civic Dialogue",
+          src: "/images/rohit-pandey-party-colleagues-gathering.webp",
+          alt: "Rohit Pandey in a gathering with citizens and colleagues",
+        },
+        {
+          title: "Youth Engagement",
+          category: "Youth Initiatives",
+          src: "/images/g3.webp",
+          alt: "Rohit Pandey interacting with youth in Khalilabad",
+        },
+        {
+          title: "Public Welfare Programs",
+          category: "Public Welfare",
+          src: "/images/rohit-pandey-mohanbara-rajbhar-samaj-welcome.webp",
+          alt: "Community welcome for Rohit Pandey at Mohanbara",
+        },
+        {
+          title: "Grassroots Connection",
+          category: "Village Dialogue",
+          src: "/images/image.jpg",
+          alt: "Rohit Pandey meeting residents across the constituency",
+        },
+        {
+          title: "Organizational Discussions",
+          category: "Community Meeting",
+          src: "/images/g12.webp",
+          alt: "Rohit Pandey in organizational discussions for regional welfare",
+        },
+      ],
+    },
   },
   socialService: {
     label: "Social service",
@@ -559,6 +663,11 @@ const hi: Dict = {
       title: "जनजीवन",
       description: "खलीलाबाद और संत कबीर नगर में रोहित पाण्डेय की बैठकें, दौरे और पार्टी का काम, सबसे नया सबसे ऊपर।",
     },
+    khalilabadArmy: {
+      title: "खलीलाबाद आर्मी | रोहित पाण्डेय",
+      description:
+        "खलीलाबाद के बेहतर भविष्य और सकारात्मक बदलाव की दिशा में एक सामूहिक पहल।",
+    },
     khalilabad: {
       title: "खलीलाबाद, संत कबीर नगर",
       description:
@@ -587,6 +696,7 @@ const hi: Dict = {
     about: "परिचय एवं यात्रा",
     socialService: "समाज सेवा",
     publicLife: "जनजीवन",
+    khalilabadArmy: "खलीलाबाद आर्मी",
     khalilabad: "खलीलाबाद",
     media: "मीडिया",
     mediaPhotos: "तस्वीरें",
@@ -739,6 +849,104 @@ const hi: Dict = {
     photoAlt: "सफ़ेद कुर्ता और अंगवस्त्र में रोहित पाण्डेय",
     videoLabel: "संत कबीर नगर में लोगों से आमने-सामने मिलते रोहित पाण्डेय",
     more: "सभी अपडेट",
+  },
+  khalilabadArmy: {
+    hero: {
+      title: "खलीलाबाद आर्मी",
+      subtitle: "एकजुटता • जनसेवा • विकास",
+      description:
+        "खलीलाबाद के बेहतर भविष्य और सकारात्मक बदलाव की दिशा में एक सामूहिक पहल।",
+      cta: "दृष्टिकोण देखें",
+    },
+    about: {
+      eyebrow: "खलीलाबाद आर्मी",
+      heading: "एक सोच, एक उद्देश्य, एक परिवार",
+      description:
+        "खलीलाबाद आर्मी एक सामूहिक पहल के रूप में युवाओं, नागरिकों और सामाजिक कार्यकर्ताओं को जनहित एवं सामाजिक गतिविधियों से जोड़ने की सोच को दर्शाती है। इसका उद्देश्य क्षेत्र की समस्याओं को समझना, सामाजिक सहभागिता को प्रोत्साहित करना और सकारात्मक बदलाव के लिए सामूहिक प्रयास करना है।",
+      imageAlt: "खलीलाबाद में स्थानीय नागरिकों और युवाओं के साथ रोहित पाण्डेय",
+    },
+    vision: {
+      eyebrow: "रोहित पाण्डेय का दृष्टिकोण",
+      heading: "विकसित खलीलाबाद, सशक्त समाज",
+      description:
+        "हमारा लक्ष्य खलीलाबाद के ऐसे भविष्य की दिशा में प्रयास करना है, जहाँ शिक्षा, स्वास्थ्य, रोजगार और बुनियादी सुविधाओं को प्राथमिकता मिले। विकास की इस सोच में युवाओं की भागीदारी, सामाजिक समानता और जनहित महत्वपूर्ण स्थान रखते हैं।",
+      imageAlt: "खलीलाबाद में जनसंवाद को संबोधित करते रोहित पाण्डेय",
+    },
+    priorities: {
+      eyebrow: "प्रमुख आधार स्तंभ",
+      heading: "हमारी विकास प्राथमिकताएँ",
+      intro: "खलीलाबाद के संतुलित विकास और जनसेवा की दिशा में चार प्रमुख प्राथमिकताएँ।",
+      items: [
+        {
+          id: "education",
+          title: "शिक्षा एवं युवा",
+          titleHi: "Education & Youth",
+          desc: "गुणवत्तापूर्ण शिक्षा, कौशल विकास और युवाओं को आत्मनिर्भर बनाने के लिए प्रेरक वातावरण।",
+        },
+        {
+          id: "healthcare",
+          title: "स्वास्थ्य सुविधाएँ",
+          titleHi: "Healthcare",
+          desc: "सुलभ और बेहतर स्वास्थ्य सेवाओं की उपलब्धता और जन-स्वास्थ्य के प्रति निरंतर जागरूकता।",
+        },
+        {
+          id: "development",
+          title: "क्षेत्रीय विकास",
+          titleHi: "Regional Development",
+          desc: "सड़कें, बुनियादी ढाँचा, स्वच्छता और क्षेत्रीय समृद्धि को गति देने के साझा प्रयास।",
+        },
+        {
+          id: "welfare",
+          title: "सामाजिक सहयोग",
+          titleHi: "Social Welfare",
+          desc: "आपसी सद्भाव, वंचित वर्गों का सहयोग और नागरिकों के अधिकारों के प्रति सजगता।",
+        },
+      ],
+    },
+    activities: {
+      eyebrow: "ज़मीनी सहभागिता",
+      heading: "जनसहभागिता से सकारात्मक बदलाव तक",
+      intro: "खलीलाबाद के विभिन्न क्षेत्रों में नागरिकों, युवाओं और सहयोगियों के साथ संवाद और सहभागिता की झलकियाँ।",
+      cta: "गैलरी देखें",
+      items: [
+        {
+          title: "जनसंवाद एवं जनसंपर्क",
+          category: "जनसंवाद",
+          src: "/images/rohit-pandey-village-supporters.webp",
+          alt: "ग्रामीण क्षेत्रों में स्थानीय नागरिकों के साथ रोहित पाण्डेय",
+        },
+        {
+          title: "सामाजिक सहभागिता",
+          category: "सामूहिक संवाद",
+          src: "/images/rohit-pandey-party-colleagues-gathering.webp",
+          alt: "सहयोगियों और नागरिकों के साथ संवाद में रोहित पाण्डेय",
+        },
+        {
+          title: "युवा गतिविधियाँ",
+          category: "युवा संवाद",
+          src: "/images/g3.webp",
+          alt: "युवाओं के साथ स्थानीय विषयों पर चर्चा करते रोहित पाण्डेय",
+        },
+        {
+          title: "जनहित से जुड़े कार्यक्रम",
+          category: "नागरिक कार्यक्रम",
+          src: "/images/rohit-pandey-mohanbara-rajbhar-samaj-welcome.webp",
+          alt: "मोहनबरा में क्षेत्रवासियों द्वारा स्वागत के क्षण",
+        },
+        {
+          title: "क्षेत्रीय जनसंपर्क",
+          category: "ज़मीनी संपर्क",
+          src: "/images/image.jpg",
+          alt: "विधानसभा क्षेत्र में लोगों से सीधा संपर्क",
+        },
+        {
+          title: "संगठनात्मक एवं सामाजिक कार्य",
+          category: "सार्वजनिक संवाद",
+          src: "/images/g12.webp",
+          alt: "क्षेत्रीय विकास और जनसमस्याओं पर विचार-विमर्श",
+        },
+      ],
+    },
   },
   socialService: {
     label: "समाज सेवा",

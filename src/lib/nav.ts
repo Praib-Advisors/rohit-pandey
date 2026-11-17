@@ -7,6 +7,7 @@ const allNavItems = [
   { key: "about", path: "/about" },
   { key: "socialService", path: "/social-service" },
   { key: "publicLife", path: "/public-life" },
+  { key: "khalilabadArmy", path: "/khalilabad-army" },
   { key: "media", path: "/media" },
   { key: "ideals", path: "/ideals" },
   { key: "eCard", path: "/e-card" },
