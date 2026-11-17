@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getDictionary } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
@@ -26,6 +27,9 @@ export default function PageHeader({
   media,
   mediaSide = "right",
   backdrop,
+  bgImage,
+  bgImageAlt,
+  bgImagePosition,
   titleSize = "lg",
 }: {
   lang: Locale;
@@ -42,6 +46,9 @@ export default function PageHeader({
   mediaSide?: "left" | "right";
   /** A film that fills the whole header from md up (text sits on top of it). On phones it follows the text at its own 9:16 ratio. */
   backdrop?: React.ReactNode;
+  bgImage?: string;
+  bgImageAlt?: string;
+  bgImagePosition?: string;
   tone?: "deep" | "gradient" | string;
   titleSize?: "xl" | "lg" | "md";
 }) {
@@ -58,25 +65,49 @@ export default function PageHeader({
 
   return (
     <header
-      className={`relative isolate overflow-hidden ${backdrop ? "on-dark bg-red-deep md:min-h-[100svh]" : "bg-ivory"} ${
+      className={`relative isolate flex flex-col justify-between overflow-hidden ${
+        bgImage
+          ? "on-dark bg-black text-white min-h-[65vh] sm:min-h-[74vh] md:min-h-[82vh] lg:min-h-[88vh]"
+          : backdrop
+            ? "on-dark bg-red-deep md:min-h-[100svh]"
+            : "bg-ivory"
+      } ${
         media && mediaSide === "right" ? "flag-wedge [--wb-x:40%] [--wt-x:100%] [--wt-y:62%] md:[--wb-x:74%] md:[--wt-x:100%] md:[--wt-y:calc(var(--nav-h)+0.75rem)]" : ""
       }`}
     >
-      <BlurBackdrop tone={backdrop ? "deep" : "light"} />
+      {!bgImage && <BlurBackdrop tone={backdrop ? "deep" : "light"} />}
       <JsonLd data={breadcrumbJsonLd(lang, trail)} />
-      <div className={`shell pt-[calc(var(--nav-h)+1.25rem)] ${backdrop ? "relative z-10" : ""}`}>
+
+      {/* Full-bleed Background Photograph */}
+      {bgImage && (
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <Image
+            src={bgImage}
+            alt={bgImageAlt ?? ""}
+            fill
+            priority
+            sizes="100vw"
+            className={`hero-art size-full object-cover ${bgImagePosition ?? "object-[center_20%] md:object-[center_25%]"}`}
+          />
+          {/* Subtle gradient overlays for high text contrast while keeping photo visible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-black/40 md:from-black/92 md:via-black/65 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/60" />
+        </div>
+      )}
+
+      <div className={`shell flex flex-1 flex-col justify-center pt-[calc(var(--nav-h)+1.75rem)] pb-12 sm:pb-16 md:pb-20 ${backdrop || bgImage ? "relative z-10" : ""}`}>
         <nav aria-label={t.nav.breadcrumb}>
-          <ol className="flex flex-wrap items-center gap-2 text-sm text-muted">
+          <ol className={`flex flex-wrap items-center gap-2 text-sm ${bgImage ? "text-white/60" : "text-muted"}`}>
             {crumbs.map((c, i) => {
               const last = i === crumbs.length - 1;
               return (
                 <li key={c.path} className="flex min-w-0 items-center gap-2">
                   {last ? (
-                    <span aria-current="page" className="max-w-[60vw] truncate text-ink-soft">
+                    <span aria-current="page" className={`max-w-[60vw] truncate ${bgImage ? "text-white/95" : "text-ink-soft"}`}>
                       {c.name}
                     </span>
                   ) : (
-                    <Link href={href(lang, c.path)} className="inline-flex min-h-11 items-center hover:text-ink">
+                    <Link href={href(lang, c.path)} className={`inline-flex min-h-11 items-center ${bgImage ? "hover:text-white text-white/70" : "hover:text-ink"}`}>
                       {c.name}
                     </Link>
                   )}
@@ -93,11 +124,11 @@ export default function PageHeader({
               media && mediaSide === "left" ? "order-1 md:order-2 md:col-span-6" : side ? "md:col-span-7" : "md:col-span-9"
             }`}
           >
-            <h1 className={`hero-line ${titleClass}`}>{title}</h1>
-            {meta && <p className="hero-line mt-4 font-display text-[1.125rem] italic text-ink-soft [--i:1]">{meta}</p>}
+            <h1 className={`hero-line ${titleClass} ${bgImage ? "text-white" : ""}`}>{title}</h1>
+            {meta && <p className={`hero-line mt-4 font-display text-[1.125rem] italic [--i:1] ${bgImage ? "text-white/80" : "text-ink-soft"}`}>{meta}</p>}
             <span aria-hidden className="rule-grow mt-7 block h-[3px] w-16 rounded-full bg-[linear-gradient(90deg,var(--white)_0_60%,var(--green)_60%_100%)]" />
-            {intro && <p className="hero-line lede mt-6 max-w-2xl [--i:2]">{intro}</p>}
-            {description && <p className="hero-line mt-4 max-w-xl text-base leading-relaxed text-ink-soft [--i:3]">{description}</p>}
+            {intro && <p className={`hero-line lede mt-6 max-w-2xl [--i:2] ${bgImage ? "text-white/90" : ""}`}>{intro}</p>}
+            {description && <p className={`hero-line mt-4 max-w-xl text-base leading-relaxed [--i:3] ${bgImage ? "text-white/80" : "text-ink-soft"}`}>{description}</p>}
             {actions && <div className="hero-line mt-7 [--i:4]">{actions}</div>}
           </div>
           {media && mediaSide === "left" && (

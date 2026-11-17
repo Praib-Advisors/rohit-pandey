@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactStrip from "@/components/ContactStrip";
 import InfiniteCardSlider from "@/components/InfiniteCardSlider";
+import ScrollToButton from "@/components/ScrollToButton";
 import Wave from "@/components/Wave";
 import { href } from "@/lib/i18n";
 import { resolveLang } from "@/lib/page";
@@ -130,10 +131,10 @@ export default async function KhalilabadArmyPage({
       {/* ------------------------------------------------------------ */}
       <section
         aria-label={army.hero.title}
-        className="relative flex min-h-[85vh] items-start overflow-hidden bg-black pb-16 pt-24 text-white sm:min-h-[80vh] sm:pt-28 md:items-center md:py-28 lg:min-h-[85vh] lg:py-32"
+        className="relative flex min-h-[92vh] items-start overflow-hidden bg-black pb-14 pt-32 text-white sm:min-h-[85vh] sm:pb-16 sm:pt-36 md:min-h-[80vh] md:items-center md:py-28 lg:min-h-[85vh] lg:py-32"
       >
         {/* Full-width Background Image: Desktop and Mobile separate */}
-        <div className="absolute inset-0">
+        <div className="pointer-events-none absolute inset-0">
           {/* Mobile Background Banner */}
           <Image
             src="/images/rohit-pandey-khalilabad-army-hero-mobile.jpg"
@@ -141,7 +142,7 @@ export default async function KhalilabadArmyPage({
             fill
             priority
             sizes="100vw"
-            className="hero-art object-cover object-center md:hidden"
+            className="hero-art object-cover object-bottom md:hidden"
           />
 
           {/* Desktop Background Banner */}
@@ -164,19 +165,21 @@ export default async function KhalilabadArmyPage({
         </div>
 
         {/* Content Container */}
-        <div className="shell relative z-10 w-full">
+        <div className="shell relative z-20 w-full pointer-events-auto">
           <div className="max-w-2xl text-left md:max-w-xl lg:max-w-2xl">
             {/* Title / Eyebrow */}
-            <span
-              className="hero-line inline-block text-xs font-semibold uppercase tracking-widest text-red-tint/90 sm:text-sm"
-              style={{ "--i": 0 } as React.CSSProperties}
-            >
-              {army.hero.title}
-            </span>
+            {army.hero.title ? (
+              <span
+                className="hero-line inline-block text-xs font-semibold uppercase tracking-widest text-red-tint/90 sm:text-sm"
+                style={{ "--i": 0 } as React.CSSProperties}
+              >
+                {army.hero.title}
+              </span>
+            ) : null}
 
             {/* Main Heading */}
             <h1
-              className="hero-line mt-3 font-heading text-3xl font-normal tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              className="hero-line mt-2 font-heading text-2xl font-normal tracking-tight text-white sm:mt-3 sm:text-5xl md:text-6xl lg:text-7xl"
               style={{ "--i": 1 } as React.CSSProperties}
             >
               {army.hero.heading}
@@ -184,24 +187,22 @@ export default async function KhalilabadArmyPage({
 
             {/* Description */}
             <p
-              className="hero-line mt-5 text-base font-normal leading-relaxed text-white/85 sm:text-xl"
+              className="hero-line mt-3 text-sm font-normal leading-relaxed text-white/85 sm:mt-5 sm:text-xl"
               style={{ "--i": 2 } as React.CSSProperties}
             >
               {army.hero.description}
             </p>
 
-            {/* Single CTA Button */}
+            {/* Single CTA Button (Compact on mobile so it never overlaps the portrait) */}
             <div
-              className="hero-line mt-8 flex items-center"
+              className="hero-line mt-4 flex items-center sm:mt-6 md:mt-8"
               style={{ "--i": 3 } as React.CSSProperties}
             >
-              <a
-                href="#about"
-                className="inline-flex items-center gap-2.5 rounded-md bg-red-dk px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                <span>{army.hero.cta}</span>
-                <ArrowDownIcon className="size-4" />
-              </a>
+              <ScrollToButton
+                targetId="about"
+                label={army.hero.cta}
+                className="inline-flex items-center gap-2 rounded-md bg-red-dk px-4.5 py-2 text-xs font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm md:px-7 md:py-3.5 md:text-base cursor-pointer"
+              />
             </div>
           </div>
         </div>
@@ -216,7 +217,7 @@ export default async function KhalilabadArmyPage({
       <section
         id="about"
         aria-labelledby="about-army-heading"
-        className="surface-ivory py-20 md:py-28"
+        className="surface-ivory py-20 md:py-28 scroll-mt-24 md:scroll-mt-28"
       >
         <div className="shell">
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
@@ -307,10 +308,14 @@ export default async function KhalilabadArmyPage({
                 {army.vision.heading}
               </h2>
 
-              <div className="mt-6 rounded-xl border-l-4 border-red-dk bg-white/70 p-6 shadow-soft backdrop-blur-sm sm:p-8">
-                <p className="text-base font-normal leading-relaxed text-ink sm:text-lg">
-                  &ldquo;{army.vision.description}&rdquo;
-                </p>
+              <div className="mt-6 space-y-4 rounded-xl border-l-4 border-red-dk bg-white/70 p-6 shadow-soft backdrop-blur-sm sm:p-8">
+                {army.vision.description.split("\n\n").map((para, idx, arr) => (
+                  <p key={idx} className="text-base font-normal leading-relaxed text-ink sm:text-lg">
+                    {idx === 0 && <>&ldquo;</>}
+                    {para}
+                    {idx === arr.length - 1 && <>&rdquo;</>}
+                  </p>
+                ))}
               </div>
             </div>
 

@@ -244,7 +244,7 @@ const en = {
   },
   khalilabadArmy: {
     hero: {
-      title: "Khalilabad Army",
+      title: "",
       heading: "Together, We Shape Tomorrow.",
       description:
         "A better future for Khalilabad begins with the participation of every citizen.",
@@ -261,7 +261,7 @@ const en = {
       eyebrow: "Rohit Pandey's Vision",
       heading: "A Vision for a Better Khalilabad",
       description:
-        "Our goal is to work toward a future for Khalilabad where education, healthcare, employment, and basic infrastructure are prioritized. Youth participation, social equality, and public interest are central to this vision of progress.",
+        "Our goal is to steer Khalilabad toward becoming a developed, inclusive, and empowered region, where every citizen finds opportunities for a better life and the benefits of progress reach every section of society. Our vision extends beyond expanding basic amenities; it is dedicated to building a future where education, healthcare, employment, and social security are top priorities.\n\nWe believe that genuine progress in any constituency is possible only through the active participation of its youth, farmers, women, and everyday citizens. Creating new educational and job opportunities for youth, fostering women's self-reliance, safeguarding farmers' interests, and delivering public welfare schemes to underprivileged families form the foundational pillars of our development roadmap.",
       imageAlt: "Rohit Pandey speaking at a public gathering in Khalilabad",
     },
     priorities: {
@@ -852,7 +852,7 @@ const hi: Dict = {
   },
   khalilabadArmy: {
     hero: {
-      title: "खलीलाबाद आर्मी",
+      title: "",
       heading: "साथ आएँ, खलीलाबाद बनाएँ",
       description:
         "एक बेहतर खलीलाबाद के निर्माण में हर नागरिक की भागीदारी।",
@@ -869,7 +869,7 @@ const hi: Dict = {
       eyebrow: "रोहित पाण्डेय का दृष्टिकोण",
       heading: "विकसित खलीलाबाद, सशक्त समाज",
       description:
-        "हमारा लक्ष्य खलीलाबाद के ऐसे भविष्य की दिशा में प्रयास करना है, जहाँ शिक्षा, स्वास्थ्य, रोजगार और बुनियादी सुविधाओं को प्राथमिकता मिले। विकास की इस सोच में युवाओं की भागीदारी, सामाजिक समानता और जनहित महत्वपूर्ण स्थान रखते हैं।",
+        "हमारा लक्ष्य खलीलाबाद को एक ऐसे विकसित, समावेशी और सशक्त क्षेत्र के रूप में आगे बढ़ाने का है, जहाँ प्रत्येक नागरिक को बेहतर जीवन के अवसर मिलें और विकास का लाभ समाज के हर वर्ग तक पहुँचे। हमारी सोच केवल बुनियादी सुविधाओं के विस्तार तक सीमित नहीं है, बल्कि एक ऐसे भविष्य के निर्माण पर केंद्रित है, जहाँ शिक्षा, स्वास्थ्य, रोजगार और सामाजिक सुरक्षा को प्राथमिकता मिले।\n\nहम मानते हैं कि किसी भी क्षेत्र की वास्तविक प्रगति वहाँ के युवाओं, किसानों, महिलाओं और आम नागरिकों की सक्रिय भागीदारी से ही संभव है। इसलिए युवाओं के लिए शिक्षा एवं रोजगार के नए अवसर, महिलाओं की आत्मनिर्भरता, किसानों के हितों की रक्षा और जरूरतमंद परिवारों तक जनकल्याणकारी योजनाओं का लाभ पहुँचाना हमारी विकास की सोच के महत्वपूर्ण आधार हैं।",
       imageAlt: "खलीलाबाद में जनसंवाद को संबोधित करते रोहित पाण्डेय",
     },
     priorities: {

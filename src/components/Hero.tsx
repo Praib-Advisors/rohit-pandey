@@ -77,10 +77,10 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
         </div>
 
         <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+1.25rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
-          <div className="w-full xl:w-auto xl:max-w-[min(36vw,34rem)]">
+          <div className="w-full xl:w-auto xl:max-w-[min(48vw,44rem)]">
 
             {/* Name, designation and the Khalilabad line keep to the left, beside the portrait */}
-            <div className="md:w-[46%] xl:w-auto">
+            <div className="md:w-[54%] xl:w-auto">
               <h1
                 id="hero-title"
                 className="hero-line font-heading [--i:0] text-[clamp(2rem,9vw,3.5rem)] leading-[1.02] xl:text-[clamp(3rem,1.6rem+4vw,5.75rem)] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
@@ -89,11 +89,11 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
                 <span className="text-brand-red">{lastName}</span>
               </h1>
 
-              <p className="hero-line text-left mt-3 font-sans text-[clamp(1rem,3vw,1.25rem)] font-normal leading-snug text-ink-soft xl:mt-4 xl:text-[1.375rem]">
+              <p className="hero-line text-left mt-3.5 font-sans text-[clamp(1.125rem,0.55rem+1.35vw,1.875rem)] font-normal leading-snug text-ink-soft xl:mt-4 xl:text-[clamp(1.35rem,0.65rem+1.35vw,2rem)] xl:leading-snug">
                 {person.role}
               </p>
 
-              <p className="hero-line text-left mt-2 font-sans text-[clamp(1rem,3vw,1.25rem)] font-medium leading-snug text-ink-soft xl:mt-2.5 xl:text-[1.375rem]">
+              <p className="hero-line text-left mt-2.5 font-sans text-[clamp(1.125rem,0.55rem+1.35vw,1.875rem)] font-medium leading-snug text-ink-soft xl:mt-3 xl:text-[clamp(1.35rem,0.65rem+1.35vw,2rem)] xl:leading-snug">
                 {hero.line}
               </p>
             </div>
