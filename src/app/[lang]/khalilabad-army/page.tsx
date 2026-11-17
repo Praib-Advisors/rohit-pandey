@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ContactStrip from "@/components/ContactStrip";
+import InfiniteCardSlider from "@/components/InfiniteCardSlider";
 import Wave from "@/components/Wave";
 import { href } from "@/lib/i18n";
 import { resolveLang } from "@/lib/page";
@@ -403,44 +404,16 @@ export default async function KhalilabadArmyPage({
               {army.activities.intro}
             </p>
           </div>
+        </div>
 
-          {/* Activities Photo Grid */}
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {army.activities.items.map((activity, idx) => (
-              <figure
-                key={activity.title}
-                className="group relative overflow-hidden rounded-xl border border-line bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-raised"
-                data-reveal="zoom"
-                style={{ "--reveal-i": idx } as React.CSSProperties}
-              >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-sand-deep">
-                  <Image
-                    src={activity.src}
-                    alt={activity.alt}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                  {/* Category Pill Tag */}
-                  <span className="absolute left-3 top-3 rounded-full border border-white/20 bg-black/65 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md">
-                    {activity.category}
-                  </span>
-                </div>
+        {/* Activities Infinite Card Slider */}
+        <div className="mt-12 w-full" data-reveal="fade">
+          <InfiniteCardSlider items={army.activities.items} lang={lang} />
+        </div>
 
-                <figcaption className="p-4">
-                  <h3 className="font-heading text-lg font-semibold text-ink sm:text-xl">
-                    {activity.title}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-xs text-ink-soft">
-                    {activity.alt}
-                  </p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-
+        <div className="shell">
           {/* View More Button */}
-          <div className="mt-12 flex justify-center" data-reveal="fade">
+          <div className="mt-10 flex justify-center" data-reveal="fade">
             <Link
               href={href(lang, "/media")}
               className="inline-flex items-center gap-2 rounded-md bg-green-dk px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-dk"
