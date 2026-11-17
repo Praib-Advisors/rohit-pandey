@@ -122,10 +122,13 @@ export default function MediaLightbox({
           </div>
 
           <div className="shell flex shrink-0 flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
-            <p className="max-w-3xl text-sm text-ink-soft">
-              
-              {item.caption}
-            </p>
+            {item.caption ? (
+              <p className="max-w-3xl text-sm text-ink-soft">
+                {item.caption}
+              </p>
+            ) : (
+              <div />
+            )}
             <div className="flex gap-2 md:hidden">
               <button
                 type="button"

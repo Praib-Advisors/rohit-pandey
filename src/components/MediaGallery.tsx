@@ -90,9 +90,11 @@ export default function MediaGallery({
             ⤢
           </span>
         </button>
-        <p className={`mt-3 text-sm text-muted ${i === 0 ? "md:text-[0.9375rem]" : ""}`}>
-          {item.caption}
-        </p>
+        {item.caption ? (
+          <p className={`mt-3 text-sm text-muted ${i === 0 ? "md:text-[0.9375rem]" : ""}`}>
+            {item.caption}
+          </p>
+        ) : null}
       </li>
     );
   };

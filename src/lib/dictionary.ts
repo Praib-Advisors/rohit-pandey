@@ -305,6 +305,10 @@ const en = {
     of: "of",
     dialog: "Image viewer",
     items: {
+      "akhilesh-yadav-garland": {
+        alt: "Rohit Pandey with Samajwadi Party national president Akhilesh Yadav",
+        caption: "",
+      },
       "sp-office-group-01": {
         alt: "Rohit Pandey with Akhilesh Yadav and party colleagues at the Samajwadi Party office",
         caption: "Rohit Pandey with Akhilesh Yadav, national president of the Samajwadi Party, and colleagues.",
@@ -790,6 +794,10 @@ const hi: Dict = {
     of: "में से",
     dialog: "तस्वीर दर्शक",
     items: {
+      "akhilesh-yadav-garland": {
+        alt: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव जी के साथ रोहित पाण्डेय",
+        caption: "",
+      },
       "sp-office-group-01": {
         alt: "समाजवादी पार्टी कार्यालय में अखिलेश यादव और पार्टी सहयोगियों के साथ रोहित पाण्डेय",
         caption: "समाजवादी पार्टी के राष्ट्रीय अध्यक्ष अखिलेश यादव और सहयोगियों के साथ रोहित पाण्डेय।",

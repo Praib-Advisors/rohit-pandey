@@ -19,6 +19,7 @@ export const images = {
 } as const;
 
 export type MediaId =
+  | "akhilesh-yadav-garland"
   | "sp-office-group-01"
   | "shivpal-singh-yadav-lucknow"
   | "akhilesh-yadav-netaji-statue"
@@ -34,6 +35,10 @@ export type MediaId =
 export type MediaItem = { id: MediaId; src: string; width: number; height: number; focus?: string };
 
 const media: Record<MediaId, MediaItem> = {
+  "akhilesh-yadav-garland": {
+    id: "akhilesh-yadav-garland",
+    ...img("rohit-pandey-akhilesh-yadav-garland", 1024, 607),
+  },
   "sp-office-group-01": { id: "sp-office-group-01", ...img("rohit-pandey-sp-office-group-photo-01", 1280, 853) },
   "shivpal-singh-yadav-lucknow": {
     id: "shivpal-singh-yadav-lucknow",
@@ -69,6 +74,7 @@ const media: Record<MediaId, MediaItem> = {
  * milestone photograph is deliberately not repeated here.
  */
 export const fullGallery: MediaItem[] = [
+  media["akhilesh-yadav-garland"],
   media["sp-office-group-01"],
   media["akhilesh-shivpal-bouquet"],
   media["party-colleagues-gathering"],
