@@ -210,7 +210,7 @@ export default async function KhalilabadArmyPage({
               <div className="group relative overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-soft">
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-tint sm:aspect-[16/11]">
                   <Image
-                    src="/images/rohit-pandey-village-supporters.webp"
+                    src="/images/rohit-pandey-youth-march.jpg"
                     alt={army.about.imageAlt}
                     fill
                     sizes="(min-width: 1024px) 45vw, 100vw"
@@ -301,23 +301,16 @@ export default async function KhalilabadArmyPage({
 
             {/* Image Column (Right) */}
             <div className="order-1 lg:order-2 lg:col-span-5" data-reveal="right">
-              <div className="group relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-line bg-white p-2 shadow-soft lg:max-w-[380px]">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-tint sm:aspect-[16/11]">
+              <div className="group relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-line/60 bg-white/70 p-2 shadow-soft backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-raised sm:rounded-3xl sm:p-2.5 lg:max-w-[380px]">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-tint sm:rounded-2xl">
                   <Image
-                    src="/images/rohit-pandey-speaking-podium-hd.webp"
-                    alt={army.vision.imageAlt}
+                    src="/images/rohit-pandey-white-kurta-scarf-portrait.webp"
+                    alt={t.person.name}
                     fill
-                    sizes="(min-width: 1024px) 38vw, 100vw"
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 360px, 100vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    priority
                   />
-                </div>
-                <div className="p-2.5 text-center sm:text-left">
-                  <span className="text-xs font-semibold text-ink">
-                    {t.person.name}
-                  </span>
-                  <p className="text-xs text-ink-soft">
-                    {t.person.roleLine}
-                  </p>
                 </div>
               </div>
             </div>
