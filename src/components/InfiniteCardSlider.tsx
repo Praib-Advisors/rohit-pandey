@@ -16,11 +16,13 @@ type Props = {
   prevLabel?: string;
   nextLabel?: string;
   className?: string;
+  autoplayInterval?: number;
 };
 
 type Dimensions = {
   cardWidth: number;
   cardHeight: number;
+  centerBonusWidth: number;
   spacing: number;
   containerHeight: number;
 };
@@ -31,6 +33,7 @@ export default function InfiniteCardSlider({
   prevLabel,
   nextLabel,
   className = "",
+  autoplayInterval = 3000,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const totalCount = items.length;
@@ -52,37 +55,49 @@ export default function InfiniteCardSlider({
 
   const [dimensions, setDimensions] = useState<Dimensions>({
     cardWidth: 320,
-    cardHeight: 440,
-    spacing: 250,
-    containerHeight: 490,
+    cardHeight: 400,
+    centerBonusWidth: 170,
+    spacing: 285,
+    containerHeight: 470,
   });
 
   const [renderProgress, setRenderProgress] = useState(0);
   const [isGrabbing, setIsGrabbing] = useState(false);
 
-  // Responsive dimensions
+  // Responsive dimensions with extra width for center card to display full landscape photos
   const updateDimensions = useCallback(() => {
     if (typeof window === "undefined") return;
     const w = window.innerWidth;
     if (w < 640) {
       setDimensions({
-        cardWidth: 220,
-        cardHeight: 310,
-        spacing: 155,
-        containerHeight: 350,
+        cardWidth: 200,
+        cardHeight: 290,
+        centerBonusWidth: 95,
+        spacing: 165,
+        containerHeight: 340,
       });
     } else if (w < 1024) {
       setDimensions({
-        cardWidth: 270,
-        cardHeight: 380,
-        spacing: 200,
-        containerHeight: 420,
+        cardWidth: 260,
+        cardHeight: 350,
+        centerBonusWidth: 125,
+        spacing: 230,
+        containerHeight: 410,
+      });
+    } else if (w < 1280) {
+      setDimensions({
+        cardWidth: 310,
+        cardHeight: 390,
+        centerBonusWidth: 160,
+        spacing: 275,
+        containerHeight: 460,
       });
     } else {
       setDimensions({
-        cardWidth: 320,
-        cardHeight: 440,
-        spacing: 255,
+        cardWidth: 330,
+        cardHeight: 410,
+        centerBonusWidth: 180,
+        spacing: 300,
         containerHeight: 480,
       });
     }
@@ -117,7 +132,7 @@ export default function InfiniteCardSlider({
     };
   }, []);
 
-  // Autoplay timer: gentle periodic advance when not hovering
+  // Autoplay timer: advance every 3 seconds (or custom interval) when not hovering
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -128,10 +143,10 @@ export default function InfiniteCardSlider({
       if (!isHoveredRef.current && !isDraggingRef.current) {
         targetProgressRef.current = Math.round(targetProgressRef.current) + 1;
       }
-    }, 4500);
+    }, autoplayInterval);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [autoplayInterval]);
 
   // Navigation handlers
   const handlePrev = () => {
@@ -258,13 +273,18 @@ export default function InfiniteCardSlider({
           // Active center card styling
           const isCenter = absDiff < 0.45;
 
+          // Dynamic width: center card expands smoothly so landscape photos are clearly visible without heavy cropping
+          const cardWidth =
+            dimensions.cardWidth +
+            Math.max(0, 1 - absDiff) * dimensions.centerBonusWidth;
+
           return (
             <div
               key={`${item.src}-${idx}`}
               onClick={() => handleCardClick(idx, diff)}
               className="absolute left-1/2 top-1/2 will-change-transform"
               style={{
-                width: dimensions.cardWidth,
+                width: cardWidth,
                 height: dimensions.cardHeight,
                 transform: `translate3d(calc(-50% + ${x}px), -50%, 0) scale(${scale})`,
                 zIndex,
