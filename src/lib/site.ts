@@ -38,8 +38,8 @@ export const socials = [
   {
     id: "instagram",
     label: "Instagram",
-    handle: "@rohit4santkabeernagar",
-    url: "https://www.instagram.com/rohit4santkabeernagar/",
+    handle: "@rkpsocialist",
+    url: "https://www.instagram.com/rkpsocialist/",
   },
   {
     // Icon link only: the handle is never printed on the site.
