@@ -122,7 +122,7 @@ export default async function KhalilabadArmyPage({
       {/* ------------------------------------------------------------ */}
       <section
         aria-label={army.hero.title}
-        className="relative flex min-h-[82vh] items-center justify-center overflow-hidden bg-black py-28 text-white md:min-h-[88vh] md:py-36"
+        className="relative flex min-h-[72vh] items-center overflow-hidden bg-black py-24 text-white md:min-h-[80vh] md:py-28 lg:min-h-[85vh] lg:py-32"
       >
         {/* Full-width Background Image */}
         <div className="absolute inset-0">
@@ -132,60 +132,64 @@ export default async function KhalilabadArmyPage({
             fill
             priority
             sizes="100vw"
-            className="hero-art object-cover object-center"
+            className="hero-art object-cover object-[center_top] md:object-[right_top]"
           />
-          {/* Dark transparent gradient overlay for optimal readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/75 to-black/80" />
-          <div className="absolute inset-0 bg-radial-[at_center_center] from-transparent via-black/40 to-black/80" />
+          {/* Subtle gradient overlays: dark on left for text readability, clear on right for portrait */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/60" />
+          <div className="absolute inset-y-0 left-0 hidden w-[72%] bg-gradient-to-r from-black/95 via-black/80 to-transparent md:block" />
+          <div className="absolute inset-0 bg-black/60 md:hidden" />
         </div>
 
         {/* Content Container */}
-        <div className="shell relative z-10 mx-auto flex flex-col items-center text-center">
-          {/* Subtitle Badge */}
-          <span
-            className="hero-line inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wider text-white/95 backdrop-blur-md md:text-sm"
-            style={{ "--i": 0 } as React.CSSProperties}
-          >
-            <span className="size-2 rounded-full bg-red animate-pulse" />
-            {army.hero.subtitle}
-          </span>
-
-          {/* Main Title */}
-          <h1
-            className="hero-line mt-6 font-heading text-4xl font-normal tracking-tight text-white sm:text-6xl md:text-7xl lg:text-8xl"
-            style={{ "--i": 1 } as React.CSSProperties}
-          >
-            {army.hero.title}
-          </h1>
-
-          {/* Description */}
-          <p
-            className="hero-line mt-6 max-w-2xl text-base font-normal leading-relaxed text-white/85 sm:text-xl"
-            style={{ "--i": 2 } as React.CSSProperties}
-          >
-            {army.hero.description}
-          </p>
-
-          {/* Single CTA Button */}
-          <div
-            className="hero-line mt-8 flex items-center justify-center"
-            style={{ "--i": 3 } as React.CSSProperties}
-          >
-            <a
-              href="#about"
-              className="inline-flex items-center gap-2.5 rounded-md bg-red-dk px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        <div className="shell relative z-10 w-full">
+          <div className="max-w-2xl text-left md:max-w-xl lg:max-w-2xl">
+            {/* Title / Eyebrow */}
+            <span
+              className="hero-line inline-block text-xs font-semibold uppercase tracking-widest text-red-tint/90 sm:text-sm"
+              style={{ "--i": 0 } as React.CSSProperties}
             >
-              <span>{army.hero.cta}</span>
-              <ArrowDownIcon className="size-4" />
-            </a>
+              {army.hero.title}
+            </span>
+
+            {/* Main Heading */}
+            <h1
+              className="hero-line mt-3 font-heading text-3xl font-normal tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              style={{ "--i": 1 } as React.CSSProperties}
+            >
+              {army.hero.heading}
+            </h1>
+
+            {/* Description */}
+            <p
+              className="hero-line mt-5 text-base font-normal leading-relaxed text-white/85 sm:text-xl"
+              style={{ "--i": 2 } as React.CSSProperties}
+            >
+              {army.hero.description}
+            </p>
+
+            {/* Single CTA Button */}
+            <div
+              className="hero-line mt-8 flex items-center"
+              style={{ "--i": 3 } as React.CSSProperties}
+            >
+              <a
+                href="#about"
+                className="inline-flex items-center gap-2.5 rounded-md bg-red-dk px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <span>{army.hero.cta}</span>
+                <ArrowDownIcon className="size-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Signature Flag Strip */}
+      <div aria-hidden className="flag-strip" />
+
       {/* ------------------------------------------------------------ */}
       {/* 2. About Khalilabad Army                                     */}
       {/* ------------------------------------------------------------ */}
-      <Wave tone="ivory" />
       <section
         id="about"
         aria-labelledby="about-army-heading"

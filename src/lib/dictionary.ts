@@ -245,9 +245,9 @@ const en = {
   khalilabadArmy: {
     hero: {
       title: "Khalilabad Army",
-      subtitle: "Unity • Service • Development",
+      heading: "Together, We Shape Tomorrow.",
       description:
-        "A collective initiative focused on community participation, public welfare and a better future for Khalilabad.",
+        "A better future for Khalilabad begins with the participation of every citizen.",
       cta: "Explore Our Vision",
     },
     about: {
@@ -853,9 +853,9 @@ const hi: Dict = {
   khalilabadArmy: {
     hero: {
       title: "खलीलाबाद आर्मी",
-      subtitle: "एकजुटता • जनसेवा • विकास",
+      heading: "साथ आएँ, खलीलाबाद बनाएँ",
       description:
-        "खलीलाबाद के बेहतर भविष्य और सकारात्मक बदलाव की दिशा में एक सामूहिक पहल।",
+        "एक बेहतर खलीलाबाद के निर्माण में हर नागरिक की भागीदारी।",
       cta: "दृष्टिकोण देखें",
     },
     about: {
