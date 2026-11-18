@@ -1,5 +1,25 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import type { Dict } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
+
+const SLIDES = [
+  {
+    id: "portrait",
+    desktop: "/images/rohit-pandey-hero-light.jpg",
+    mobile: "/images/rohit-pandey-hero-portrait.jpg",
+    objectPosition: "object-right",
+    alt: "Rohit Pandey",
+  },
+  {
+    id: "moments",
+    desktop: "/images/rohit-pandey-hero-slide-2-desktop.jpg",
+    mobile: "/images/rohit-pandey-hero-slide-2-mobile.jpg",
+    objectPosition: "object-center",
+    alt: "Rohit Pandey Samajwadi Party Moments",
+  },
+];
 
 /**
  * Home hero built around the supplied artwork: a warm cream studio ground with
@@ -32,29 +52,74 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   const lastName = parts.pop() ?? "";
   const firstName = parts.join(" ");
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [currentSlide]);
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
   return (
-    <section aria-labelledby="hero-title" className="relative overflow-hidden bg-[#f6ece2]">
+    <section
+      aria-labelledby="hero-title"
+      className="relative overflow-hidden bg-[#f6ece2]"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="relative">
-        {/* Artwork: one picture. Phones and tablets sit it at the bottom of the
-            stage at its own ratio; from xl it is shown whole (never cropped) at full width. */}
+        {/* Artwork Slider: maintains identical height and ratios across all viewports */}
         <div
           aria-hidden
-          className="absolute inset-x-0 bottom-0 aspect-[9/16] md:aspect-video xl:inset-x-auto xl:right-0 xl:h-[calc(100%-var(--nav-h))] xl:w-auto xl:max-w-full"
+          className="absolute inset-x-0 bottom-0 aspect-[9/16] md:aspect-video xl:inset-x-auto xl:right-0 xl:h-[calc(100%-var(--nav-h))] xl:w-auto xl:max-w-full pointer-events-none"
         >
-          <picture>
-            <source media="(min-width: 768px)" srcSet="/images/rohit-pandey-hero-light.jpg" />
-            <img
-              src="/images/rohit-pandey-hero-portrait.jpg"
-              alt=""
-              width={1080}
-              height={1920}
-              fetchPriority="high"
-              decoding="async"
-              className="hero-art size-full object-cover object-right xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
-            />
-          </picture>
-          {/* soft cream shade so the text stays readable over the crowd on phones and tablets */}
-          <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
+          {SLIDES.map((slide, idx) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
+            >
+              <picture>
+                <source media="(min-width: 768px)" srcSet={slide.desktop} />
+                <img
+                  src={slide.mobile}
+                  alt={slide.alt}
+                  width={1080}
+                  height={1920}
+                  fetchPriority={idx === 0 ? "high" : "low"}
+                  decoding="async"
+                  className={`hero-art size-full object-cover ${slide.objectPosition} xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]`}
+                />
+              </picture>
+              {/* soft cream shade so the text stays readable over the artwork on phones and tablets */}
+              <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
+            </div>
+          ))}
         </div>
 
         <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
@@ -77,6 +142,47 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
               <p className="hero-line text-left mt-3.5 sm:mt-4.5 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-5 xl:text-[3.25rem] font-bold tracking-tight text-[#7F1725] leading-[1.18] xl:leading-[1.12]">
                 {hero.line}
               </p>
+
+              {/* Slider Controls: Dots and Prev/Next Navigation */}
+              <div className="hero-line mt-6 flex items-center gap-3 sm:mt-8">
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  aria-label="Previous slide"
+                  className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-ink/20 bg-white/70 text-ink backdrop-blur transition-all duration-300 hover:border-brand-red hover:bg-white hover:text-brand-red shadow-xs"
+                >
+                  <svg className="size-4 -scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setCurrentSlide(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        currentSlide === i
+                          ? "w-8 bg-brand-red shadow-xs"
+                          : "w-2.5 bg-ink/25 hover:bg-ink/45"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  aria-label="Next slide"
+                  className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-ink/20 bg-white/70 text-ink backdrop-blur transition-all duration-300 hover:border-brand-red hover:bg-white hover:text-brand-red shadow-xs"
+                >
+                  <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
