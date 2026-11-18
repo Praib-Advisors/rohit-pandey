@@ -78,6 +78,8 @@ export default async function UpdatePage({ params }: Props) {
         title={update.title[lang]}
         intro={update.summary[lang]}
         titleSize="md"
+        bgImage={update.headerBgImage}
+        bgImagePosition={update.headerBgImagePosition}
       />
 
       <article className="shell grid gap-10 py-14 md:grid-cols-12 md:gap-8 md:py-20">

@@ -151,7 +151,7 @@ const en = {
     ],
   },
   homeIntro: {
-    eyebrow: "About Rohit Pandey",
+    eyebrow: "",
     title: "An advocate who works among the people of Khalilabad",
     lede: "Rohit Pandey is an advocate and a Samajwadi Party worker from Khalilabad, the district headquarters of Sant Kabir Nagar. A former Lok Sabha candidate from Sant Kabir Nagar, he studied at the University of Delhi.",
     body: "His work is centred on the Khalilabad assembly area (No. 313). He spends his time at the office and in village meetings, listening to residents and taking up the problems they raise most often: roads and drainage, work for young people, farmers, health centres and schooling for girls.",
@@ -254,7 +254,7 @@ const en = {
       eyebrow: "About Khalilabad Army",
       heading: "A Shared Vision, A Common Purpose",
       description:
-        "Khalilabad Army represents a collective initiative connecting youth, citizens, and social workers with public welfare and community activities. Its objective is to understand local issues, encourage social participation, and make concerted efforts toward positive change.",
+        "Khalilabad Army is an effort to bring conscious youth and citizens together on a shared platform. This platform fosters dialogue on local issues, active participation in public welfare, and a shared commitment to prioritizing regional needs. It is built on the conviction that organized efforts and responsible civic engagement will form the strong foundation for Khalilabad's bright future.",
       imageAlt: "Rohit Pandey interacting with citizens and youth in Khalilabad",
     },
     vision: {
@@ -759,7 +759,7 @@ const hi: Dict = {
     ],
   },
   homeIntro: {
-    eyebrow: "रोहित पाण्डेय के बारे में",
+    eyebrow: "",
     title: "खलीलाबाद के लोगों के बीच काम करने वाले अधिवक्ता",
     lede: "रोहित पाण्डेय अधिवक्ता हैं और संत कबीर नगर ज़िले के मुख्यालय खलीलाबाद से समाजवादी पार्टी के लिए काम करते हैं। संत कबीर नगर से पूर्व लोकसभा प्रत्याशी रह चुके रोहित पाण्डेय ने दिल्ली विश्वविद्यालय से पढ़ाई की है।",
     body: "उनका काम खलीलाबाद विधानसभा क्षेत्र (संख्या 313) पर केंद्रित है। वे कार्यालय और गाँवों की बैठकों में लोगों की बात सुनते हैं और जो समस्याएँ सबसे ज़्यादा उठती हैं, उन पर काम करते हैं: सड़क और नाली, युवाओं के लिए रोज़गार, किसान, स्वास्थ्य केंद्र और बेटियों की पढ़ाई।",
@@ -862,7 +862,7 @@ const hi: Dict = {
       eyebrow: "खलीलाबाद आर्मी",
       heading: "एक सोच, एक उद्देश्य, एक परिवार",
       description:
-        "खलीलाबाद आर्मी एक सामूहिक पहल के रूप में युवाओं, नागरिकों और सामाजिक कार्यकर्ताओं को जनहित एवं सामाजिक गतिविधियों से जोड़ने की सोच को दर्शाती है। इसका उद्देश्य क्षेत्र की समस्याओं को समझना, सामाजिक सहभागिता को प्रोत्साहित करना और सकारात्मक बदलाव के लिए सामूहिक प्रयास करना है।",
+        "खलीलाबाद आर्मी क्षेत्र के जागरूक युवाओं और नागरिकों को एक साझा मंच पर लाने का प्रयास है। यह मंच स्थानीय मुद्दों पर विचार-विमर्श, जनहित से जुड़े कार्यों में सक्रिय भागीदारी और क्षेत्र की आवश्यकताओं को प्राथमिकता देने की भावना को आगे बढ़ाता है। इसका विश्वास है कि संगठित प्रयास और जिम्मेदार नागरिक भागीदारी खलीलाबाद के उज्ज्वल भविष्य की मजबूत नींव बनेगी।",
       imageAlt: "खलीलाबाद में स्थानीय नागरिकों और युवाओं के साथ रोहित पाण्डेय",
     },
     vision: {

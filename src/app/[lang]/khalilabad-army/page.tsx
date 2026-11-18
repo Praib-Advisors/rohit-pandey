@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import ContactStrip from "@/components/ContactStrip";
 import InfiniteCardSlider from "@/components/InfiniteCardSlider";
+import ArmySocialSection from "@/components/khalilabad-army/ArmySocialSection";
+import JoinArmySection from "@/components/khalilabad-army/JoinArmySection";
 import ScrollToButton from "@/components/ScrollToButton";
 import Wave from "@/components/Wave";
 import { href } from "@/lib/i18n";
@@ -30,7 +31,7 @@ function Stroke({
       {children}
     </svg>
   );
-}
+} 
 
 function ArrowDownIcon({ className }: IconProps) {
   return (
@@ -248,9 +249,16 @@ export default async function KhalilabadArmyPage({
             <div className="lg:col-span-6" data-reveal="right">
               <h2
                 id="about-army-heading"
-                className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+                className="font-heading text-2xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
               >
-                {army.about.heading}
+                {lang === "hi" ? (
+                  <>
+                    <span className="block">एक सोच, एक उद्देश्य,</span>
+                    <span className="block">एक परिवार</span>
+                  </>
+                ) : (
+                  army.about.heading
+                )}
               </h2>
 
               <p className="mt-6 text-base leading-relaxed text-ink-soft sm:text-lg">
@@ -259,7 +267,7 @@ export default async function KhalilabadArmyPage({
 
               <div className="mt-8 space-y-3 border-t border-line pt-6">
                 <div className="flex items-start gap-3">
-                  <span className="mt-1 size-2 shrink-0 rounded-full bg-red-dk" />
+                  <span className="mt-1 size-2 shrink-0 rounded-full bg-green-dk" />
                   <p className="text-sm font-medium text-ink">
                     {lang === "hi"
                       ? "युवाओं, नागरिकों और सामाजिक कार्यकर्ताओं का साझा मंच"
@@ -275,7 +283,7 @@ export default async function KhalilabadArmyPage({
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="mt-1 size-2 shrink-0 rounded-full bg-red-dk" />
+                  <span className="mt-1 size-2 shrink-0 rounded-full bg-green-dk" />
                   <p className="text-sm font-medium text-ink">
                     {lang === "hi"
                       ? "सकारात्मक सामाजिक बदलाव और जनसेवा को प्रोत्साहन"
@@ -289,50 +297,82 @@ export default async function KhalilabadArmyPage({
       </section>
 
       {/* ------------------------------------------------------------ */}
-      {/* 3. Rohit Pandey's Vision                                     */}
+      {/* 3. Khalilabad Army - Cinematic Community Initiative Hero     */}
       {/* ------------------------------------------------------------ */}
-      <Wave tone="sand" />
       <section
         id="vision"
         aria-labelledby="vision-army-heading"
-        className="surface-tint py-20 md:py-28"
+        className="relative flex min-h-[78vh] sm:min-h-[82vh] md:min-h-[86vh] lg:min-h-[90vh] items-center overflow-hidden bg-[#201D1D] text-white py-16 sm:py-24 md:py-28 lg:py-32"
       >
-        <div className="shell">
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Text Column (Left) */}
-            <div className="order-2 lg:order-1 lg:col-span-7" data-reveal="left">
-              <h2
-                id="vision-army-heading"
-                className="font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl"
+        {/* Full-width Background Image: Authentic Group Photograph */}
+        <div className="pointer-events-none absolute inset-0">
+          <Image
+            src="/images/khalilabad-army/khalilabad-army-march-night-v2.jpg"
+            alt={lang === "hi" ? "खलीलाबाद में युवाओं के साथ पदयात्रा करते रोहित पाण्डेय" : "Rohit Pandey walking with youth collective in Khalilabad"}
+            fill
+            sizes="100vw"
+            priority
+            className="hero-art object-cover object-[center_15%] sm:object-[center_15%] md:object-[62%_15%] lg:object-[65%_18%]"
+          />
+
+          {/* Subtle base tint */}
+          <div className="absolute inset-0 bg-[#201D1D]/20" />
+
+          {/* Smooth, natural continuous gradient: dark on left for text, completely clear on right for photograph */}
+          <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-[#201D1D] via-[#201D1D]/90 via-40% via-[#201D1D]/35 to-transparent to-85%" />
+
+          {/* Smooth mobile overlay: dark at text area, bright on group photograph */}
+          <div className="absolute inset-0 md:hidden bg-gradient-to-b from-[#201D1D]/95 via-[#201D1D]/75 via-55% to-[#201D1D]/35" />
+
+          {/* Soft top & bottom edge blends */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#201D1D]/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#201D1D]/90 to-transparent" />
+        </div>
+
+        {/* Content Container (Left / Left-of-Center) */}
+        <div className="shell relative z-20 w-full pointer-events-auto">
+          <div className="max-w-2xl text-left md:max-w-xl lg:max-w-2xl" data-reveal="fade">
+            {/* Main Heading */}
+            <h2
+              id="vision-army-heading"
+              className="font-heading text-2xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-[1.25] sm:leading-[1.2]"
+            >
+              {lang === "hi" ? (
+                <>
+                  <span className="block text-white">एकजुट युवा,</span>
+                  <span className="block text-[#C7A56A] mt-2 sm:mt-3 md:mt-4">विकसित खलीलाबाद</span>
+                </>
+              ) : (
+                <>
+                  <span className="block text-white">United Youth,</span>
+                  <span className="block text-[#C7A56A] mt-2 sm:mt-3 md:mt-4">Stronger Khalilabad.</span>
+                </>
+              )}
+            </h2>
+
+            {/* Description */}
+            <p className="mt-5 sm:mt-6 text-left text-sm sm:text-base md:text-lg leading-relaxed text-[#F5F1EA]/90 font-normal max-w-xl [hyphens:none] [word-break:normal] break-normal">
+              {lang === "hi"
+                ? "खलीलाबाद आर्मी युवाओं, नागरिकों और सामाजिक कार्यकर्ताओं को एक साथ जोड़ने वाला साझा मंच है, जो क्षेत्र के बेहतर भविष्य के लिए जनभागीदारी, सामाजिक सहयोग और सामूहिक प्रयासों को बढ़ावा देता है।"
+                : "Khalilabad Army is a shared platform connecting youth, citizens, and social workers, fostering public participation, social cooperation, and collective efforts for a better future for the region."}
+            </p>
+
+            {/* Primary CTA */}
+            <div className="mt-6 sm:mt-9 flex items-center">
+              <a
+                href="#join-army"
+                className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 rounded-md bg-[#7F1725] px-7 py-3.5 text-sm sm:text-base font-semibold text-[#F5F1EA] shadow-xl transition-all duration-300 hover:bg-[#9e1018] hover:shadow-2xl hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7A56A] cursor-pointer"
               >
-                {army.vision.heading}
-              </h2>
-
-              <div className="mt-6 space-y-4 rounded-xl border-l-4 border-red-dk bg-white/70 p-6 shadow-soft backdrop-blur-sm sm:p-8">
-                {army.vision.description.split("\n\n").map((para, idx, arr) => (
-                  <p key={idx} className="text-base font-normal leading-relaxed text-ink sm:text-lg">
-                    {idx === 0 && <>&ldquo;</>}
-                    {para}
-                    {idx === arr.length - 1 && <>&rdquo;</>}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            {/* Image Column (Right) */}
-            <div className="order-1 lg:order-2 lg:col-span-5" data-reveal="right">
-              <div className="group relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-line/60 bg-white/70 p-2 shadow-soft backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-raised sm:rounded-3xl sm:p-2.5 lg:max-w-[380px]">
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-tint sm:rounded-2xl">
-                  <Image
-                    src="/images/rohit-pandey-white-kurta-scarf-portrait.webp"
-                    alt={t.person.name}
-                    fill
-                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 360px, 100vw"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                    priority
-                  />
-                </div>
-              </div>
+                <span>
+                  {lang === "hi" ? "खलीलाबाद आर्मी से जुड़ें" : "Join Khalilabad Army"}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-300 group-hover:translate-x-1.5 font-bold text-base leading-none"
+                >
+                  →
+                </span>
+              </a>
             </div>
           </div>
         </div>
@@ -452,9 +492,14 @@ export default async function KhalilabadArmyPage({
       </section>
 
       {/* ------------------------------------------------------------ */}
-      {/* Contact Strip                                                */}
+      {/* 6. Join Khalilabad Army Registration Section                 */}
       {/* ------------------------------------------------------------ */}
-      <ContactStrip lang={lang} t={t} />
+      <JoinArmySection lang={lang} />
+
+      {/* ------------------------------------------------------------ */}
+      {/* 7. Connect With Khalilabad Army - Social Media Section       */}
+      {/* ------------------------------------------------------------ */}
+      <ArmySocialSection lang={lang} />
     </div>
   );
 }

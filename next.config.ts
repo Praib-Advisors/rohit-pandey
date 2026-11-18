@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [75, 85],
+    qualities: [75, 85, 88, 90, 95],
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
   },
@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/", destination: "/en", permanent: false },
+      { source: "/admin", destination: "/hi/admin/khalilabad-army", permanent: false },
+      { source: "/:lang(en|hi)/admin", destination: "/:lang/admin/khalilabad-army", permanent: false },
       // Public Life and Updates are one page now
       { source: "/:lang(en|hi)/updates", destination: "/:lang/public-life", permanent: true },
       // The journey now lives on the about page

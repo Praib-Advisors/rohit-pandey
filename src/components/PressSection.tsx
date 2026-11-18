@@ -192,7 +192,7 @@ export default function PressSection({
                 alt={activeItem.title[lang]}
                 fill
                 sizes="100vw"
-                quality={95}
+                quality={85}
                 className="object-contain px-4 md:px-20"
               />
 

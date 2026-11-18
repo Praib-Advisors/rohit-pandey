@@ -105,11 +105,11 @@ export const fullGallery: MediaItem[] = [
   media["akhilesh-yadav-garland"],
   media["sp-office-group-01"],
   media["akhilesh-shivpal-bouquet"],
-  media["party-colleagues-gathering"],
+  media["shivpal-singh-yadav-lucknow"],
   media["village-supporters"],
   media["mohanbara-rajbhar-welcome"],
   media["akhilesh-yadav-book-presentation"],
-  media["shivpal-singh-yadav-lucknow"],
+  media["party-colleagues-gathering"],
   media["gallery-g2"],
   media["gallery-g3"],
   media["gallery-g4"],
@@ -147,6 +147,8 @@ export type Update = {
   summary: Localised<string>;
   body: Localised<string[]>;
   image?: UpdateImage;
+  headerBgImage?: string;
+  headerBgImagePosition?: string;
   /** A video, shown in place of the lead photograph. */
   video?: { src: string; poster: string; blur: string; width: number; height: number; label: Localised<string> };
   /** Further photographs, shown in a row beneath the article. */
@@ -241,6 +243,8 @@ const rawUpdates: Update[] = [
     date: "2026-09-18",
     location: { en: "Khalilabad", hi: "खलीलाबाद" },
     category: { en: "Public life", hi: "जनजीवन" },
+    headerBgImage: "/images/rohit-pandey-among-residents-khalilabad-v2.jpg",
+    headerBgImagePosition: "object-[center_25%] md:object-[60%_35%]",
     title: {
       en: "Among the people of the Khalilabad assembly area",
       hi: "खलीलाबाद विधानसभा क्षेत्र में देवतुल्य क्षेत्रवासियों के बीच",

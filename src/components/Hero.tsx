@@ -1,6 +1,5 @@
-import Link from "next/link";
 import type { Dict } from "@/lib/dictionary";
-import { href, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 
 /**
  * Home hero built around the supplied artwork: a warm cream studio ground with
@@ -27,29 +26,11 @@ import { href, type Locale } from "@/lib/i18n";
  * A single <picture> carries the artwork, so each breakpoint downloads one
  * image: the tall phone file below 768px, the desktop file from 768px up.
  */
-export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
+export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   const { person, hero } = t;
   const parts = person.name.split(" ");
   const lastName = parts.pop() ?? "";
   const firstName = parts.join(" ");
-
-  const details = (
-    <div className="hero-line flex flex-col gap-3 [--i:3] max-md:mt-5 xs:flex-row xs:flex-wrap xs:items-center">
-      <Link
-        href={href(lang, "/about")}
-        className="btn group min-h-12 justify-center rounded-full bg-brand-red px-7 text-white shadow-[0_14px_30px_-14px_rgb(224_38_47/0.8)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-red-dk hover:shadow-[0_20px_40px_-16px_rgb(158_16_24/0.8)]"
-      >
-        {hero.ctaProfile}
-        <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-      </Link>
-      <Link
-        href={href(lang, "/contact")}
-        className="btn min-h-12 justify-center rounded-full border border-ink/20 bg-white/70 px-7 text-ink backdrop-blur transition-[transform,background-color,border-color,color] duration-300 hover:-translate-y-0.5 hover:border-green-dk hover:bg-white hover:text-green-dk"
-      >
-        {hero.ctaContact}
-      </Link>
-    </div>
-  );
 
   return (
     <section aria-labelledby="hero-title" className="relative overflow-hidden bg-[#f6ece2]">
@@ -76,37 +57,30 @@ export default function Hero({ lang, t }: { lang: Locale; t: Dict }) {
           <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
         </div>
 
-        <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+1.25rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
-          <div className="w-full xl:w-auto xl:max-w-[min(48vw,44rem)]">
+        <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
+          <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
 
             {/* Name, designation and the Khalilabad line keep to the left, beside the portrait */}
-            <div className="md:w-[54%] xl:w-auto">
+            <div className="md:w-[58%] xl:w-auto">
               <h1
                 id="hero-title"
-                className="hero-line font-heading [--i:0] text-[clamp(2rem,9vw,3.5rem)] leading-[1.02] xl:text-[clamp(3rem,1.6rem+4vw,5.75rem)] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
+                className="hero-line font-heading [--i:0] text-[clamp(2.75rem,10.5vw,4.5rem)] sm:text-6xl md:text-6xl xl:text-[clamp(4.25rem,2rem+4.5vw,6.75rem)] leading-[1.02] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
               >
                 {firstName}{" "}
                 <span className="text-brand-red">{lastName}</span>
               </h1>
 
-              <p className="hero-line text-left mt-3.5 font-sans text-[clamp(1.125rem,0.55rem+1.35vw,1.875rem)] font-normal leading-snug text-ink-soft xl:mt-4 xl:text-[clamp(1.35rem,0.65rem+1.35vw,2rem)] xl:leading-snug">
+              <p className="hero-line text-left mt-5 sm:mt-6 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-7 xl:text-[3.25rem] font-bold tracking-tight text-ink leading-[1.18] xl:leading-[1.12]">
                 {person.role}
               </p>
 
-              <p className="hero-line text-left mt-2.5 font-sans text-[clamp(1.125rem,0.55rem+1.35vw,1.875rem)] font-medium leading-snug text-ink-soft xl:mt-3 xl:text-[clamp(1.35rem,0.65rem+1.35vw,2rem)] xl:leading-snug">
+              <p className="hero-line text-left mt-3.5 sm:mt-4.5 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-5 xl:text-[3.25rem] font-bold tracking-tight text-[#7F1725] leading-[1.18] xl:leading-[1.12]">
                 {hero.line}
               </p>
             </div>
-
-            {/* phones: the actions sit in the cream area above the portrait */}
-            <div className="mt-6 md:hidden">{details}</div>
-            <div className="mt-8 hidden xl:block">{details}</div>
           </div>
         </div>
       </div>
-
-      {/* Introduction and actions, full width below the stage (phones, tablets) */}
-      <div className="shell relative hidden pb-12 pt-6 sm:pb-14 md:block xl:hidden">{details}</div>
     </section>
   );
 }

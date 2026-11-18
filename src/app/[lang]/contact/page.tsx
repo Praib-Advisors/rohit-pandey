@@ -21,8 +21,8 @@ export default async function ContactPage({ params }: PageProps<"/[lang]/contact
         title={c.title}
         intro={c.intro}
         titleSize="md"
-        bgImage="/images/rohit-pandey-office-baithak.jpg"
-        bgImagePosition="object-[center_22%] md:object-[center_28%]"
+        bgImage="/images/rohit-pandey-contact-banner.jpg"
+        bgImagePosition="object-[center_20%] md:object-[60%_25%]"
       />
       <OfficeSection lang={lang} t={t} heading={false} />
       <section aria-labelledby="follow-title" className="shell py-16 md:py-24">

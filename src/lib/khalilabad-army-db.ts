@@ -1,0 +1,322 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import type {
+  KhalilabadArmyMember,
+  MemberStatus,
+  RegisterMemberInput,
+} from "./khalilabad-army-types";
+
+// Local storage fallback path
+const DATA_DIR = path.join(process.cwd(), "src", "data");
+const LOCAL_DB_PATH = path.join(DATA_DIR, "khalilabad_army_members.json");
+
+function getSupabaseConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.SUPABASE_ANON_KEY;
+
+  if (url && key) {
+    return {
+      url: url.replace(/\/+$/, ""),
+      key,
+      isConfigured: true,
+    };
+  }
+  return { url: "", key: "", isConfigured: false };
+}
+
+async function ensureLocalFile(): Promise<KhalilabadArmyMember[]> {
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    const content = await fs.readFile(LOCAL_DB_PATH, "utf-8");
+    return JSON.parse(content) as KhalilabadArmyMember[];
+  } catch {
+    // If file doesn't exist, start with empty array
+    const initial: KhalilabadArmyMember[] = [];
+    try {
+      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(initial, null, 2), "utf-8");
+    } catch {
+      // ignore
+    }
+    return initial;
+  }
+}
+
+async function saveLocalFile(members: KhalilabadArmyMember[]): Promise<void> {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+  await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(members, null, 2), "utf-8");
+}
+
+function generateRegistrationId(): string {
+  const year = new Date().getFullYear();
+  const randomDigits = Math.floor(10000 + Math.random() * 90000); // 5 digits
+  return `KA-${year}-${randomDigits}`;
+}
+
+/**
+ * Register a new member.
+ * Checks for duplicate 10-digit mobile numbers.
+ * Stores in Supabase if configured, otherwise falls back to persistent local storage.
+ */
+export async function registerMember(
+  input: RegisterMemberInput
+): Promise<{ success: boolean; member?: KhalilabadArmyMember; error?: string }> {
+  const cleanMobile = String(input.mobile).trim().replace(/\D/g, "");
+  const now = new Date().toISOString();
+  const regId = generateRegistrationId();
+  const id = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `mem_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+  const newMember: KhalilabadArmyMember = {
+    id,
+    registration_id: regId,
+    full_name: input.full_name.trim(),
+    mobile: cleanMobile,
+    village_ward_area: input.village_ward_area.trim(),
+    age: input.age ? Number(input.age) : null,
+    interested_area: input.interested_area?.trim() || null,
+    message: input.message?.trim() || null,
+    status: "pending",
+    created_at: now,
+    updated_at: now,
+  };
+
+  const { isConfigured, url, key } = getSupabaseConfig();
+
+  if (isConfigured) {
+    try {
+      // Check duplicate mobile in Supabase
+      const checkRes = await fetch(
+        `${url}/rest/v1/khalilabad_army_members?mobile=eq.${cleanMobile}&select=id`,
+        {
+          headers: {
+            apikey: key,
+            Authorization: `Bearer ${key}`,
+          },
+        }
+      );
+
+      if (checkRes.ok) {
+        const existing = await checkRes.json();
+        if (Array.isArray(existing) && existing.length > 0) {
+          return {
+            success: false,
+            error: "duplicate_mobile",
+          };
+        }
+      }
+
+      // Insert member into Supabase
+      const insertRes = await fetch(`${url}/rest/v1/khalilabad_army_members`, {
+        method: "POST",
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          "Content-Type": "application/json",
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify(newMember),
+      });
+
+      if (!insertRes.ok) {
+        const errText = await insertRes.text();
+        console.error("[khalilabad-army] Supabase insert failed:", errText);
+        // Fallback to local storage if table doesn't exist yet
+        return await registerMemberLocally(newMember, cleanMobile);
+      }
+
+      const inserted = await insertRes.json();
+      return {
+        success: true,
+        member: Array.isArray(inserted) && inserted.length > 0 ? inserted[0] : newMember,
+      };
+    } catch (err) {
+      console.error("[khalilabad-army] Supabase connection error:", err);
+      // Fallback to local storage
+      return await registerMemberLocally(newMember, cleanMobile);
+    }
+  }
+
+  // Supabase not configured yet - use local storage
+  return await registerMemberLocally(newMember, cleanMobile);
+}
+
+async function registerMemberLocally(
+  newMember: KhalilabadArmyMember,
+  cleanMobile: string
+): Promise<{ success: boolean; member?: KhalilabadArmyMember; error?: string }> {
+  const members = await ensureLocalFile();
+
+  const isDuplicate = members.some((m) => m.mobile === cleanMobile);
+  if (isDuplicate) {
+    return {
+      success: false,
+      error: "duplicate_mobile",
+    };
+  }
+
+  members.unshift(newMember);
+  await saveLocalFile(members);
+
+  return {
+    success: true,
+    member: newMember,
+  };
+}
+
+/**
+ * Retrieve members with optional search, status filtering, and sorting.
+ */
+export async function getMembers(options?: {
+  search?: string;
+  status?: string;
+  interested_area?: string;
+}): Promise<KhalilabadArmyMember[]> {
+  const { isConfigured, url, key } = getSupabaseConfig();
+
+  if (isConfigured) {
+    try {
+      let queryUrl = `${url}/rest/v1/khalilabad_army_members?select=*&order=created_at.desc`;
+
+      if (options?.status && options.status !== "all") {
+        queryUrl += `&status=eq.${encodeURIComponent(options.status)}`;
+      }
+      if (options?.interested_area && options.interested_area !== "all") {
+        queryUrl += `&interested_area=eq.${encodeURIComponent(options.interested_area)}`;
+      }
+
+      const res = await fetch(queryUrl, {
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+        },
+      });
+
+      if (res.ok) {
+        let list: KhalilabadArmyMember[] = await res.json();
+        if (options?.search) {
+          const s = options.search.toLowerCase();
+          list = list.filter(
+            (m) =>
+              m.full_name.toLowerCase().includes(s) ||
+              m.mobile.includes(s) ||
+              m.registration_id.toLowerCase().includes(s) ||
+              m.village_ward_area.toLowerCase().includes(s)
+          );
+        }
+        return list;
+      }
+    } catch (err) {
+      console.error("[khalilabad-army] Supabase fetch failed, falling back to local:", err);
+    }
+  }
+
+  // Local fallback
+  let list = await ensureLocalFile();
+
+  if (options?.status && options.status !== "all") {
+    list = list.filter((m) => m.status === options.status);
+  }
+  if (options?.interested_area && options.interested_area !== "all") {
+    list = list.filter((m) => m.interested_area === options.interested_area);
+  }
+  if (options?.search) {
+    const s = options.search.toLowerCase();
+    list = list.filter(
+      (m) =>
+        m.full_name.toLowerCase().includes(s) ||
+        m.mobile.includes(s) ||
+        m.registration_id.toLowerCase().includes(s) ||
+        m.village_ward_area.toLowerCase().includes(s)
+    );
+  }
+
+  return list;
+}
+
+/**
+ * Update member status or details.
+ */
+export async function updateMember(
+  id: string,
+  updates: Partial<KhalilabadArmyMember>
+): Promise<{ success: boolean; member?: KhalilabadArmyMember; error?: string }> {
+  const { isConfigured, url, key } = getSupabaseConfig();
+  const now = new Date().toISOString();
+  const sanitizedUpdates = { ...updates, updated_at: now };
+
+  if (isConfigured) {
+    try {
+      const res = await fetch(`${url}/rest/v1/khalilabad_army_members?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          "Content-Type": "application/json",
+          Prefer: "return=representation",
+        },
+        body: JSON.stringify(sanitizedUpdates),
+      });
+
+      if (res.ok) {
+        const updated = await res.json();
+        return {
+          success: true,
+          member: Array.isArray(updated) && updated.length > 0 ? updated[0] : undefined,
+        };
+      }
+    } catch (err) {
+      console.error("[khalilabad-army] Supabase update failed, falling back to local:", err);
+    }
+  }
+
+  // Local fallback
+  const members = await ensureLocalFile();
+  const index = members.findIndex((m) => m.id === id || m.registration_id === id);
+  if (index === -1) {
+    return { success: false, error: "Member not found" };
+  }
+
+  members[index] = {
+    ...members[index],
+    ...sanitizedUpdates,
+  };
+  await saveLocalFile(members);
+
+  return { success: true, member: members[index] };
+}
+
+/**
+ * Delete a member.
+ */
+export async function deleteMember(
+  id: string
+): Promise<{ success: boolean; error?: string }> {
+  const { isConfigured, url, key } = getSupabaseConfig();
+
+  if (isConfigured) {
+    try {
+      const res = await fetch(`${url}/rest/v1/khalilabad_army_members?id=eq.${id}`, {
+        method: "DELETE",
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+        },
+      });
+
+      if (res.ok) {
+        return { success: true };
+      }
+    } catch (err) {
+      console.error("[khalilabad-army] Supabase delete failed, falling back to local:", err);
+    }
+  }
+
+  // Local fallback
+  const members = await ensureLocalFile();
+  const filtered = members.filter((m) => m.id !== id && m.registration_id !== id);
+  await saveLocalFile(filtered);
+
+  return { success: true };
+}

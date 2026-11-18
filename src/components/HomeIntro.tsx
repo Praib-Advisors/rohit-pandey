@@ -18,8 +18,10 @@ export default function HomeIntro({ lang, t }: { lang: Locale; t: Dict }) {
       <div className="shell">
         <div className="grid items-center gap-14 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-7 lg:col-span-7">
-            <p className="eyebrow !text-green-dk">{home.eyebrow}</p>
-            <h2 id="about-title" className="title-lg mt-4 max-w-[34rem] text-ink">
+            {home.eyebrow ? (
+              <p className="eyebrow !text-green-dk">{home.eyebrow}</p>
+            ) : null}
+            <h2 id="about-title" className={`title-lg max-w-[34rem] text-ink ${home.eyebrow ? "mt-4" : ""}`}>
               {home.title}
             </h2>
             <div className="mt-8 max-w-[38rem] space-y-5">
