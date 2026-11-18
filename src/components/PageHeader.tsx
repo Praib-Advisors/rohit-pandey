@@ -31,6 +31,7 @@ export default function PageHeader({
   bgImageAlt,
   bgImagePosition,
   bgTone = "dark",
+  minHeight,
   titleSize = "lg",
 }: {
   lang: Locale;
@@ -51,6 +52,7 @@ export default function PageHeader({
   bgImageAlt?: string;
   bgImagePosition?: string;
   bgTone?: "dark" | "light";
+  minHeight?: string;
   tone?: "deep" | "gradient" | string;
   titleSize?: "xl" | "lg" | "md";
 }) {
@@ -74,9 +76,9 @@ export default function PageHeader({
         isDark
           ? backdrop
             ? "on-dark bg-red-deep md:min-h-[100svh]"
-            : "on-dark bg-black text-white min-h-[65vh] sm:min-h-[74vh] md:min-h-[82vh] lg:min-h-[88vh]"
+            : `on-dark bg-black text-white ${minHeight ?? "min-h-[75vh] sm:min-h-[84vh] md:min-h-[92vh] lg:min-h-[98vh]"}`
           : isLightBgImage
-            ? "bg-[#faf7f2] text-ink min-h-[50vh] sm:min-h-[58vh] md:min-h-[64vh]"
+            ? `bg-[#faf7f2] text-ink ${minHeight ?? "min-h-[58vh] sm:min-h-[68vh] md:min-h-[78vh] lg:min-h-[86vh]"}`
             : "bg-ivory"
       } ${
         media && mediaSide === "right" ? "flag-wedge [--wb-x:40%] [--wt-x:100%] [--wt-y:62%] md:[--wb-x:74%] md:[--wt-x:100%] md:[--wt-y:calc(var(--nav-h)+0.75rem)]" : ""

@@ -35,7 +35,8 @@ export default async function IdealsPage({ params }: PageProps<"/[lang]/ideals">
         titleSize="lg"
         bgImage="/images/ideals/ideals-hero-banner.jpg"
         bgImageAlt={tr(TITLE)}
-        bgImagePosition="object-center md:object-[right_center]"
+        bgImagePosition="object-[center_top] md:object-[right_center]"
+        minHeight="min-h-[85vh] sm:min-h-[92vh] md:min-h-[98vh] lg:min-h-[100svh]"
       />
 
       <FeaturedQuote />
