@@ -78,17 +78,9 @@ export default function AdminLayout({
       <div className="fixed inset-0 z-[100] flex items-center justify-center bg-gray-100 p-4 overflow-y-auto">
         <div className="w-full max-w-md rounded-2xl border border-line bg-white p-8 shadow-raised">
           <div className="text-center">
-            <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-red-dk text-white font-bold text-lg">
-              RP
-            </div>
-            <h1 className="mt-4 font-heading text-2xl font-bold text-ink">
+            <h1 className="font-heading text-2xl font-bold text-ink">
               {isHi ? "व्यवस्थापक लॉगिन" : "Admin Panel Login"}
             </h1>
-            <p className="mt-1 text-xs text-ink-soft">
-              {isHi
-                ? "रोहित पाण्डेय वेबसाइट प्रशासनिक पोर्टल"
-                : "Rohit Pandey Website Admin Portal"}
-            </p>
           </div>
 
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
@@ -103,7 +95,7 @@ export default function AdminLayout({
                 htmlFor="admin_pass"
                 className="block text-xs font-semibold uppercase tracking-wider text-ink"
               >
-                {isHi ? "पासवर्ड (Password)" : "Password"}
+                {isHi ? "पासवर्ड" : "Password"}
               </label>
               <input
                 type="password"
@@ -111,12 +103,9 @@ export default function AdminLayout({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder="Enter admin password"
+                placeholder={isHi ? "पासवर्ड दर्ज करें" : "Enter admin password"}
                 className="mt-1.5 block w-full rounded-md border border-line px-3.5 py-2.5 text-sm text-ink focus:border-red-dk focus:outline-2 focus:outline-red-dk"
               />
-              <p className="mt-1 text-[11px] text-ink-soft">
-                Default: <code>admin123</code> (configure via ADMIN_PASSWORD)
-              </p>
             </div>
 
             <button
