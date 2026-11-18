@@ -177,7 +177,7 @@ export default function PressSection({
             </div>
 
             <div
-              className="relative min-h-0 flex-1"
+              className="relative min-h-0 flex-1 w-full px-4 md:px-20 flex items-center justify-center overflow-hidden"
               onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
               onTouchEnd={(e) => {
                 if (touchX.current === null) return;
@@ -193,7 +193,9 @@ export default function PressSection({
                 fill
                 sizes="100vw"
                 quality={85}
-                className="object-contain px-4 md:px-20"
+                className="object-contain"
+                style={{ objectFit: "contain" }}
+                priority
               />
 
               {items.length > 1 && (

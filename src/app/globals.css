@@ -492,6 +492,11 @@ dialog.lightbox {
   background: rgba(74, 10, 16, 0.98);
   background: color-mix(in oklab, var(--red-deep) 98%, transparent);
 }
+dialog.lightbox img {
+  object-fit: contain !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
 dialog.lightbox::backdrop {
   background: rgb(22 24 28 / 0.4);
 }

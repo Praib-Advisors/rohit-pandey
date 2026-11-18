@@ -83,7 +83,7 @@ export default function MediaLightbox({
           </div>
 
           <div
-            className="relative min-h-0 flex-1"
+            className="relative min-h-0 flex-1 w-full px-4 md:px-24 flex items-center justify-center overflow-hidden"
             onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
             onTouchEnd={(e) => {
               if (touchX.current === null) return;
@@ -99,7 +99,9 @@ export default function MediaLightbox({
               fill
               sizes="100vw"
               quality={85}
-              className="object-contain px-4 md:px-24"
+              className="object-contain"
+              style={{ objectFit: "contain" }}
+              priority
             />
             <button
               type="button"
