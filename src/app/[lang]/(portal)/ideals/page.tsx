@@ -35,7 +35,7 @@ export default async function IdealsPage({ params }: PageProps<"/[lang]/ideals">
         titleSize="lg"
         bgImage="/images/ideals/ideals-hero-banner.jpg"
         bgImageAlt={tr(TITLE)}
-        bgImagePosition="object-[center_top] md:object-[80%_center]"
+        bgTone="light"
       />
 
       <FeaturedQuote />
