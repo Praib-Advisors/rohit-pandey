@@ -9,6 +9,7 @@ import type { Locale } from "@/lib/i18n";
  * - Slide 1: Original Hero with artwork, name, role and political affiliation.
  * - Slide 2: Pure image slide with leadership collage banner.
  * Auto-advances every 5 seconds; supports touch swipe, arrows, and pagination dots.
+ * Consistent locked height across mobile, tablet, and desktop viewports.
  */
 export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   const { person, hero } = t;
@@ -58,7 +59,7 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   return (
     <section
       aria-label="Hero Slider"
-      className="relative overflow-hidden bg-[#f6ece2] select-none"
+      className="relative overflow-hidden bg-[#f6ece2] select-none min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -66,13 +67,13 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
     >
       {/* Slides Track */}
       <div
-        className="flex w-full transition-transform duration-700 ease-in-out"
+        className="flex w-full h-full min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {/* ============================================================== */}
         {/* SLIDE 1: Existing Hero Content                                */}
         {/* ============================================================== */}
-        <div className="relative w-full shrink-0">
+        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full">
           {/* Artwork: one picture. Phones and tablets sit it at the bottom of the
               stage at its own ratio; from xl it is shown whole (never cropped) at full width. */}
           <div
@@ -95,7 +96,7 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
             <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
           </div>
 
-          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
+          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-full xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
@@ -122,17 +123,19 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
         {/* ============================================================== */}
         {/* SLIDE 2: Full Image Slide (No Text, No Overlays, No Captions)  */}
         {/* ============================================================== */}
-        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 flex items-center justify-center bg-[#f6ece2] overflow-hidden">
-          <picture className="size-full">
-            <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
-            <img
-              src="/hero-slide-leaders-mobile.jpg"
-              alt="Rohit Pandey and Leaders"
-              className="size-full object-cover object-center"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
+        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full bg-[#f6ece2] overflow-hidden">
+          <div className="absolute inset-0 size-full">
+            <picture className="block size-full">
+              <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
+              <img
+                src="/hero-slide-leaders-mobile.jpg"
+                alt="Rohit Pandey and Leaders"
+                className="size-full object-cover object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+          </div>
         </div>
       </div>
 
