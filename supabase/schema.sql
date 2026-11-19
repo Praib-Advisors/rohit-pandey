@@ -51,3 +51,8 @@ CREATE POLICY "Allow service role full access"
   TO service_role
   USING (true)
   WITH CHECK (true);
+
+-- 5. Explicitly grant table permissions to anon, authenticated, and service_role
+GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON TABLE public.khalilabad_army_members TO anon, authenticated, service_role;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;

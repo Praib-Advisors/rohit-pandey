@@ -1,14 +1,23 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import os from "node:os";
 import type {
   KhalilabadArmyMember,
   MemberStatus,
   RegisterMemberInput,
 } from "./khalilabad-army-types";
 
-// Local storage fallback path
-const DATA_DIR = path.join(process.cwd(), "src", "data");
-const LOCAL_DB_PATH = path.join(DATA_DIR, "khalilabad_army_members.json");
+// In-memory cache ensures resilient fallback on serverless environments
+let memoryMembersCache: KhalilabadArmyMember[] = [];
+
+function getStoragePath(): string {
+  // In serverless environments (Vercel, AWS Lambda, production), process.cwd() is read-only.
+  // os.tmpdir() (/tmp) is always writable.
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === "production") {
+    return path.join(os.tmpdir(), "khalilabad_army_members.json");
+  }
+  return path.join(process.cwd(), "src", "data", "khalilabad_army_members.json");
+}
 
 function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
@@ -28,25 +37,29 @@ function getSupabaseConfig() {
 }
 
 async function ensureLocalFile(): Promise<KhalilabadArmyMember[]> {
+  const filePath = getStoragePath();
   try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    const content = await fs.readFile(LOCAL_DB_PATH, "utf-8");
-    return JSON.parse(content) as KhalilabadArmyMember[];
-  } catch {
-    // If file doesn't exist, start with empty array
-    const initial: KhalilabadArmyMember[] = [];
-    try {
-      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(initial, null, 2), "utf-8");
-    } catch {
-      // ignore
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    const content = await fs.readFile(filePath, "utf-8");
+    const parsed = JSON.parse(content) as KhalilabadArmyMember[];
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      memoryMembersCache = parsed;
     }
-    return initial;
+    return memoryMembersCache;
+  } catch {
+    return memoryMembersCache;
   }
 }
 
 async function saveLocalFile(members: KhalilabadArmyMember[]): Promise<void> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(members, null, 2), "utf-8");
+  memoryMembersCache = members;
+  const filePath = getStoragePath();
+  try {
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(filePath, JSON.stringify(members, null, 2), "utf-8");
+  } catch (err) {
+    console.warn("[khalilabad-army] Storage write warning (operating in-memory):", err);
+  }
 }
 
 function generateRegistrationId(): string {
