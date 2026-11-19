@@ -96,7 +96,7 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
             <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
           </div>
 
-          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-full xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
+          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+2rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.5rem)] xl:h-full xl:min-h-0 xl:items-start xl:pt-[calc(var(--nav-h)+2.75rem)] xl:pb-[4%]">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
@@ -108,11 +108,11 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
                   <span className="text-brand-red">{lastName}</span>
                 </h1>
 
-                <p className="hero-line text-left mt-5 sm:mt-6 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-7 xl:text-[3.25rem] font-bold tracking-tight text-ink leading-[1.18] xl:leading-[1.12]">
+                <p className="hero-line text-left mt-4 sm:mt-5 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-6 xl:text-[3.25rem] font-bold tracking-tight text-ink leading-[1.18] xl:leading-[1.12]">
                   {person.role}
                 </p>
 
-                <p className="hero-line text-left mt-3.5 sm:mt-4.5 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-5 xl:text-[3.25rem] font-bold tracking-tight text-[#7F1725] leading-[1.18] xl:leading-[1.12]">
+                <p className="hero-line text-left mt-2.5 sm:mt-3.5 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:mt-4 xl:text-[3.25rem] font-bold tracking-tight text-[#7F1725] leading-[1.18] xl:leading-[1.12]">
                   {hero.line}
                 </p>
               </div>
