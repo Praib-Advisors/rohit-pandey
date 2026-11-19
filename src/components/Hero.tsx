@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dict } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 
+/**
+ * 2-Slide Hero Slider:
+ * - Slide 1: Original Hero with artwork, name, role and political affiliation.
+ * - Slide 2: Pure image slide with leadership collage banner.
+ * Auto-advances every 5 seconds; supports touch swipe, arrows, and pagination dots.
+ */
 export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   const { person, hero } = t;
   const parts = person.name.split(" ");
@@ -11,37 +17,39 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
   const firstName = parts.join(" ");
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const totalSlides = 2;
+  const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
 
-  // Auto-play slider: advances every 6 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 6000);
-    return () => clearInterval(timer);
+  const totalSlides = 2;
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
-  const handlePrev = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
+  }, [totalSlides]);
 
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, nextSlide]);
 
-  const onTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const onTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const deltaX = e.changedTouches[0].clientX - touchStartX.current;
     if (Math.abs(deltaX) > 40) {
       if (deltaX < 0) {
-        handleNext();
+        nextSlide();
       } else {
-        handlePrev();
+        prevSlide();
       }
     }
     touchStartX.current = null;
@@ -49,23 +57,24 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
 
   return (
     <section
-      aria-label="Hero Banner"
+      aria-label="Hero Slider"
       className="relative overflow-hidden bg-[#f6ece2] select-none"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* Locked height container across all breakpoints to ensure hero height never increases */}
-      <div className="relative w-full min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))]">
-        {/* ============================================================ */}
-        {/* SLIDE 0: Main Portrait Artwork + Identity & Titles           */}
-        {/* ============================================================ */}
-        <div
-          aria-hidden={currentSlide !== 0}
-          className={`absolute inset-0 size-full transition-opacity duration-700 ease-in-out ${
-            currentSlide === 0 ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
-          }`}
-        >
-          {/* Portrait artwork container */}
+      {/* Slides Track */}
+      <div
+        className="flex w-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+      >
+        {/* ============================================================== */}
+        {/* SLIDE 1: Existing Hero Content                                */}
+        {/* ============================================================== */}
+        <div className="relative w-full shrink-0">
+          {/* Artwork: one picture. Phones and tablets sit it at the bottom of the
+              stage at its own ratio; from xl it is shown whole (never cropped) at full width. */}
           <div
             aria-hidden
             className="absolute inset-x-0 bottom-0 aspect-[9/16] md:aspect-video xl:inset-x-auto xl:right-0 xl:h-[calc(100%-var(--nav-h))] xl:w-auto xl:max-w-full"
@@ -82,13 +91,13 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
                 className="hero-art size-full object-cover object-right xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
               />
             </picture>
-            {/* Soft cream shade so text stays readable over crowd on phones and tablets */}
+            {/* soft cream shade so the text stays readable over the crowd on phones and tablets */}
             <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
           </div>
 
-          {/* Text Content */}
-          <div className="shell relative flex size-full items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:items-start md:pt-[calc(var(--nav-h)+1.25rem)] xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
+          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+2rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+1.25rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 xl:items-center xl:pb-[4%] xl:pt-[var(--nav-h)]">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
+              {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
                 <h1
                   id="hero-title"
@@ -110,74 +119,88 @@ export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
           </div>
         </div>
 
-        {/* ============================================================ */}
-        {/* SLIDE 1: Photographic Leadership Collage Banner              */}
-        {/* ============================================================ */}
-        <div
-          aria-hidden={currentSlide !== 1}
-          className={`absolute inset-0 size-full transition-opacity duration-700 ease-in-out bg-white ${
-            currentSlide === 1 ? "opacity-100 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
-          }`}
-        >
-          <div className="relative size-full overflow-hidden">
-            <picture className="block size-full">
-              <source media="(min-width: 768px)" srcSet="/images/hero-slide-leaders-desktop.jpg" />
-              <img
-                src="/images/hero-slide-leaders-mobile.jpg"
-                alt="Rohit Pandey with Samajwadi Party Leadership"
-                width={1024}
-                height={576}
-                className="size-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          </div>
+        {/* ============================================================== */}
+        {/* SLIDE 2: Full Image Slide (No Text, No Overlays, No Captions)  */}
+        {/* ============================================================== */}
+        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0 flex items-center justify-center bg-[#f6ece2] overflow-hidden">
+          <picture className="size-full">
+            <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
+            <img
+              src="/hero-slide-leaders-mobile.jpg"
+              alt="Rohit Pandey and Leaders"
+              className="size-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
+      </div>
 
-        {/* ============================================================ */}
-        {/* CONTROLS: Previous / Next Arrows                             */}
-        {/* ============================================================ */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous Slide"
-          className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex size-9 sm:size-11 items-center justify-center rounded-full bg-black/25 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/55 hover:scale-105 active:scale-95 cursor-pointer"
+      {/* ============================================================== */}
+      {/* Navigation Controls: Subtle Arrows & Pagination Dots           */}
+      {/* ============================================================== */}
+      {/* Previous Button */}
+      <button
+        type="button"
+        onClick={prevSlide}
+        aria-label="Previous Slide"
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex size-9 sm:size-11 items-center justify-center rounded-full bg-black/20 hover:bg-black/45 text-white backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          className="size-4.5 sm:size-5"
+          aria-hidden="true"
         >
-          <svg className="size-4.5 sm:size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
 
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next Slide"
-          className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex size-9 sm:size-11 items-center justify-center rounded-full bg-black/25 text-white backdrop-blur-md transition-all duration-200 hover:bg-black/55 hover:scale-105 active:scale-95 cursor-pointer"
+      {/* Next Button */}
+      <button
+        type="button"
+        onClick={nextSlide}
+        aria-label="Next Slide"
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 flex size-9 sm:size-11 items-center justify-center rounded-full bg-black/20 hover:bg-black/45 text-white backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          className="size-4.5 sm:size-5"
+          aria-hidden="true"
         >
-          <svg className="size-4.5 sm:size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
-        {/* ============================================================ */}
-        {/* CONTROLS: Bottom Indicator Dots / Pills                      */}
-        {/* ============================================================ */}
-        <div className="absolute bottom-3.5 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-          {Array.from({ length: totalSlides }).map((_, idx) => (
+      {/* Pagination Dots */}
+      <div
+        className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2"
+        role="tablist"
+        aria-label="Slide Selection"
+      >
+        {Array.from({ length: totalSlides }).map((_, idx) => {
+          const isActive = currentSlide === idx;
+          return (
             <button
               key={idx}
               type="button"
-              onClick={() => setCurrentSlide(idx)}
+              role="tab"
+              aria-selected={isActive}
               aria-label={`Go to slide ${idx + 1}`}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                currentSlide === idx
-                  ? "w-8 h-2.5 bg-brand-red shadow-sm"
-                  : "w-2.5 h-2.5 bg-ink/30 hover:bg-ink/60"
+              onClick={() => setCurrentSlide(idx)}
+              className={`transition-all duration-300 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-red-dk ${
+                isActive
+                  ? "w-7 sm:w-8 h-2 sm:h-2.5 bg-red-dk shadow-xs"
+                  : "w-2 sm:w-2.5 h-2 sm:h-2.5 bg-black/25 hover:bg-black/50"
               }`}
             />
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );
