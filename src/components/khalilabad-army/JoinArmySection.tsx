@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Wave from "@/components/Wave";
 import { type Locale } from "@/lib/i18n";
 import {
@@ -15,7 +15,6 @@ interface JoinArmySectionProps {
 
 export default function JoinArmySection({ lang }: JoinArmySectionProps) {
   const isHi = lang === "hi";
-  const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -24,8 +23,6 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
     name: string;
   } | null>(null);
   const [copied, setCopied] = useState(false);
-
-  const formContainerRef = useRef<HTMLDivElement>(null);
 
   // Form fields
   const [formData, setFormData] = useState<RegisterMemberInput>({
@@ -36,32 +33,6 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
     interested_area: "",
     message: "",
   });
-
-  const handleOpenForm = () => {
-    setIsExpanded(true);
-    // Smooth scroll down slightly so user focuses on the form
-    setTimeout(() => {
-      formContainerRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 120);
-  };
-
-  const handleCloseForm = () => {
-    setIsExpanded(false);
-    setErrorMsg(null);
-    setFieldErrors({});
-    setTimeout(() => {
-      const heroEl = document.getElementById("hero") || document.getElementById("join-army");
-      if (heroEl) {
-        heroEl.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 50);
-  };
 
   const handleResetForm = () => {
     setFormData({
@@ -175,6 +146,7 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
 
   return (
     <>
+      <Wave tone="sand" />
       <section
         id="join-army"
         aria-labelledby="join-army-heading"
@@ -197,44 +169,10 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                 ? "खलीलाबाद के बेहतर भविष्य, सामाजिक सहयोग और सकारात्मक बदलाव की इस पहल में आपकी भागीदारी महत्वपूर्ण है। आइए, मिलकर अपने क्षेत्र के विकास में योगदान दें।"
                 : "Join Khalilabad Army and become a part of the initiative for a better future for Khalilabad."}
             </p>
-
-            {/* CTA Button (Shown when form is collapsed) */}
-            {!isExpanded && (
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={handleOpenForm}
-                  className="group inline-flex items-center gap-3 rounded-md bg-red-dk px-7 py-3.5 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-dk cursor-pointer"
-                >
-                  <span>{isHi ? "अभी जुड़ें" : "Join Now"}</span>
-                  <svg
-                    className="size-5 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.2}
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
           </div>
 
-          {/* Expandable Form Container */}
-          <div
-            ref={formContainerRef}
-            className={`transition-all duration-700 ease-in-out ${
-              isExpanded
-                ? "mt-12 max-h-[2000px] opacity-100"
-                : "max-h-0 opacity-0 pointer-events-none overflow-hidden"
-            }`}
-          >
+          {/* Form Container (Permanently Visible) */}
+          <div className="mt-12">
             <div className="mx-auto max-w-2xl rounded-2xl border border-line/80 bg-white p-5 shadow-raised sm:rounded-3xl sm:p-10">
               {/* SUCCESS CONFIRMATION VIEW */}
               {successData ? (
@@ -311,18 +249,11 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                   </div>
 
                   {/* Actions */}
-                  <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-                    <button
-                      type="button"
-                      onClick={handleCloseForm}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md bg-green-dk px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-deep cursor-pointer"
-                    >
-                      {isHi ? "वापस जाएँ" : "Done"}
-                    </button>
+                  <div className="mt-6 flex justify-center">
                     <button
                       type="button"
                       onClick={handleResetForm}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-gray-50 cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 rounded-md bg-red-dk px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-deep cursor-pointer shadow-sm"
                     >
                       {isHi ? "अन्य सदस्य जोड़ें" : "Register Another"}
                     </button>
@@ -332,41 +263,15 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                 /* REGISTRATION FORM VIEW */
                 <form onSubmit={handleSubmit} noValidate>
                   {/* Form Header */}
-                  <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
-                    <div>
-                      <h3 className="font-heading text-xl font-bold text-ink sm:text-2xl">
-                        {isHi ? "सदस्यता पंजीकरण फ़ॉर्म" : "Membership Registration Form"}
-                      </h3>
-                      <p className="mt-0.5 text-xs text-ink-soft">
-                        {isHi
-                          ? "कृपया अपनी जानकारी भरें"
-                          : "Please enter your details"}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleCloseForm}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-gray-50 px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-gray-100 hover:text-red-dk cursor-pointer"
-                      title={isHi ? "फ़ॉर्म बंद करें" : "Close Form"}
-                      aria-label={isHi ? "फ़ॉर्म बंद करें" : "Close Form"}
-                    >
-                      <svg
-                        className="size-4 text-ink-soft"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      <span>
-                        {isHi ? "बंद करें" : "Close"}
-                      </span>
-                    </button>
+                  <div className="mb-6 border-b border-line pb-4">
+                    <h3 className="font-heading text-xl font-bold text-ink sm:text-2xl">
+                      {isHi ? "सदस्यता पंजीकरण फ़ॉर्म" : "Membership Registration Form"}
+                    </h3>
+                    <p className="mt-0.5 text-xs text-ink-soft">
+                      {isHi
+                        ? "कृपया अपनी जानकारी भरें"
+                        : "Please enter your details"}
+                    </p>
                   </div>
 
                   {/* Top Error Alert */}
@@ -582,21 +487,12 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                     </div>
                   </div>
 
-                  {/* Submit and Close Buttons */}
-                  <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
-                    <button
-                      type="button"
-                      onClick={handleCloseForm}
-                      disabled={isLoading}
-                      className="w-full sm:w-auto inline-flex items-center justify-center rounded-md border border-line bg-white px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-gray-50 disabled:opacity-50 cursor-pointer"
-                    >
-                      {isHi ? "फॉर्म बंद करें" : "Close Form"}
-                    </button>
-
+                  {/* Submit Button */}
+                  <div className="mt-8 flex justify-end">
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md bg-red-dk px-7 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-red-deep disabled:opacity-60 cursor-pointer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md bg-red-dk px-7 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-red-deep disabled:opacity-60 cursor-pointer"
                     >
                       {isLoading ? (
                         <>
@@ -632,7 +528,6 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
           </div>
         </div>
       </section>
-      <Wave tone="sand" />
     </>
   );
 }
