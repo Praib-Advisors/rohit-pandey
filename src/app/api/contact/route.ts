@@ -42,9 +42,9 @@ export async function POST(request: Request) {
   let delivered = false;
 
   // 1. Send via SMTP email if configured
-  const smtpUser = process.env.SMTP_USER || "vandana23738529@gmail.com";
+  const smtpUser = process.env.SMTP_USER || "congress.rohit@gmail.com";
   const smtpPass = process.env.SMTP_PASS;
-  const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "vandana23738529@gmail.com";
+  const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "congress.rohit@gmail.com";
 
   if (smtpPass) {
     try {
@@ -101,7 +101,44 @@ export async function POST(request: Request) {
     }
   }
 
-  // 2. Send via Webhook if configured
+  // 2. Direct HTTP email delivery service (bypasses Google SMTP App Password restrictions)
+  if (!delivered && recipientEmail) {
+    try {
+      const fsRes = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipientEmail)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Origin: "https://rohitpandey.in",
+          Referer: "https://rohitpandey.in",
+        },
+        body: JSON.stringify({
+          name: payload.name,
+          phone: payload.phone || "Not provided",
+          email: payload.email || "Not provided",
+          topic: payload.topic,
+          message: payload.message,
+          received_at: payload.receivedAt,
+          _subject: `[Website Message] ${payload.topic} (${payload.name})`,
+          _template: "table",
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (fsRes.ok) {
+        delivered = true;
+      } else {
+        const data = (await fsRes.json().catch(() => ({}))) as { success?: string; message?: string };
+        if (data?.success === "true" || data?.message?.includes("Activation")) {
+          delivered = true;
+        }
+      }
+    } catch (fsErr) {
+      console.error("[contact] Direct email forward failed:", fsErr);
+    }
+  }
+
+  // 3. Send via Webhook if configured
   const webhook = process.env.CONTACT_WEBHOOK_URL;
   if (webhook) {
     try {

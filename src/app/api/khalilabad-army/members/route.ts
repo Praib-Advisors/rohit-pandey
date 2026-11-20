@@ -6,7 +6,7 @@ import {
 } from "@/lib/khalilabad-army-db";
 
 function isAuthorized(request: Request): boolean {
-  const adminSecret = process.env.ADMIN_PASSWORD || "Zxcvbnm@12345";
+  const adminSecret = process.env.ADMIN_PASSWORD || "admin123";
   const authHeader = request.headers.get("x-admin-token") || "";
   const cookieHeader = request.headers.get("cookie") || "";
   const hasCookie = cookieHeader.includes(`admin_token=${adminSecret}`);

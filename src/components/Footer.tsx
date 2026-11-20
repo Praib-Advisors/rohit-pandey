@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import { navItems } from "@/lib/nav";
@@ -50,16 +49,7 @@ export default function Footer({ lang, t }: { lang: Locale; t: Dict }) {
 
         <div className="border-t border-line">
           <div className="shell flex flex-col items-center justify-between gap-4 py-5 text-[0.8125rem] text-ink-soft sm:flex-row">
-            <div className="flex items-center gap-3">
-              <span>© 2026 {t.person.name}</span>
-              <span className="opacity-40" aria-hidden="true">•</span>
-              <Link
-                href={`/${lang}/admin/khalilabad-army`}
-                className="opacity-70 transition-opacity hover:opacity-100 hover:text-white"
-              >
-                {lang === "hi" ? "एडमिन लॉगिन" : "Admin Login"}
-              </Link>
-            </div>
+            <span>© 2026 {t.person.name}</span>
 
             <a
               href="https://praibadvisors.com/"
