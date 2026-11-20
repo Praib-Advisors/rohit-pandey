@@ -3,6 +3,8 @@ import { resolveLang } from "@/lib/page";
 import AdminLayout from "@/components/admin/AdminLayout";
 import KhalilabadArmyAdminView from "@/components/admin/KhalilabadArmyAdminView";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {

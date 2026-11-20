@@ -12,12 +12,20 @@ declare global {
 const cached: MongooseCache = global.mongooseCache ?? { conn: null, promise: null };
 global.mongooseCache = cached;
 
+const DEFAULT_MONGODB_URI = "mongodb+srv://user_1:j8t0fxYoBq5hklEY@backend.ycwkczw.mongodb.net/rohit_pandey_db?retryWrites=true&w=majority";
+
 export function isMongoConfigured(): boolean {
-  return Boolean(process.env.MONGODB_URI && process.env.MONGODB_URI.trim().length > 0);
+  return true;
+}
+
+export function getMongoUri(): string {
+  return (process.env.MONGODB_URI && process.env.MONGODB_URI.trim().length > 0)
+    ? process.env.MONGODB_URI.trim()
+    : DEFAULT_MONGODB_URI;
 }
 
 export async function connectToDatabase(): Promise<typeof mongoose> {
-  const uri = process.env.MONGODB_URI;
+  const uri = getMongoUri();
 
   if (!uri) {
     throw new Error(

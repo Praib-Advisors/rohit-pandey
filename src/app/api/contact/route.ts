@@ -42,9 +42,9 @@ export async function POST(request: Request) {
   let delivered = false;
 
   // 1. Send via SMTP email if configured
-  const smtpUser = process.env.SMTP_USER || "congress.rohit@gmail.com";
+  const smtpUser = process.env.SMTP_USER || "vandana23738529@gmail.com";
   const smtpPass = process.env.SMTP_PASS;
-  const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "congress.rohit@gmail.com";
+  const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "vandana23738529@gmail.com";
 
   if (smtpPass) {
     try {

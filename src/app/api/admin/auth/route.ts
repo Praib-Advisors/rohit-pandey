@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as { password?: string };
     const password = body.password;
-    const correctPassword = process.env.ADMIN_PASSWORD || "admin123";
+    const correctPassword = process.env.ADMIN_PASSWORD || "Zxcvbnm@12345";
 
     if (password === correctPassword) {
       const response = NextResponse.json({ ok: true });

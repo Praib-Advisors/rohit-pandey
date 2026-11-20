@@ -8,11 +8,7 @@ import type {
 } from "./khalilabad-army-types";
 
 function isMongoConfigured(): boolean {
-  return Boolean(
-    typeof process !== "undefined" &&
-      process.env?.MONGODB_URI &&
-      process.env.MONGODB_URI.trim().length > 0
-  );
+  return true;
 }
 
 // In-memory cache ensures resilient fallback on serverless environments
