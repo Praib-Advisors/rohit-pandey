@@ -248,7 +248,7 @@ const en = {
       heading: "Together, We Shape Tomorrow.",
       description:
         "A better future for Khalilabad begins with the participation of every citizen.",
-      cta: "Explore Our Vision",
+      cta: "Join Khalilabad Army",
     },
     about: {
       eyebrow: "About Khalilabad Army",
@@ -856,7 +856,7 @@ const hi: Dict = {
       heading: "साथ आएँ, खलीलाबाद बनाएँ",
       description:
         "एक बेहतर खलीलाबाद के निर्माण में हर नागरिक की भागीदारी।",
-      cta: "दृष्टिकोण देखें",
+      cta: "खलीलाबाद आर्मी से जुड़ें",
     },
     about: {
       eyebrow: "खलीलाबाद आर्मी",

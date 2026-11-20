@@ -357,24 +357,6 @@ export default async function KhalilabadArmyPage({
                 ? "खलीलाबाद आर्मी युवाओं, नागरिकों और सामाजिक कार्यकर्ताओं को एक साथ जोड़ने वाला साझा मंच है, जो क्षेत्र के बेहतर भविष्य के लिए जनभागीदारी, सामाजिक सहयोग और सामूहिक प्रयासों को बढ़ावा देता है।"
                 : "Khalilabad Army is a shared platform connecting youth, citizens, and social workers, fostering public participation, social cooperation, and collective efforts for a better future for the region."}
             </p>
-
-            {/* Primary CTA */}
-            <div className="mt-6 sm:mt-9 flex items-center">
-              <a
-                href="#join-army"
-                className="group inline-flex w-full sm:w-auto justify-center items-center gap-3 rounded-md bg-[#7F1725] px-7 py-3.5 text-sm sm:text-base font-semibold text-[#F5F1EA] shadow-xl transition-all duration-300 hover:bg-[#9e1018] hover:shadow-2xl hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C7A56A] cursor-pointer"
-              >
-                <span>
-                  {lang === "hi" ? "खलीलाबाद आर्मी से जुड़ें" : "Join Khalilabad Army"}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-300 group-hover:translate-x-1.5 font-bold text-base leading-none"
-                >
-                  →
-                </span>
-              </a>
-            </div>
           </div>
         </div>
       </section>
