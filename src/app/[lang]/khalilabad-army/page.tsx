@@ -131,6 +131,7 @@ export default async function KhalilabadArmyPage({
       {/* 1. Hero Section                                              */}
       {/* ------------------------------------------------------------ */}
       <section
+        id="hero"
         aria-label={army.hero.title}
         className="relative flex min-h-[92vh] items-start overflow-hidden bg-black pb-14 pt-32 text-white sm:min-h-[85vh] sm:pb-16 sm:pt-36 md:min-h-[80vh] md:items-center md:py-28 lg:min-h-[85vh] lg:py-32"
       >
@@ -200,7 +201,7 @@ export default async function KhalilabadArmyPage({
               style={{ "--i": 3 } as React.CSSProperties}
             >
               <ScrollToButton
-                targetId="about"
+                targetId="join-army"
                 label={army.hero.cta}
                 className="inline-flex items-center gap-2 rounded-md bg-red-dk px-4.5 py-2 text-xs font-semibold text-white shadow-lg transition-all duration-300 hover:bg-red-deep hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:gap-2.5 sm:px-6 sm:py-3 sm:text-sm md:px-7 md:py-3.5 md:text-base cursor-pointer"
               />
@@ -213,7 +214,12 @@ export default async function KhalilabadArmyPage({
       <div aria-hidden className="flag-strip" />
 
       {/* ------------------------------------------------------------ */}
-      {/* 2. About Khalilabad Army                                     */}
+      {/* 2. Join Khalilabad Army Registration Section (Directly Below Hero) */}
+      {/* ------------------------------------------------------------ */}
+      <JoinArmySection lang={lang} />
+
+      {/* ------------------------------------------------------------ */}
+      {/* 3. About Khalilabad Army                                     */}
       {/* ------------------------------------------------------------ */}
       <section
         id="about"
@@ -492,12 +498,7 @@ export default async function KhalilabadArmyPage({
       </section>
 
       {/* ------------------------------------------------------------ */}
-      {/* 6. Join Khalilabad Army Registration Section                 */}
-      {/* ------------------------------------------------------------ */}
-      <JoinArmySection lang={lang} />
-
-      {/* ------------------------------------------------------------ */}
-      {/* 7. Connect With Khalilabad Army - Social Media Section       */}
+      {/* 6. Connect With Khalilabad Army - Social Media Section       */}
       {/* ------------------------------------------------------------ */}
       <ArmySocialSection lang={lang} />
     </div>

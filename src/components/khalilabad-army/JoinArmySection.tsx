@@ -45,13 +45,22 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
         behavior: "smooth",
         block: "start",
       });
-    }, 100);
+    }, 120);
   };
 
   const handleCloseForm = () => {
     setIsExpanded(false);
     setErrorMsg(null);
     setFieldErrors({});
+    setTimeout(() => {
+      const heroEl = document.getElementById("hero") || document.getElementById("join-army");
+      if (heroEl) {
+        heroEl.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 50);
   };
 
   const handleResetForm = () => {
@@ -166,7 +175,6 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
 
   return (
     <>
-      <Wave tone="sand" />
       <section
         id="join-army"
         aria-labelledby="join-army-heading"
@@ -338,11 +346,12 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                     <button
                       type="button"
                       onClick={handleCloseForm}
-                      className="inline-flex items-center gap-1 rounded-md p-1.5 text-ink-soft transition-colors hover:bg-gray-100 hover:text-ink cursor-pointer"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-gray-50 px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:bg-gray-100 hover:text-red-dk cursor-pointer"
                       title={isHi ? "फ़ॉर्म बंद करें" : "Close Form"}
+                      aria-label={isHi ? "फ़ॉर्म बंद करें" : "Close Form"}
                     >
                       <svg
-                        className="size-5"
+                        className="size-4 text-ink-soft"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -354,7 +363,7 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
                           d="M6 18L18 6M6 6l12 12"
                         />
                       </svg>
-                      <span className="text-xs hidden sm:inline">
+                      <span>
                         {isHi ? "बंद करें" : "Close"}
                       </span>
                     </button>
@@ -623,6 +632,7 @@ export default function JoinArmySection({ lang }: JoinArmySectionProps) {
           </div>
         </div>
       </section>
+      <Wave tone="sand" />
     </>
   );
 }
