@@ -33,14 +33,6 @@ function Stroke({
   );
 } 
 
-function ArrowDownIcon({ className }: IconProps) {
-  return (
-    <Stroke className={className}>
-      <path d="M12 5v14M6 13l6 6 6-6" />
-    </Stroke>
-  );
-}
-
 function ArrowRightIcon({ className }: IconProps) {
   return (
     <Stroke className={className}>

@@ -91,7 +91,7 @@ export default function KhalilabadArmyAdminView({ lang }: Props) {
       });
 
       if (res.ok) {
-        const data = await res.json();
+        await res.json();
         setMembers((prev) =>
           prev.map((m) => (m.id === id ? { ...m, status: newStatus } : m))
         );

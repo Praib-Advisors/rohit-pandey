@@ -11,7 +11,7 @@ import type { Locale } from "@/lib/i18n";
  * Auto-advances every 5 seconds; supports touch swipe, arrows, and pagination dots.
  * Consistent locked height across mobile, tablet, and desktop viewports.
  */
-export default function Hero({ lang: _lang, t }: { lang: Locale; t: Dict }) {
+export default function Hero({ t }: { lang: Locale; t: Dict }) {
   const { person, hero } = t;
   const parts = person.name.split(" ");
   const lastName = parts.pop() ?? "";
