@@ -46,9 +46,10 @@ async function runMigration() {
   }
 
   // 1. Connect to MongoDB
-  console.log("\nConnecting to MongoDB Atlas...");
-  await mongoose.connect(mongoUri, { dbName: "khalilabad_army" });
-  console.log("Connected successfully to MongoDB Atlas (Database: khalilabad_army).");
+  const dbName = process.env.MONGODB_DB_NAME || "rohit_pandey_db";
+  console.log(`\nConnecting to MongoDB Atlas (Database: ${dbName})...`);
+  await mongoose.connect(mongoUri, { dbName });
+  console.log(`Connected successfully to MongoDB Atlas (Database: ${dbName}).`);
 
   const collection = mongoose.connection.collection("khalilabad_army_members");
 

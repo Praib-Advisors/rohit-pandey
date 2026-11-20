@@ -35,7 +35,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
       bufferCommands: false,
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 10000,
-      dbName: "khalilabad_army",
+      dbName: process.env.MONGODB_DB_NAME || "rohit_pandey_db",
     };
 
     cached.promise = mongoose.connect(uri, opts).then((mongooseInstance) => {
