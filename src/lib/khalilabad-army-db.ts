@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { connectToDatabase, isMongoConfigured } from "./mongodb";
+import KhalilabadArmyMemberModel from "@/models/KhalilabadArmyMember";
 import type {
   KhalilabadArmyMember,
   MemberStatus,
@@ -13,7 +15,11 @@ let memoryMembersCache: KhalilabadArmyMember[] = [];
 function getStoragePath(): string {
   // In serverless environments (Vercel, AWS Lambda, production), process.cwd() is read-only.
   // os.tmpdir() (/tmp) is always writable.
-  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NODE_ENV === "production") {
+  if (
+    process.env.VERCEL ||
+    process.env.AWS_LAMBDA_FUNCTION_NAME ||
+    process.env.NODE_ENV === "production"
+  ) {
     return path.join(os.tmpdir(), "khalilabad_army_members.json");
   }
   return path.join(process.cwd(), "src", "data", "khalilabad_army_members.json");
@@ -70,8 +76,9 @@ function generateRegistrationId(): string {
 
 /**
  * Register a new member.
+ * Prioritizes MongoDB Atlas if MONGODB_URI is provided.
  * Checks for duplicate 10-digit mobile numbers.
- * Stores in Supabase if configured, otherwise falls back to persistent local storage.
+ * Safe fallback to Supabase / persistent local storage if MongoDB is not configured.
  */
 export async function registerMember(
   input: RegisterMemberInput
@@ -79,10 +86,73 @@ export async function registerMember(
   const cleanMobile = String(input.mobile).trim().replace(/\D/g, "");
   const now = new Date().toISOString();
   const regId = generateRegistrationId();
-  const id = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `mem_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const fallbackId =
+    typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `mem_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+  // 1. Try MongoDB Atlas (Primary Destination)
+  if (isMongoConfigured()) {
+    try {
+      await connectToDatabase();
+
+      // Check for existing mobile number
+      const existing = await KhalilabadArmyMemberModel.findOne({
+        mobile: cleanMobile,
+      }).lean();
+
+      if (existing) {
+        return {
+          success: false,
+          error: "duplicate_mobile",
+        };
+      }
+
+      const doc = await KhalilabadArmyMemberModel.create({
+        registration_id: regId,
+        full_name: input.full_name.trim(),
+        mobile: cleanMobile,
+        village_ward_area: input.village_ward_area.trim(),
+        age: input.age ? Number(input.age) : null,
+        interested_area: input.interested_area?.trim() || null,
+        message: input.message?.trim() || null,
+        status: "pending",
+      });
+
+      const member: KhalilabadArmyMember = {
+        id: doc._id.toString(),
+        registration_id: doc.registration_id,
+        full_name: doc.full_name,
+        mobile: doc.mobile,
+        village_ward_area: doc.village_ward_area,
+        age: doc.age,
+        interested_area: doc.interested_area,
+        message: doc.message,
+        status: doc.status as MemberStatus,
+        created_at: doc.created_at ? doc.created_at.toISOString() : now,
+        updated_at: doc.updated_at ? doc.updated_at.toISOString() : now,
+      };
+
+      return {
+        success: true,
+        member,
+      };
+    } catch (err: unknown) {
+      // MongoDB duplicate key error code 11000
+      const mongoErr = err as { code?: number; name?: string };
+      if (mongoErr?.code === 11000) {
+        return {
+          success: false,
+          error: "duplicate_mobile",
+        };
+      }
+      console.error("[khalilabad-army] MongoDB registration error:", err);
+      // Fallback to Supabase / local if MongoDB connection encounters a transient issue
+    }
+  }
 
   const newMember: KhalilabadArmyMember = {
-    id,
+    id: fallbackId,
     registration_id: regId,
     full_name: input.full_name.trim(),
     mobile: cleanMobile,
@@ -95,6 +165,7 @@ export async function registerMember(
     updated_at: now,
   };
 
+  // 2. Fallback to Supabase if configured
   const { isConfigured, url, key } = getSupabaseConfig();
 
   if (isConfigured) {
@@ -135,7 +206,7 @@ export async function registerMember(
       if (!insertRes.ok) {
         const errText = await insertRes.text();
         console.error("[khalilabad-army] Supabase insert failed:", errText);
-        // Fallback to local storage if table doesn't exist yet
+        // Fallback to local storage
         return await registerMemberLocally(newMember, cleanMobile);
       }
 
@@ -151,7 +222,7 @@ export async function registerMember(
     }
   }
 
-  // Supabase not configured yet - use local storage
+  // 3. Fallback to safe local/memory storage
   return await registerMemberLocally(newMember, cleanMobile);
 }
 
@@ -186,6 +257,52 @@ export async function getMembers(options?: {
   status?: string;
   interested_area?: string;
 }): Promise<KhalilabadArmyMember[]> {
+  // 1. Try MongoDB Atlas
+  if (isMongoConfigured()) {
+    try {
+      await connectToDatabase();
+
+      const filter: Record<string, unknown> = {};
+
+      if (options?.status && options.status !== "all") {
+        filter.status = options.status;
+      }
+      if (options?.interested_area && options.interested_area !== "all") {
+        filter.interested_area = options.interested_area;
+      }
+      if (options?.search) {
+        const regex = new RegExp(options.search, "i");
+        filter.$or = [
+          { full_name: regex },
+          { mobile: regex },
+          { registration_id: regex },
+          { village_ward_area: regex },
+        ];
+      }
+
+      const docs = await KhalilabadArmyMemberModel.find(filter)
+        .sort({ created_at: -1 })
+        .lean();
+
+      return docs.map((doc) => ({
+        id: doc._id.toString(),
+        registration_id: doc.registration_id,
+        full_name: doc.full_name,
+        mobile: doc.mobile,
+        village_ward_area: doc.village_ward_area,
+        age: doc.age,
+        interested_area: doc.interested_area,
+        message: doc.message,
+        status: doc.status as MemberStatus,
+        created_at: doc.created_at ? new Date(doc.created_at).toISOString() : new Date().toISOString(),
+        updated_at: doc.updated_at ? new Date(doc.updated_at).toISOString() : new Date().toISOString(),
+      }));
+    } catch (err) {
+      console.error("[khalilabad-army] MongoDB getMembers error:", err);
+    }
+  }
+
+  // 2. Try Supabase
   const { isConfigured, url, key } = getSupabaseConfig();
 
   if (isConfigured) {
@@ -225,7 +342,7 @@ export async function getMembers(options?: {
     }
   }
 
-  // Local fallback
+  // 3. Local fallback
   let list = await ensureLocalFile();
 
   if (options?.status && options.status !== "all") {
@@ -255,9 +372,44 @@ export async function updateMember(
   id: string,
   updates: Partial<KhalilabadArmyMember>
 ): Promise<{ success: boolean; member?: KhalilabadArmyMember; error?: string }> {
-  const { isConfigured, url, key } = getSupabaseConfig();
   const now = new Date().toISOString();
   const sanitizedUpdates = { ...updates, updated_at: now };
+
+  // 1. Try MongoDB Atlas
+  if (isMongoConfigured()) {
+    try {
+      await connectToDatabase();
+      const doc = await KhalilabadArmyMemberModel.findOneAndUpdate(
+        { $or: [{ _id: id }, { registration_id: id }] },
+        { $set: sanitizedUpdates },
+        { new: true }
+      ).lean();
+
+      if (doc) {
+        return {
+          success: true,
+          member: {
+            id: doc._id.toString(),
+            registration_id: doc.registration_id,
+            full_name: doc.full_name,
+            mobile: doc.mobile,
+            village_ward_area: doc.village_ward_area,
+            age: doc.age,
+            interested_area: doc.interested_area,
+            message: doc.message,
+            status: doc.status as MemberStatus,
+            created_at: doc.created_at ? new Date(doc.created_at).toISOString() : now,
+            updated_at: doc.updated_at ? new Date(doc.updated_at).toISOString() : now,
+          },
+        };
+      }
+    } catch (err) {
+      console.error("[khalilabad-army] MongoDB update error:", err);
+    }
+  }
+
+  // 2. Try Supabase
+  const { isConfigured, url, key } = getSupabaseConfig();
 
   if (isConfigured) {
     try {
@@ -284,7 +436,7 @@ export async function updateMember(
     }
   }
 
-  // Local fallback
+  // 3. Local fallback
   const members = await ensureLocalFile();
   const index = members.findIndex((m) => m.id === id || m.registration_id === id);
   if (index === -1) {
@@ -306,6 +458,20 @@ export async function updateMember(
 export async function deleteMember(
   id: string
 ): Promise<{ success: boolean; error?: string }> {
+  // 1. Try MongoDB Atlas
+  if (isMongoConfigured()) {
+    try {
+      await connectToDatabase();
+      await KhalilabadArmyMemberModel.deleteOne({
+        $or: [{ _id: id }, { registration_id: id }],
+      });
+      return { success: true };
+    } catch (err) {
+      console.error("[khalilabad-army] MongoDB delete error:", err);
+    }
+  }
+
+  // 2. Try Supabase
   const { isConfigured, url, key } = getSupabaseConfig();
 
   if (isConfigured) {
@@ -326,7 +492,7 @@ export async function deleteMember(
     }
   }
 
-  // Local fallback
+  // 3. Local fallback
   const members = await ensureLocalFile();
   const filtered = members.filter((m) => m.id !== id && m.registration_id !== id);
   await saveLocalFile(filtered);
