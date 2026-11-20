@@ -101,7 +101,37 @@ export async function POST(request: Request) {
     }
   }
 
-  // 2. Direct HTTP email delivery service (bypasses Google SMTP App Password restrictions)
+  // 2. Web3Forms Delivery (Instant, reliable, zero activation link)
+  const web3Key = process.env.WEB3FORMS_ACCESS_KEY;
+  if (!delivered && web3Key) {
+    try {
+      const w3Res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: web3Key,
+          name: payload.name,
+          email: payload.email || "not-provided@example.com",
+          phone: payload.phone,
+          subject: `[वेबसाइट संदेश] ${payload.topic} (${payload.name})`,
+          message: payload.message,
+          from_name: "Rohit Pandey Website",
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      const w3Data = (await w3Res.json().catch(() => ({}))) as { success?: boolean };
+      if (w3Res.ok && w3Data?.success) {
+        delivered = true;
+      }
+    } catch (w3Err) {
+      console.error("[contact] Web3Forms delivery failed:", w3Err);
+    }
+  }
+
+  // 3. Direct HTTP email delivery service (bypasses Google SMTP App Password restrictions)
   if (!delivered && recipientEmail) {
     try {
       const fsRes = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(recipientEmail)}`, {
