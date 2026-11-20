@@ -25,6 +25,10 @@
     "react-server-dom-webpack": "^19.3.1",
     "vinext": "^1.4.5"
   },
+  "optionalDependencies": {
+    "@next/swc-win32-x64-msvc": "^16.4.6",
+    "lightningcss-win32-x64-msvc": "^1.32.0"
+  },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^2.0.0-beta.v.17",
     "@tailwindcss/postcss": "^4",
