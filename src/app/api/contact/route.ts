@@ -41,12 +41,42 @@ export async function POST(request: Request) {
 
   let delivered = false;
 
-  // 1. Send via SMTP email if configured
+  // 1. Web3Forms Delivery (Instant, reliable, direct to email without SMTP login issues)
+  const web3Key = process.env.WEB3FORMS_ACCESS_KEY || "e0ee70e5-f78f-4f61-9e65-39ae96917cf9";
+  if (web3Key) {
+    try {
+      const w3Res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: web3Key,
+          name: payload.name,
+          email: payload.email || "not-provided@example.com",
+          phone: payload.phone,
+          subject: `[Website Message] ${payload.topic} (${payload.name})`,
+          message: payload.message,
+          from_name: "Rohit Pandey Website",
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      const w3Data = (await w3Res.json().catch(() => ({}))) as { success?: boolean };
+      if (w3Res.ok && w3Data?.success) {
+        delivered = true;
+      }
+    } catch (w3Err) {
+      console.error("[contact] Web3Forms delivery failed:", w3Err);
+    }
+  }
+
+  // 2. Send via SMTP email if configured
   const smtpUser = process.env.SMTP_USER || "congress.rohit@gmail.com";
   const smtpPass = process.env.SMTP_PASS;
   const recipientEmail = process.env.CONTACT_RECIPIENT_EMAIL || "congress.rohit@gmail.com";
 
-  if (smtpPass) {
+  if (!delivered && smtpPass) {
     try {
       const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
@@ -98,36 +128,6 @@ export async function POST(request: Request) {
       if (errMsg.includes("535") || errMsg.includes("BadCredentials")) {
         console.warn("[contact] Gmail requires an App Password (16 characters) instead of account login password. See https://myaccount.google.com/apppasswords");
       }
-    }
-  }
-
-  // 2. Web3Forms Delivery (Instant, reliable, zero activation link)
-  const web3Key = process.env.WEB3FORMS_ACCESS_KEY;
-  if (!delivered && web3Key) {
-    try {
-      const w3Res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: web3Key,
-          name: payload.name,
-          email: payload.email || "not-provided@example.com",
-          phone: payload.phone,
-          subject: `[वेबसाइट संदेश] ${payload.topic} (${payload.name})`,
-          message: payload.message,
-          from_name: "Rohit Pandey Website",
-        }),
-        signal: AbortSignal.timeout(8000),
-      });
-      const w3Data = (await w3Res.json().catch(() => ({}))) as { success?: boolean };
-      if (w3Res.ok && w3Data?.success) {
-        delivered = true;
-      }
-    } catch (w3Err) {
-      console.error("[contact] Web3Forms delivery failed:", w3Err);
     }
   }
 
