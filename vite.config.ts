@@ -15,7 +15,4 @@ export default defineConfig({
       },
     }),
   ],
-  ssr: {
-    external: ["mongoose", "mongodb"],
-  },
 });
