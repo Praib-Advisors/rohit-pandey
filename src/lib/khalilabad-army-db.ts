@@ -151,6 +151,7 @@ export async function registerMember(
     }
   }
 
+  // 2. Try Supabase (Secondary / Legacy Fallback)
   const newMember: KhalilabadArmyMember = {
     id: fallbackId,
     registration_id: regId,
@@ -165,7 +166,6 @@ export async function registerMember(
     updated_at: now,
   };
 
-  // 2. Fallback to Supabase if configured
   const { isConfigured, url, key } = getSupabaseConfig();
 
   if (isConfigured) {
@@ -206,7 +206,7 @@ export async function registerMember(
       if (!insertRes.ok) {
         const errText = await insertRes.text();
         console.error("[khalilabad-army] Supabase insert failed:", errText);
-        // Fallback to local storage
+        // Fallback to local/memory storage if table permissions fail
         return await registerMemberLocally(newMember, cleanMobile);
       }
 
@@ -217,12 +217,12 @@ export async function registerMember(
       };
     } catch (err) {
       console.error("[khalilabad-army] Supabase connection error:", err);
-      // Fallback to local storage
+      // Fallback to local/memory storage
       return await registerMemberLocally(newMember, cleanMobile);
     }
   }
 
-  // 3. Fallback to safe local/memory storage
+  // 3. Resilient Local / In-memory storage (Zero serverless crashes)
   return await registerMemberLocally(newMember, cleanMobile);
 }
 

@@ -42,8 +42,8 @@ async function runTests() {
   }
 
   console.log("Found MONGODB_URI in environment. Connecting...");
-  await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000 });
-  console.log("Connected successfully to MongoDB Atlas.");
+  await mongoose.connect(uri, { serverSelectionTimeoutMS: 8000, dbName: "khalilabad_army" });
+  console.log("Connected successfully to MongoDB Atlas (Database: khalilabad_army).");
 
   const collection = mongoose.connection.collection("khalilabad_army_members");
   await collection.createIndex({ mobile: 1 }, { unique: true });
