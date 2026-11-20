@@ -214,12 +214,7 @@ export default async function KhalilabadArmyPage({
       <div aria-hidden className="flag-strip" />
 
       {/* ------------------------------------------------------------ */}
-      {/* 2. Join Khalilabad Army Registration Section (Directly Below Hero) */}
-      {/* ------------------------------------------------------------ */}
-      <JoinArmySection lang={lang} />
-
-      {/* ------------------------------------------------------------ */}
-      {/* 3. About Khalilabad Army                                     */}
+      {/* 2. About Khalilabad Army                                     */}
       {/* ------------------------------------------------------------ */}
       <section
         id="about"
@@ -498,7 +493,12 @@ export default async function KhalilabadArmyPage({
       </section>
 
       {/* ------------------------------------------------------------ */}
-      {/* 6. Connect With Khalilabad Army - Social Media Section       */}
+      {/* 6. Join Khalilabad Army Registration Section                 */}
+      {/* ------------------------------------------------------------ */}
+      <JoinArmySection lang={lang} />
+
+      {/* ------------------------------------------------------------ */}
+      {/* 7. Connect With Khalilabad Army - Social Media Section       */}
       {/* ------------------------------------------------------------ */}
       <ArmySocialSection lang={lang} />
     </div>
