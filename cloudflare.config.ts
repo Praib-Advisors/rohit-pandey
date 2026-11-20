@@ -9,6 +9,7 @@ export default defineConfig({
     name: "rohit-pandey",
     entrypoint: "vinext/server/fetch-handler",
     compatibilityDate: "2026-11-14",
+    compatibilityFlags: ["nodejs_compat"],
     assets: {
       htmlHandling: "none",
       notFoundHandling: "none",

@@ -1,13 +1,19 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { connectToDatabase, isMongoConfigured } from "./mongodb";
-import KhalilabadArmyMemberModel from "@/models/KhalilabadArmyMember";
 import type {
   KhalilabadArmyMember,
   MemberStatus,
   RegisterMemberInput,
 } from "./khalilabad-army-types";
+
+function isMongoConfigured(): boolean {
+  return Boolean(
+    typeof process !== "undefined" &&
+      process.env?.MONGODB_URI &&
+      process.env.MONGODB_URI.trim().length > 0
+  );
+}
 
 // In-memory cache ensures resilient fallback on serverless environments
 let memoryMembersCache: KhalilabadArmyMember[] = [];
@@ -94,6 +100,8 @@ export async function registerMember(
   // 1. Try MongoDB Atlas (Primary Destination)
   if (isMongoConfigured()) {
     try {
+      const { connectToDatabase } = await import("./mongodb");
+      const { KhalilabadArmyMemberModel } = await import("@/models/KhalilabadArmyMember");
       await connectToDatabase();
 
       // Check for existing mobile number
@@ -260,6 +268,8 @@ export async function getMembers(options?: {
   // 1. Try MongoDB Atlas
   if (isMongoConfigured()) {
     try {
+      const { connectToDatabase } = await import("./mongodb");
+      const { KhalilabadArmyMemberModel } = await import("@/models/KhalilabadArmyMember");
       await connectToDatabase();
 
       const filter: Record<string, unknown> = {};
@@ -378,6 +388,8 @@ export async function updateMember(
   // 1. Try MongoDB Atlas
   if (isMongoConfigured()) {
     try {
+      const { connectToDatabase } = await import("./mongodb");
+      const { KhalilabadArmyMemberModel } = await import("@/models/KhalilabadArmyMember");
       await connectToDatabase();
       const doc = await KhalilabadArmyMemberModel.findOneAndUpdate(
         { $or: [{ _id: id }, { registration_id: id }] },
@@ -461,6 +473,8 @@ export async function deleteMember(
   // 1. Try MongoDB Atlas
   if (isMongoConfigured()) {
     try {
+      const { connectToDatabase } = await import("./mongodb");
+      const { KhalilabadArmyMemberModel } = await import("@/models/KhalilabadArmyMember");
       await connectToDatabase();
       await KhalilabadArmyMemberModel.deleteOne({
         $or: [{ _id: id }, { registration_id: id }],
