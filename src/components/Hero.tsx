@@ -102,17 +102,17 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
               <div className="md:w-[58%] xl:w-auto">
                 <h1
                   id="hero-title"
-                  className="hero-line font-heading [--i:0] text-[clamp(2.25rem,7.5vw,4.25rem)] sm:text-5xl md:text-5xl xl:text-[clamp(3.5rem,1.5rem+3.5vw,5.5rem)] leading-[1.05] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
+                  className="hero-line font-heading [--i:0] text-[clamp(2.6rem,8.5vw,4.5rem)] sm:text-6xl md:text-6xl xl:text-[clamp(4.25rem,2rem+4vw,6.5rem)] leading-[1.03] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
                 >
                   {firstName}{" "}
                   <span className="text-brand-red">{lastName}</span>
                 </h1>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.35rem,4.5vw,2.2rem)] sm:text-2xl md:text-[1.85rem] xl:text-[2.5rem] font-bold tracking-tight text-ink leading-[1.2] xl:leading-[1.16] whitespace-pre-line">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.5rem,5vw,2.35rem)] sm:text-3xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-ink leading-[1.2] xl:leading-[1.16] whitespace-pre-line">
                   {person.role}
                 </p>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.35rem,4.5vw,2.2rem)] sm:text-2xl md:text-[1.85rem] xl:text-[2.5rem] font-bold tracking-tight text-[#7F1725] leading-[1.2] xl:leading-[1.16]">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.5rem,5vw,2.35rem)] sm:text-3xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-[#7F1725] leading-[1.2] xl:leading-[1.16]">
                   {hero.line}
                 </p>
               </div>
@@ -123,13 +123,13 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
         {/* ============================================================== */}
         {/* SLIDE 2: Full Image Slide (No Text, No Overlays, No Captions)  */}
         {/* ============================================================== */}
-        <div className="relative w-full h-full shrink-0 bg-[#f6ece2] overflow-hidden flex items-center justify-center">
-          <picture className="flex size-full items-center justify-center">
+        <div className="relative w-full h-full shrink-0 overflow-hidden bg-[#f6ece2]">
+          <picture className="block size-full">
             <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
             <img
               src="/hero-slide-leaders-mobile.jpg"
               alt="Rohit Pandey and Leaders"
-              className="size-full max-h-full max-w-full object-contain object-center"
+              className="size-full object-cover object-center"
               loading="lazy"
               decoding="async"
             />
