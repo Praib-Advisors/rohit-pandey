@@ -42,10 +42,9 @@ export const socials = [
     url: "https://www.instagram.com/rkpsocialist/",
   },
   {
-    // Icon link only: the handle is never printed on the site.
     id: "x",
     label: "X",
-    handle: "",
+    handle: "@PandayRohit1227",
     url: "https://x.com/PandayRohit1227",
   },
   {
