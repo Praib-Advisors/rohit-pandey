@@ -96,7 +96,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
             <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
           </div>
 
-          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+3.5rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+3.25rem)] xl:h-full xl:min-h-0 xl:items-start xl:pt-[calc(var(--nav-h)+5.25rem)] xl:pb-[4%]">
+          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+5.25rem)] sm:pt-[calc(var(--nav-h)+5.5rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+5.5rem)] xl:h-full xl:min-h-0 xl:items-start xl:pt-[calc(var(--nav-h)+7.5rem)] xl:pb-[4%]">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
