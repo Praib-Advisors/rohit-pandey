@@ -147,77 +147,17 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
       <section
         id="khalilabad-army"
         aria-labelledby="home-army-heading"
-        className="relative overflow-hidden bg-[#faf4ec] py-16 sm:py-20 md:py-24 text-slate-800"
+        className="surface-ivory grain relative overflow-hidden py-20 md:py-28 text-ink"
       >
-        {/* Decorative Top-Left Gradient Swoosh */}
+        {/* Subtle Crowd Watermark at the bottom */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-12 -left-12 size-64 sm:size-96 rounded-full bg-gradient-to-br from-red-600/18 via-amber-500/15 to-transparent blur-3xl"
-        />
-        <svg
-          aria-hidden
-          className="pointer-events-none absolute top-0 left-0 w-36 sm:w-56 md:w-72 h-auto opacity-75"
-          viewBox="0 0 280 160"
-          fill="none"
-        >
-          <path
-            d="M-20 -20 C 100 30, 160 90, 80 180 C 40 140, -20 100, -20 -20 Z"
-            fill="url(#top-swoosh-grad)"
-          />
-          <path
-            d="M-10 -10 C 90 40, 140 100, 60 180"
-            stroke="#f59e0b"
-            strokeWidth="3"
-            fill="none"
-            opacity="0.5"
-          />
-          <defs>
-            <linearGradient id="top-swoosh-grad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#c51f28" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#ea580c" stopOpacity="0.5" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Decorative Bottom-Right Gradient Swoosh */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-16 -right-16 size-72 sm:size-96 rounded-full bg-gradient-to-tl from-red-600/15 via-orange-500/12 to-transparent blur-3xl"
-        />
-        <svg
-          aria-hidden
-          className="pointer-events-none absolute bottom-0 right-0 w-36 sm:w-56 md:w-72 h-auto opacity-70"
-          viewBox="0 0 280 160"
-          fill="none"
-        >
-          <path
-            d="M300 180 C 180 130, 120 70, 200 -20 C 240 20, 300 60, 300 180 Z"
-            fill="url(#bot-swoosh-grad)"
-          />
-          <path
-            d="M290 170 C 190 120, 140 60, 220 -20"
-            stroke="#f59e0b"
-            strokeWidth="3"
-            fill="none"
-            opacity="0.45"
-          />
-          <defs>
-            <linearGradient id="bot-swoosh-grad" x1="1" y1="1" x2="0" y2="0">
-              <stop offset="0%" stopColor="#c51f28" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#ea580c" stopOpacity="0.45" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Bottom Silhouette Rally Crowd Background Watermark */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-64 overflow-hidden opacity-[0.14] mix-blend-multiply"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-64 overflow-hidden opacity-[0.08] mix-blend-multiply"
         >
           <img
             src="/images/rohit-pandey-youth-march.jpg"
             alt=""
-            className="size-full object-cover object-bottom [mask-image:linear-gradient(to_bottom,transparent,black_65%)]"
+            className="size-full object-cover object-bottom [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
           />
         </div>
 
