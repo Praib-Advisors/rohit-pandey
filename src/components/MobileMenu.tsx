@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Dict } from "@/lib/dictionary";
 import { href, type Locale } from "@/lib/i18n";
 import { isActive, navItems, navSubs, scrollTopIfCurrent } from "@/lib/nav";
@@ -18,8 +19,13 @@ export default function MobileMenu({
   pathname: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -31,7 +37,6 @@ export default function MobileMenu({
     const root = document.documentElement;
     const prev = root.style.overflow;
     root.style.overflow = "hidden";
-    panelRef.current?.querySelector<HTMLElement>("a,button")?.focus();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -50,7 +55,9 @@ export default function MobileMenu({
         first.focus();
       }
     };
-    const onResize = () => window.innerWidth >= 1280 && setOpen(false);
+    const onResize = () => {
+      if (window.innerWidth >= 1280) setOpen(false);
+    };
     document.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
     return () => {
@@ -60,6 +67,89 @@ export default function MobileMenu({
     };
   }, [open, close]);
 
+  const menuPanel =
+    open && mounted ? (
+      <div
+        id="mobile-menu"
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t.primary}
+        className="on-dark surface-gradient fixed inset-0 z-[9999] flex flex-col overflow-y-auto bg-[linear-gradient(160deg,#6e0b12_0%,#4a0a10_100%)] text-white shadow-2xl"
+      >
+        <div className="shell flex h-[var(--nav-h)] shrink-0 items-center justify-between border-b border-white/10">
+          <Logo plate />
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              close();
+            }}
+            className="flex items-center gap-2.5 rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20 active:bg-white/30 cursor-pointer"
+          >
+            {t.close}
+            <span aria-hidden className="relative block size-4">
+              <span className="absolute left-0 top-1/2 h-[1.5px] w-4 rotate-45 bg-white" />
+              <span className="absolute left-0 top-1/2 h-[1.5px] w-4 -rotate-45 bg-white" />
+            </span>
+          </button>
+        </div>
+
+        <nav aria-label={t.primary} className="shell flex-1 pb-8 pt-4">
+          <ol className="border-t border-white/15">
+            {navItems.map((item, i) => {
+              const active = isActive(pathname, lang, item.path);
+              const subs = navSubs(item.key, t);
+              return (
+                <li key={item.key} className="border-b border-white/15">
+                  <SectionLink
+                    href={href(lang, item.path)}
+                    onClick={(e) => {
+                      close();
+                      scrollTopIfCurrent(e, active);
+                    }}
+                    aria-current={active ? "page" : undefined}
+                    className="flex items-baseline gap-4 py-3.5"
+                  >
+                    <span className={`w-6 text-xs tabular-nums ${active ? "text-red-200" : "text-white/60"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`font-display text-[1.75rem] leading-tight ${
+                        active ? "font-semibold text-white" : "text-white/85 hover:text-white"
+                      }`}
+                    >
+                      {t[item.key]}
+                    </span>
+                    {active && <span aria-hidden className="ml-auto size-2 self-center rounded-full bg-white" />}
+                  </SectionLink>
+                  {subs.length > 0 && (
+                    <ul className="mb-3 ml-10 flex flex-wrap gap-x-6 text-base">
+                      {subs.map((sub) => (
+                        <li key={sub.path}>
+                          <SectionLink
+                            href={href(lang, sub.path)}
+                            onClick={close}
+                            className="inline-flex min-h-11 items-center text-white/80 hover:text-white"
+                          >
+                            {sub.label}
+                          </SectionLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+
+        <div className="shell flex shrink-0 items-center justify-between gap-4 border-t border-white/10 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <LanguageSwitcher lang={lang} label={t.language} className="text-base text-white" />
+        </div>
+      </div>
+    ) : null;
+
   return (
     <div className="xl:hidden">
       <button
@@ -67,8 +157,11 @@ export default function MobileMenu({
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2.5 rounded-md border border-line py-2 pl-4 pr-3 text-sm font-semibold"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((prev) => !prev);
+        }}
+        className="flex items-center gap-2.5 rounded-md border border-line bg-transparent py-2 pl-4 pr-3 text-sm font-semibold text-ink hover:bg-black/5 active:bg-black/10 transition-colors cursor-pointer"
       >
         {t.menu}
         <span aria-hidden className="flex w-4 flex-col gap-[4px]">
@@ -77,83 +170,9 @@ export default function MobileMenu({
         </span>
       </button>
 
-      {open && (
-        <div
-          id="mobile-menu"
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t.primary}
-          className="on-dark surface-gradient fixed inset-0 z-[60] flex flex-col overflow-y-auto"
-        >
-          <div className="shell flex h-[var(--nav-h)] shrink-0 items-center justify-between">
-            <Logo plate />
-            <button
-              type="button"
-              onClick={close}
-              className="flex items-center gap-2.5 rounded-md border border-line py-2 pl-4 pr-3 text-sm font-semibold"
-            >
-              {t.close}
-              <span aria-hidden className="relative block size-4">
-                <span className="absolute left-0 top-1/2 h-[1.5px] w-4 rotate-45 bg-ink" />
-                <span className="absolute left-0 top-1/2 h-[1.5px] w-4 -rotate-45 bg-ink" />
-              </span>
-            </button>
-          </div>
-
-          <nav aria-label={t.primary} className="shell flex-1 pb-8 pt-2">
-            <ol className="border-t border-line">
-              {navItems.map((item, i) => {
-                const active = isActive(pathname, lang, item.path);
-                return (
-                  <li key={item.key} className="border-b border-line">
-                    <SectionLink
-                      href={href(lang, item.path)}
-                      onClick={(e) => {
-                        setOpen(false);
-                        scrollTopIfCurrent(e, active);
-                      }}
-                      aria-current={active ? "page" : undefined}
-                      className="flex items-baseline gap-4 py-3.5"
-                    >
-                      <span className={`w-6 text-xs tabular-nums ${active ? "text-red" : "text-muted"}`}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        className={`font-display text-[1.75rem] leading-tight ${
-                          active ? "font-semibold text-ink" : "text-ink-soft"
-                        }`}
-                      >
-                        {t[item.key]}
-                      </span>
-                      {active && <span aria-hidden className="ml-auto size-2 self-center rounded-full bg-ink" />}
-                    </SectionLink>
-                    {navSubs(item.key, t).length > 0 && (
-                      <ul className="mb-3 ml-10 flex flex-wrap gap-x-6 text-base">
-                        {navSubs(item.key, t).map((sub) => (
-                          <li key={sub.path}>
-                            <SectionLink
-                              href={href(lang, sub.path)}
-                              onClick={() => setOpen(false)}
-                              className="inline-flex min-h-11 items-center text-ink-soft"
-                            >
-                              {sub.label}
-                            </SectionLink>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
-
-          <div className="shell flex shrink-0 items-center justify-between gap-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-            <LanguageSwitcher lang={lang} label={t.language} className="text-base" />
-          </div>
-        </div>
-      )}
+      {mounted && typeof document !== "undefined" && menuPanel
+        ? createPortal(menuPanel, document.body)
+        : null}
     </div>
   );
 }

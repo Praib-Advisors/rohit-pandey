@@ -51,7 +51,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
 
   return (
     <html lang={htmlLang[lang]} className={fontVars} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
