@@ -170,13 +170,20 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
               {/* Main Heading */}
               <h2
                 id="home-army-heading"
-                className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.12]"
+                className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18]"
               >
-                <span>{isHi ? "आइए," : "Join"}</span>
-                <br />
-                <span className="text-[#c51f28]">
-                  {isHi ? "खलीलाबाद आर्मी!" : "Khalilabad Army!"}
-                </span>
+                {isHi ? (
+                  <>
+                    <span>आइए, </span>
+                    <span className="text-[#c51f28]">खलीलाबाद आर्मी</span>
+                    <span> से जुड़ें!</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Join </span>
+                    <span className="text-[#c51f28]">Khalilabad Army!</span>
+                  </>
+                )}
               </h2>
 
               {/* Description */}
