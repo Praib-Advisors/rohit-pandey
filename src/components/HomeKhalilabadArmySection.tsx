@@ -149,16 +149,18 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
         aria-labelledby="home-army-heading"
         className="surface-ivory grain relative overflow-hidden py-20 md:py-28 text-ink"
       >
-        {/* Subtle Crowd Watermark at the bottom */}
+        {/* Background Rally Crowd Image */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-44 sm:h-56 md:h-64 overflow-hidden opacity-[0.08] mix-blend-multiply"
+          className="pointer-events-none absolute inset-0 overflow-hidden"
         >
           <img
             src="/images/rohit-pandey-youth-march.jpg"
             alt=""
-            className="size-full object-cover object-bottom [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
+            className="size-full object-cover object-bottom opacity-[0.22] md:opacity-[0.28] mix-blend-multiply [mask-image:linear-gradient(to_bottom,transparent_0%,black_25%,black_100%)]"
           />
+          {/* Warm ivory gradient overlay to preserve readability and section harmony */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f5f3ee]/30 to-[#f5f3ee]/80" />
         </div>
 
         <div className="shell relative z-10">
