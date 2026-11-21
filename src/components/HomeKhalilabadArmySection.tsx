@@ -157,10 +157,10 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
           <img
             src="/images/rohit-pandey-youth-march.jpg"
             alt=""
-            className="size-full object-cover object-bottom opacity-[0.22] md:opacity-[0.28] mix-blend-multiply [mask-image:linear-gradient(to_bottom,transparent_0%,black_25%,black_100%)]"
+            className="size-full object-cover object-bottom opacity-[0.36] md:opacity-[0.40] mix-blend-multiply [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_100%)]"
           />
-          {/* Warm ivory gradient overlay to preserve readability and section harmony */}
-          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f5f3ee]/30 to-[#f5f3ee]/80" />
+          {/* Subtle warm ivory gradient overlay preserving contrast and section harmony */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f5f3ee]/15 to-[#f5f3ee]/55" />
         </div>
 
         <div className="shell relative z-10">
