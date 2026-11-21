@@ -95,8 +95,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
                 className="size-full w-full max-w-full h-full object-cover object-bottom md:object-right"
               />
             </picture>
-            {/* Soft cream shade to keep text readable on phones and tablets */}
-            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f6ece2]/60 to-[#f6ece2] md:hidden" />
+            {/* Soft cream shade for tablets */}
             <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden xl:hidden" />
           </div>
 
