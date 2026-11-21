@@ -692,7 +692,7 @@ const hi: Dict = {
     },
   },
   nav: {
-    home: "मुखपृष्ठ",
+    home: "होम",
     about: "परिचय एवं यात्रा",
     socialService: "समाज सेवा",
     publicLife: "जनजीवन",
@@ -712,7 +712,7 @@ const hi: Dict = {
     primary: "मुख्य नेविगेशन",
     language: "भाषा",
     breadcrumb: "ब्रेडक्रंब",
-    backHome: "मुखपृष्ठ पर लौटें",
+    backHome: "होम पर लौटें",
   },
   slot: {
     label: "सामग्री स्थान",

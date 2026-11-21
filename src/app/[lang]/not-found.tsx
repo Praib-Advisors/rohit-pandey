@@ -17,7 +17,7 @@ export default function NotFound() {
             Home
           </Link>
           <Link className="link-draw" href="/hi" lang="hi">
-            मुखपृष्ठ
+            होम
           </Link>
         </div>
       </div>
