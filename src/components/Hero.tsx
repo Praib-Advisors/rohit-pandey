@@ -59,7 +59,8 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
   return (
     <section
       aria-label="Hero Slider"
-      className="relative w-full overflow-hidden bg-[#f6ece2] select-none h-[calc(100vh-var(--nav-h))] h-[calc(100dvh-var(--nav-h))] mt-[var(--nav-h)]"
+      className="relative w-full max-w-full overflow-hidden bg-[#f6ece2] select-none h-[calc(100vh-var(--nav-h))] h-[calc(100dvh-var(--nav-h))] mt-[var(--nav-h)]"
+      style={{ width: "100%", maxWidth: "100%" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -67,19 +68,22 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
     >
       {/* Slides Track */}
       <div
-        className="flex w-full h-full transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        className="flex w-full max-w-full h-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${currentSlide * 100}%)`, width: "100%", maxWidth: "100%" }}
       >
         {/* ============================================================== */}
         {/* SLIDE 1: Existing Hero Content                                */}
         {/* ============================================================== */}
-        <div className="relative w-full h-full shrink-0 overflow-hidden bg-[#f6ece2] flex items-center">
-          {/* Artwork: complete original image, object-contain, aspect ratio preserved */}
+        <div
+          className="relative w-full max-w-full h-full shrink-0 overflow-hidden bg-[#f6ece2] flex items-center"
+          style={{ width: "100%", maxWidth: "100%" }}
+        >
+          {/* Artwork: full-width responsive banner, anchored to cover viewport width */}
           <div
             aria-hidden
-            className="absolute inset-0 flex items-center justify-end pointer-events-none"
+            className="absolute inset-0 size-full pointer-events-none overflow-hidden"
           >
-            <picture className="flex size-full items-center justify-end">
+            <picture className="block size-full">
               <source media="(min-width: 768px)" srcSet="/images/rohit-pandey-hero-light.jpg" />
               <img
                 src="/images/rohit-pandey-hero-portrait.jpg"
@@ -88,7 +92,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
                 height={1920}
                 fetchPriority="high"
                 decoding="async"
-                className="size-full max-h-full max-w-full object-contain object-bottom md:object-right"
+                className="size-full w-full max-w-full h-full object-cover object-bottom md:object-right"
               />
             </picture>
             {/* Soft cream shade to keep text readable on phones and tablets */}
@@ -123,13 +127,16 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
         {/* ============================================================== */}
         {/* SLIDE 2: Full Image Slide (No Text, No Overlays, No Captions)  */}
         {/* ============================================================== */}
-        <div className="relative w-full h-full shrink-0 overflow-hidden bg-[#f6ece2]">
+        <div
+          className="relative w-full max-w-full h-full shrink-0 overflow-hidden bg-[#f6ece2] flex items-center justify-center"
+          style={{ width: "100%", maxWidth: "100%" }}
+        >
           <picture className="block size-full">
             <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
             <img
               src="/hero-slide-leaders-mobile.jpg"
               alt="Rohit Pandey and Leaders"
-              className="size-full object-cover object-center"
+              className="size-full w-full max-w-full h-full object-cover object-center"
               loading="lazy"
               decoding="async"
             />

@@ -59,7 +59,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {t.nav.skip}
         </a>
         <Navbar lang={lang} t={t.nav} name={t.person.name} role={t.person.role} />
-        <main id="main" tabIndex={-1} className="outline-none">
+        <main id="main" tabIndex={-1} className="w-full max-w-full outline-none overflow-x-hidden">
           {children}
         </main>
         <Footer lang={lang} t={t} />
