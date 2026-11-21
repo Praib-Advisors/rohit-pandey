@@ -40,7 +40,7 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   if (!cached.promise) {
     const opts: mongoose.ConnectOptions = {
       bufferCommands: false,
-      maxPoolSize: 10,
+      maxPoolSize: 18,
       serverSelectionTimeoutMS: 10000,
       dbName: process.env.MONGODB_DB_NAME || "rohit_pandey_db",
     };

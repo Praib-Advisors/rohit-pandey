@@ -4,7 +4,7 @@ import Hero from "@/components/Hero";
 import HomeIntro from "@/components/HomeIntro";
 import EngagementSection from "@/components/EngagementSection";
 import JsonLd from "@/components/JsonLd";
-import OfficeSection from "@/components/OfficeSection";
+import HomeKhalilabadArmySection from "@/components/HomeKhalilabadArmySection";
 import ServicesStrip from "@/components/ServicesStrip";
 import SocialSection from "@/components/SocialSection";
 import VideoSection, { getVideoItems } from "@/components/VideoSection";
@@ -40,7 +40,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <VisionSection lang={lang} t={t} />
       <VideoSection t={t} items={videos} />
       <SocialSection lang={lang} t={t} />
-      <OfficeSection lang={lang} t={t} />
+      <HomeKhalilabadArmySection lang={lang} />
     </>
   );
 }

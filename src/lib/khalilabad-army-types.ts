@@ -77,11 +77,11 @@ export function validateMemberInput(input: RegisterMemberInput, lang: "hi" | "en
 
   if (input.age !== undefined && input.age !== null && String(input.age).trim() !== "") {
     const ageNum = Number(input.age);
-    if (isNaN(ageNum) || ageNum < 10 || ageNum > 120) {
+    if (isNaN(ageNum) || ageNum < 18 || ageNum > 120) {
       errors.age =
         lang === "hi"
-          ? "कृपया एक वैध आयु (10-120 वर्ष) दर्ज करें।"
-          : "Please enter a valid age (10-120 years).";
+          ? "कृपया एक वैध आयु (18-120 वर्ष) दर्ज करें।"
+          : "Please enter a valid age (18-120 years).";
     }
   }
 
