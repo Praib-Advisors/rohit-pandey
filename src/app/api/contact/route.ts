@@ -41,8 +41,8 @@ export async function POST(request: Request) {
 
   let delivered = false;
 
-  // 1. Web3Forms Delivery (Instant, reliable, direct to email without SMTP login issues)
-  const web3Key = process.env.WEB3FORMS_ACCESS_KEY || "e0ee70e5-f78f-4f61-9e65-39ae96917cf9";
+  // 1. Web3Forms Delivery (if configured)
+  const web3Key = process.env.WEB3FORMS_ACCESS_KEY;
   if (web3Key) {
     try {
       const w3Res = await fetch("https://api.web3forms.com/submit", {
