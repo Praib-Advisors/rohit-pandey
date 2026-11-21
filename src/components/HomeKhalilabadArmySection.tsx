@@ -157,7 +157,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
           <img
             src="/images/rohit-pandey-youth-march.jpg"
             alt=""
-            className="size-full object-cover object-bottom opacity-[0.36] md:opacity-[0.40] mix-blend-multiply [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_100%)]"
+            className="size-full object-cover object-bottom opacity-[0.36] md:opacity-[0.40] mix-blend-multiply [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_100%)] anim-slow-zoom will-change-transform"
           />
           {/* Subtle warm ivory gradient overlay preserving contrast and section harmony */}
           <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f5f3ee]/15 to-[#f5f3ee]/55" />
@@ -172,7 +172,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
               {/* Main Heading */}
               <h2
                 id="home-army-heading"
-                className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18]"
+                className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18] anim-rise"
               >
                 {isHi ? (
                   <>
@@ -189,7 +189,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
               </h2>
 
               {/* Description */}
-              <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
+              <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal anim-rise-late">
                 {isHi
                   ? "खलीलाबाद के बेहतर भविष्य की इस अनूठी पहल का हिस्सा बनें।"
                   : "Be a part of the initiative for a better future for Khalilabad."}
@@ -198,9 +198,9 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
               {/* Three Visual Highlights in Horizontal Row */}
               <div className="mt-8 flex items-center justify-between sm:justify-center lg:justify-start gap-2 sm:gap-6 pt-2">
                 {/* Highlight 1 */}
-                <div className="flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px]">
-                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs">
-                    <svg className="size-6 sm:size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="group cursor-default flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px] transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0">
+                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs transition-all duration-300 ease-out group-hover:scale-110 group-hover:shadow-md group-hover:border-red-300/90 group-hover:bg-red-50 group-active:scale-100">
+                    <svg className="size-6 sm:size-7 transition-transform duration-300 ease-out group-hover:rotate-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -208,7 +208,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                       />
                     </svg>
                   </div>
-                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center">
+                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center transition-colors duration-200 group-hover:text-red-700">
                     {isHi ? "सशक्त समुदाय" : "Stronger Community"}
                   </span>
                 </div>
@@ -217,9 +217,9 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                 <div className="h-10 w-px bg-slate-300/80 shrink-0 self-center" />
 
                 {/* Highlight 2 */}
-                <div className="flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px]">
-                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs">
-                    <svg className="size-6 sm:size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="group cursor-default flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px] transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0">
+                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs transition-all duration-300 ease-out group-hover:scale-110 group-hover:shadow-md group-hover:border-red-300/90 group-hover:bg-red-50 group-active:scale-100">
+                    <svg className="size-6 sm:size-7 transition-transform duration-300 ease-out group-hover:rotate-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -232,7 +232,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                       />
                     </svg>
                   </div>
-                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center">
+                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center transition-colors duration-200 group-hover:text-red-700">
                     {isHi ? "सामूहिक प्रयास" : "Collective Action"}
                   </span>
                 </div>
@@ -241,9 +241,9 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                 <div className="h-10 w-px bg-slate-300/80 shrink-0 self-center" />
 
                 {/* Highlight 3 */}
-                <div className="flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px]">
-                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs">
-                    <svg className="size-6 sm:size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <div className="group cursor-default flex flex-col items-center flex-1 max-w-[110px] sm:max-w-[125px] transition-all duration-300 ease-out hover:-translate-y-1 active:translate-y-0">
+                  <div className="flex size-13 sm:size-14 items-center justify-center rounded-2xl bg-red-50/90 border border-red-200/80 text-[#c51f28] shadow-xs transition-all duration-300 ease-out group-hover:scale-110 group-hover:shadow-md group-hover:border-red-300/90 group-hover:bg-red-50 group-active:scale-100">
+                    <svg className="size-6 sm:size-7 transition-transform duration-300 ease-out group-hover:rotate-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -251,7 +251,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                       />
                     </svg>
                   </div>
-                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center">
+                  <span className="mt-2 text-xs sm:text-sm font-bold text-slate-800 leading-tight text-center transition-colors duration-200 group-hover:text-red-700">
                     {isHi ? "बेहतर खलीलाबाद" : "A Better Khalilabad"}
                   </span>
                 </div>
@@ -259,7 +259,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
 
               {/* Tagline Callout (Artistic Brush Stroke Banner) */}
               <div className="mt-8 sm:mt-10 flex justify-center lg:justify-start">
-                <div className="relative inline-flex items-center justify-center">
+                <div className="relative inline-flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-1 hover:drop-shadow-[0_12px_24px_rgba(197,31,40,0.45)] cursor-pointer active:translate-y-0">
                   <svg
                     viewBox="0 0 380 56"
                     className="w-[290px] sm:w-[350px] md:w-[380px] h-auto drop-shadow-[0_8px_16px_rgba(197,31,40,0.35)]"
@@ -296,9 +296,9 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
             {/* RIGHT COLUMN: Membership Registration Form Card                */}
             {/* ============================================================== */}
             <div className="min-w-0 lg:col-span-7 pt-5 sm:pt-6">
-              <div className="relative rounded-3xl bg-white border border-slate-200/90 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] pt-11 sm:pt-12 px-5 sm:px-8 md:px-9 pb-8">
+              <div className="relative rounded-3xl bg-white border border-slate-200/90 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.12)] pt-11 sm:pt-12 px-5 sm:px-8 md:px-9 pb-8 anim-rise-late transition-shadow duration-300 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)]">
                 {/* Top Circular Community Badge */}
-                <div className="absolute -top-7 sm:-top-8 left-1/2 -translate-x-1/2 flex size-14 sm:size-16 items-center justify-center rounded-full bg-[#c51f28] text-white ring-4 ring-white shadow-md z-10">
+                <div className="absolute -top-7 sm:-top-8 left-1/2 -translate-x-1/2 flex size-14 sm:size-16 items-center justify-center rounded-full bg-[#c51f28] text-white ring-4 ring-white shadow-md z-10 transition-transform duration-300 hover:scale-105 active:scale-95 cursor-default">
                   <svg className="size-7 sm:size-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path
                       strokeLinecap="round"
@@ -421,7 +421,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                             onChange={handleChange}
                             required
                             placeholder={isHi ? "अपना पूरा नाम लिखें" : "Enter your full name"}
-                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
+                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
                               fieldErrors.full_name
                                 ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                 : "border-slate-200 focus:border-red-500"
@@ -462,7 +462,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                               maxLength={10}
                               required
                               placeholder="9876543210"
-                              className={`block w-full rounded-xl border bg-slate-50/80 pl-16 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
+                              className={`block w-full rounded-xl border bg-slate-50/80 pl-16 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
                                 fieldErrors.mobile
                                   ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                   : "border-slate-200 focus:border-red-500"
@@ -500,7 +500,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                               value={formData.age ?? ""}
                               onChange={handleChange}
                               placeholder={isHi ? "उम्र" : "Age"}
-                              className={`block w-full rounded-xl border bg-slate-50/80 pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
+                              className={`block w-full rounded-xl border bg-slate-50/80 pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
                                 fieldErrors.age
                                   ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                   : "border-slate-200 focus:border-red-500"
@@ -541,7 +541,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                                 ? "उदा. खलीलाबाद शहर, वार्ड नं. 4 / मगहर / सेमरियावां"
                                 : "e.g., Ward 4, Khalilabad / Maghar"
                             }
-                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
+                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
                               fieldErrors.village_ward_area
                                 ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                 : "border-slate-200 focus:border-red-500"
@@ -577,7 +577,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                             name="interested_area"
                             value={formData.interested_area ?? ""}
                             onChange={handleChange}
-                            className="block w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 transition-colors focus:bg-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                            className="block w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 transition-all duration-200 ease-in-out focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)]"
                           >
                             <option value="">
                               {isHi ? "-- क्षेत्र चुनें --" : "-- Select Area --"}
@@ -597,7 +597,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#c51f28] to-[#b91c1c] hover:from-[#b91c1c] hover:to-[#991b1b] text-white py-3.5 px-6 font-semibold text-base shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-60 cursor-pointer"
+                        className="group/btn w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#c51f28] to-[#b91c1c] hover:from-[#d32f2f] hover:to-[#991b1b] text-white py-3.5 px-6 font-semibold text-base shadow-md hover:shadow-xl hover:shadow-red-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-out disabled:opacity-60 cursor-pointer"
                       >
                         {isLoading ? (
                           <>
@@ -610,7 +610,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                         ) : (
                           <>
                             {/* Send / Paper airplane icon */}
-                            <svg className="size-4.5 -rotate-45" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="size-4.5 -rotate-45 transition-transform duration-300 ease-out group-hover/btn:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                             </svg>
                             <span>{isHi ? "अभी जुड़ें" : "Join Now"}</span>

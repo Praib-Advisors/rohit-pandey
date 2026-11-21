@@ -461,12 +461,24 @@ p, li, dd, figcaption {
   }
 }
 
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.025);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .anim-rise {
     animation: rise 0.5s var(--ease-out-soft) both;
   }
   .anim-rise-late {
     animation: rise 0.6s var(--ease-out-soft) 0.08s both;
+  }
+  .anim-slow-zoom {
+    animation: slow-zoom 18s ease-in-out infinite alternate;
   }
 }
 

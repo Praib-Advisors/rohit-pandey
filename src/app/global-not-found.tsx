@@ -23,7 +23,7 @@ export default function GlobalNotFound() {
               Rohit Pandey: Home
             </Link>
             <Link className="link-draw" href="/hi" lang="hi">
-              मुखपृष्ठ (हिंदी)
+              होम (हिंदी)
             </Link>
           </div>
         </main>
