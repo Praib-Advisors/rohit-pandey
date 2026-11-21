@@ -88,8 +88,8 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
               <img
                 src="/images/rohit-pandey-hero-portrait.jpg"
                 alt=""
-                width={1080}
-                height={1920}
+                width={576}
+                height={1024}
                 fetchPriority="high"
                 decoding="async"
                 className="size-full w-full max-w-full h-full object-cover object-bottom md:object-right"
