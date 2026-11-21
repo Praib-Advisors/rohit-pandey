@@ -29,7 +29,7 @@ const en = {
     first: "Rohit",
     last: "Pandey",
     // U+2060 (word joiner) keeps the hyphenated word on one line.
-    role: "Advocate & Social-⁠Political\nWorker",
+    role: "Advocate & Social-⁠Political Worker",
     roleLine: "Samajwadi Party | Khalilabad",
     place: "Khalilabad • Sant Kabir Nagar",
     placeLong: "Khalilabad, Sant Kabir Nagar, Uttar Pradesh",

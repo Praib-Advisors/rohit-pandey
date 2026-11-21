@@ -108,11 +108,11 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
                   <span className="text-brand-red">{lastName}</span>
                 </h1>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:text-[3.25rem] font-bold tracking-tight text-ink leading-[1.22] xl:leading-[1.16] whitespace-pre-line">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.45rem,5vw,2.35rem)] sm:text-3xl md:text-[2.15rem] xl:text-[2.75rem] font-bold tracking-tight text-ink leading-[1.22] xl:leading-[1.16] whitespace-pre-line">
                   {person.role}
                 </p>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.6rem,6vw,2.65rem)] sm:text-4xl md:text-[2.5rem] xl:text-[3.25rem] font-bold tracking-tight text-[#7F1725] leading-[1.22] xl:leading-[1.16]">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.45rem,5vw,2.35rem)] sm:text-3xl md:text-[2.15rem] xl:text-[2.75rem] font-bold tracking-tight text-[#7F1725] leading-[1.22] xl:leading-[1.16]">
                   {hero.line}
                 </p>
               </div>
