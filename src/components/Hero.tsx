@@ -96,7 +96,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
             <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden xl:hidden" />
           </div>
 
-          <div className="shell relative z-10 flex h-full items-start pt-6 sm:pt-8 pb-6 md:items-center md:py-6">
+          <div className="shell relative z-10 flex h-full items-start pt-10 sm:pt-12 pb-6 md:items-center md:py-6">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
