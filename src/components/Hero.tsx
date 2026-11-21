@@ -59,7 +59,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
   return (
     <section
       aria-label="Hero Slider"
-      className="relative overflow-hidden bg-[#f6ece2] select-none min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-[clamp(34rem,100svh,calc(var(--nav-h)+56.25vw))] xl:min-h-0"
+      className="relative w-full overflow-hidden bg-[#f6ece2] select-none h-[calc(100vh-var(--nav-h))] h-[calc(100dvh-var(--nav-h))] mt-[var(--nav-h)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -67,20 +67,19 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
     >
       {/* Slides Track */}
       <div
-        className="flex w-full h-full min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full transition-transform duration-700 ease-in-out"
+        className="flex w-full h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {/* ============================================================== */}
         {/* SLIDE 1: Existing Hero Content                                */}
         {/* ============================================================== */}
-        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full">
-          {/* Artwork: one picture. Phones and tablets sit it at the bottom of the
-              stage at its own ratio; from xl it is shown whole (never cropped) at full width. */}
+        <div className="relative w-full h-full shrink-0 overflow-hidden bg-[#f6ece2] flex items-center">
+          {/* Artwork: complete original image, object-contain, aspect ratio preserved */}
           <div
             aria-hidden
-            className="absolute inset-x-0 bottom-0 aspect-[9/16] md:aspect-video xl:inset-x-auto xl:right-0 xl:h-[calc(100%-var(--nav-h))] xl:w-auto xl:max-w-full"
+            className="absolute inset-0 flex items-center justify-end pointer-events-none"
           >
-            <picture>
+            <picture className="flex size-full items-center justify-end">
               <source media="(min-width: 768px)" srcSet="/images/rohit-pandey-hero-light.jpg" />
               <img
                 src="/images/rohit-pandey-hero-portrait.jpg"
@@ -89,30 +88,31 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
                 height={1920}
                 fetchPriority="high"
                 decoding="async"
-                className="hero-art size-full object-cover object-right xl:[mask-image:linear-gradient(to_right,transparent,#000_10%)]"
+                className="size-full max-h-full max-w-full object-contain object-bottom md:object-right"
               />
             </picture>
-            {/* soft cream shade so the text stays readable over the crowd on phones and tablets */}
-            <div className="absolute inset-y-0 left-0 w-[62%] bg-linear-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden md:w-[52%] xl:hidden" />
+            {/* Soft cream shade to keep text readable on phones and tablets */}
+            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#f6ece2]/60 to-[#f6ece2] md:hidden" />
+            <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden xl:hidden" />
           </div>
 
-          <div className="shell relative flex min-h-[calc(var(--nav-h)+177.78vw)] items-start pb-6 pt-[calc(var(--nav-h)+3.25rem)] sm:pt-[calc(var(--nav-h)+3.5rem)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] md:pt-[calc(var(--nav-h)+3.25rem)] xl:h-full xl:min-h-0 xl:items-start xl:pt-[calc(var(--nav-h)+5.25rem)] xl:pb-[4%]">
-            <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)] pt-10 sm:pt-11 xl:pt-12">
+          <div className="shell relative z-10 flex h-full items-center py-6">
+            <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
               <div className="md:w-[58%] xl:w-auto">
                 <h1
                   id="hero-title"
-                  className="hero-line font-heading [--i:0] text-[clamp(2.75rem,10.5vw,4.5rem)] sm:text-6xl md:text-6xl xl:text-[clamp(4.25rem,2rem+4.5vw,6.75rem)] leading-[1.02] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
+                  className="hero-line font-heading [--i:0] text-[clamp(2.25rem,7.5vw,4.25rem)] sm:text-5xl md:text-5xl xl:text-[clamp(3.5rem,1.5rem+3.5vw,5.5rem)] leading-[1.05] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
                 >
                   {firstName}{" "}
                   <span className="text-brand-red">{lastName}</span>
                 </h1>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.45rem,5vw,2.35rem)] sm:text-3xl md:text-[2.15rem] xl:text-[2.75rem] font-bold tracking-tight text-ink leading-[1.22] xl:leading-[1.16] whitespace-pre-line">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.35rem,4.5vw,2.2rem)] sm:text-2xl md:text-[1.85rem] xl:text-[2.5rem] font-bold tracking-tight text-ink leading-[1.2] xl:leading-[1.16] whitespace-pre-line">
                   {person.role}
                 </p>
 
-                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.45rem,5vw,2.35rem)] sm:text-3xl md:text-[2.15rem] xl:text-[2.75rem] font-bold tracking-tight text-[#7F1725] leading-[1.22] xl:leading-[1.16]">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.35rem,4.5vw,2.2rem)] sm:text-2xl md:text-[1.85rem] xl:text-[2.5rem] font-bold tracking-tight text-[#7F1725] leading-[1.2] xl:leading-[1.16]">
                   {hero.line}
                 </p>
               </div>
@@ -123,19 +123,17 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
         {/* ============================================================== */}
         {/* SLIDE 2: Full Image Slide (No Text, No Overlays, No Captions)  */}
         {/* ============================================================== */}
-        <div className="relative w-full shrink-0 min-h-[calc(var(--nav-h)+177.78vw)] md:min-h-[calc(var(--nav-h)+56.25vw+2rem)] xl:h-full bg-[#f6ece2] overflow-hidden">
-          <div className="absolute inset-0 size-full">
-            <picture className="block size-full">
-              <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
-              <img
-                src="/hero-slide-leaders-mobile.jpg"
-                alt="Rohit Pandey and Leaders"
-                className="size-full object-cover object-center"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
-          </div>
+        <div className="relative w-full h-full shrink-0 bg-[#f6ece2] overflow-hidden flex items-center justify-center">
+          <picture className="flex size-full items-center justify-center">
+            <source media="(min-width: 768px)" srcSet="/hero-slide-leaders-desktop.jpg" />
+            <img
+              src="/hero-slide-leaders-mobile.jpg"
+              alt="Rohit Pandey and Leaders"
+              className="size-full max-h-full max-w-full object-contain object-center"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
       </div>
 
