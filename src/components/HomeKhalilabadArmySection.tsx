@@ -167,13 +167,6 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
             {/* LEFT COLUMN: Community Introduction                           */}
             {/* ============================================================== */}
             <div className="min-w-0 lg:col-span-5 flex flex-col text-center lg:text-left">
-              {/* Top Star Embellishment */}
-              <div className="flex items-center justify-center lg:justify-start gap-3 text-red-600 mb-2">
-                <span className="h-px w-10 bg-red-400/50" />
-                <span className="text-red-600 text-lg leading-none select-none">★</span>
-                <span className="h-px w-10 bg-red-400/50" />
-              </div>
-
               {/* Main Heading */}
               <h2
                 id="home-army-heading"
