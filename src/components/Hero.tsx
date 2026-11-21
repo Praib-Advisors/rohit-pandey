@@ -77,9 +77,9 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
           {/* Artwork: complete original image, object-contain, aspect ratio preserved */}
           <div
             aria-hidden
-            className="absolute inset-0 flex items-end justify-end md:items-center pointer-events-none"
+            className="absolute inset-0 flex items-center justify-end pointer-events-none"
           >
-            <picture className="flex size-full items-end justify-end md:items-center">
+            <picture className="flex size-full items-center justify-end">
               <source media="(min-width: 768px)" srcSet="/images/rohit-pandey-hero-light.jpg" />
               <img
                 src="/images/rohit-pandey-hero-portrait.jpg"
@@ -88,7 +88,7 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
                 height={1920}
                 fetchPriority="high"
                 decoding="async"
-                className="h-[56%] sm:h-[62%] md:h-full w-auto max-w-full max-h-full object-contain object-bottom md:object-right"
+                className="size-full max-h-full max-w-full object-contain object-bottom md:object-right"
               />
             </picture>
             {/* Soft cream shade to keep text readable on phones and tablets */}
@@ -96,23 +96,23 @@ export default function Hero({ t }: { lang: Locale; t: Dict }) {
             <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-[#f6ece2] via-[#f6ece2]/70 to-transparent max-md:hidden xl:hidden" />
           </div>
 
-          <div className="shell relative z-10 flex h-full items-start pt-[13%] sm:pt-[14%] md:items-center md:pt-0 md:py-6">
+          <div className="shell relative z-10 flex h-full items-start pt-6 sm:pt-8 pb-6 md:items-center md:py-6">
             <div className="w-full xl:w-auto xl:max-w-[min(54vw,54rem)]">
               {/* Name, designation and the line keep to the left, beside the portrait */}
-              <div className="w-full max-w-[92%] sm:max-w-[85%] md:w-[58%] xl:w-auto text-left">
+              <div className="md:w-[58%] xl:w-auto">
                 <h1
                   id="hero-title"
-                  className="hero-line font-heading [--i:0] text-[clamp(2rem,7vw,2.75rem)] sm:text-5xl md:text-6xl xl:text-[clamp(4.25rem,2rem+4vw,6.5rem)] leading-[1.08] md:leading-[1.03] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal text-left"
+                  className="hero-line font-heading [--i:0] text-[clamp(2.6rem,8.5vw,4.5rem)] sm:text-6xl md:text-6xl xl:text-[clamp(4.25rem,2rem+4vw,6.5rem)] leading-[1.03] tracking-[-0.035em] [&:lang(hi)]:leading-[1.2] [&:lang(hi)]:tracking-normal"
                 >
                   {firstName}{" "}
                   <span className="text-brand-red">{lastName}</span>
                 </h1>
 
-                <p className="hero-line text-left mt-2 sm:mt-3 md:mt-3.5 xl:mt-4 font-heading text-[clamp(1.125rem,3.8vw,1.45rem)] sm:text-2xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-ink leading-[1.25] sm:leading-[1.2] xl:leading-[1.16] whitespace-pre-line">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.5rem,5vw,2.35rem)] sm:text-3xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-ink leading-[1.2] xl:leading-[1.16] whitespace-pre-line">
                   {person.role}
                 </p>
 
-                <p className="hero-line text-left mt-1.5 sm:mt-2.5 md:mt-3.5 xl:mt-4 font-heading text-[clamp(1.125rem,3.8vw,1.45rem)] sm:text-2xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-[#7F1725] leading-[1.25] sm:leading-[1.2] xl:leading-[1.16]">
+                <p className="hero-line text-left mt-3 sm:mt-3.5 xl:mt-4 font-heading text-[clamp(1.5rem,5vw,2.35rem)] sm:text-3xl md:text-[2.1rem] xl:text-[2.85rem] font-bold tracking-tight text-[#7F1725] leading-[1.2] xl:leading-[1.16]">
                   {hero.line}
                 </p>
               </div>

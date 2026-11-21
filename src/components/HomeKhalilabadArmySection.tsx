@@ -421,7 +421,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                             onChange={handleChange}
                             required
                             placeholder={isHi ? "अपना पूरा नाम लिखें" : "Enter your full name"}
-                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
+                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
                               fieldErrors.full_name
                                 ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                 : "border-slate-200 focus:border-red-500"
@@ -462,7 +462,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                               maxLength={10}
                               required
                               placeholder="9876543210"
-                              className={`block w-full rounded-xl border bg-slate-50/80 pl-16 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
+                              className={`block w-full rounded-xl border bg-slate-50/80 pl-16 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
                                 fieldErrors.mobile
                                   ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                   : "border-slate-200 focus:border-red-500"
@@ -500,7 +500,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                               value={formData.age ?? ""}
                               onChange={handleChange}
                               placeholder={isHi ? "उम्र" : "Age"}
-                              className={`block w-full rounded-xl border bg-slate-50/80 pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
+                              className={`block w-full rounded-xl border bg-slate-50/80 pl-9 pr-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
                                 fieldErrors.age
                                   ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                   : "border-slate-200 focus:border-red-500"
@@ -541,7 +541,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                                 ? "उदा. खलीलाबाद शहर, वार्ड नं. 4 / मगहर / सेमरियावां"
                                 : "e.g., Ward 4, Khalilabad / Maghar"
                             }
-                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-all duration-200 ease-in-out focus:bg-white focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)] ${
+                            className={`block w-full rounded-xl border bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 transition-colors focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
                               fieldErrors.village_ward_area
                                 ? "border-red-500 focus:border-red-500 bg-red-50/20"
                                 : "border-slate-200 focus:border-red-500"
@@ -577,7 +577,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                             name="interested_area"
                             value={formData.interested_area ?? ""}
                             onChange={handleChange}
-                            className="block w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 transition-all duration-200 ease-in-out focus:bg-white focus:border-red-500 focus:outline-none focus:ring-3 focus:ring-red-500/15 focus:shadow-[0_0_12px_rgba(197,31,40,0.08)]"
+                            className="block w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-3.5 py-2.5 text-sm text-slate-800 transition-colors focus:bg-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
                           >
                             <option value="">
                               {isHi ? "-- क्षेत्र चुनें --" : "-- Select Area --"}
@@ -597,7 +597,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="group/btn w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#c51f28] to-[#b91c1c] hover:from-[#d32f2f] hover:to-[#991b1b] text-white py-3.5 px-6 font-semibold text-base shadow-md hover:shadow-xl hover:shadow-red-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-out disabled:opacity-60 cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#c51f28] to-[#b91c1c] hover:from-[#b91c1c] hover:to-[#991b1b] text-white py-3.5 px-6 font-semibold text-base shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-60 cursor-pointer"
                       >
                         {isLoading ? (
                           <>
@@ -610,7 +610,7 @@ export default function HomeKhalilabadArmySection({ lang }: HomeKhalilabadArmySe
                         ) : (
                           <>
                             {/* Send / Paper airplane icon */}
-                            <svg className="size-4.5 -rotate-45 transition-transform duration-300 ease-out group-hover/btn:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="size-4.5 -rotate-45" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                             </svg>
                             <span>{isHi ? "अभी जुड़ें" : "Join Now"}</span>
